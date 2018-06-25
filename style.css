@@ -3,9 +3,34 @@
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   margin: 2em;
+  background: #FEE4D0;
 }
 
 h1 {
   font-style: italic;
   color: #373fff;
+}
+
+.container {
+  text-align: center;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+}
+.pixel {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  display: inline-block;
+  margin: 2px;
+  font-family: monospace;
+  background: red;
+  height: 20px;
+  width: 20px;
 }
