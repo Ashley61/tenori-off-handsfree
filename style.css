@@ -13,15 +13,14 @@ h1 {
 
 .container {
   text-align: center;
-  font-size: 30px;
   line-height: 1;
   letter-spacing: 0px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-  
+  user-select: none;  
 }
+
 .pixel {
   font-size: inherit;
   line-height: inherit;
@@ -30,7 +29,15 @@ h1 {
   display: inline-block;
   margin: 2px;
   font-family: monospace;
-  background: red;
-  height: 20px;
-  width: 20px;
+  background: #CC6DCD;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 5px;
+}
+.pixel:active {
+
+}
+.pixel.on {
+  background: #129BE9;
 }
