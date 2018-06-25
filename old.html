@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>tenori-on</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+  </head>  
+  <body>
+    <button class="controls" id="btnPlay" onclick="playOrPause()">
+      <svg class="iconPlay" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+        <g>
+          <path fill="transparent" d="M12,20c4.41,0,8-3.59,8-8s-3.59-8-8-8c-4.41,0-8,3.59-8,8S7.59,20,12,20z M10,7.5l6,4.5l-6,4.5V7.5z"/>
+          <path d="M12,22c5.52,0,10-4.48,10-10S17.52,2,12,2C6.48,2,2,6.48,2,12S6.48,22,12,22z M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8    c-4.41,0-8-3.59-8-8S7.59,4,12,4z"/>
+          <polygon fill="black" points="10,7.5 10,16.5 16,12"/>
+        </g>
+      </svg>
+      <svg class="iconPause" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" hidden>
+        <g>
+          <path fill="transparent" d="M12,4c-4.41,0-8,3.59-8,8c0,4.41,3.59,8,8,8s8-3.59,8-8C20,7.59,16.41,4,12,4z M11,16H9V8h2V16z M15,16h-2    V8h2V16z"/>
+          <rect fill="black" x="13" y="8" width="2" height="8"/>
+          <rect fill="black" x="9" y="8" width="2" height="8"/>
+          <path d="M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10s10-4.48,10-10C22,6.48,17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8    c0-4.41,3.59-8,8-8s8,3.59,8,8C20,16.41,16.41,20,12,20z"/>
+        </g>
+      </svg>
+    </button>
+    
+    <div class="container" id="container"></div>  
+    
+   
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

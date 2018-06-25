@@ -14,8 +14,6 @@ body {
   --pink: #CC6DCD;
   --blue: #129BE9;
   --purple: #2A298B;
-  
-  background: #2a298b78;
 }
 
 h1 {
@@ -41,9 +39,9 @@ button.pixel {
   display: inline-block;
   margin: 2px;
   font-family: monospace;
-  background: var(--purple);
-  height: 30px;
-  width: 30px;
+  background: var(--pink);
+  height: 20px;
+  width: 20px;
   border: none;
   border-radius: 5px;
 }

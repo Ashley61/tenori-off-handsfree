@@ -17,7 +17,8 @@ function init() {
     container.appendChild(rowEl);
     
     for (let j = 0; j < 16; j++) {
-      dots[i][j] = 0;
+      dots[i][j] = {on:0, radius: 1};
+      
       const button = document.createElement('button');
       button.classList.add('pixel');
       button.dataset.row = i;
