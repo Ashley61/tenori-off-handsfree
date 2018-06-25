@@ -36,8 +36,9 @@ h1 {
   border-radius: 5px;
 }
 .pixel:active {
-
+  background:#129be9ab;
 }
 .pixel.on {
   background: #129BE9;
+  box-shadow: 0 0 5px #129BE9;
 }
