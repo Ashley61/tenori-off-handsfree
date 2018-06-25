@@ -9,12 +9,13 @@
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   margin: 2em;
-  background: #FEE4D0;
   text-align: center;
   --beige: #FEE4D0;
   --pink: #CC6DCD;
   --blue: #129BE9;
-  --purple: #1C1B56;
+  --purple: #2A298B;
+  
+  background: #2a298b78;
 }
 
 h1 {
@@ -40,7 +41,7 @@ button.pixel {
   display: inline-block;
   margin: 2px;
   font-family: monospace;
-  background: var(--pink);
+  background: var(--purple);
   height: 30px;
   width: 30px;
   border: none;
@@ -56,8 +57,8 @@ button.pixel:active {
 }
 
 button.pixel.on {
-  background: var(--purple);
-  box-shadow: 0 0 5px var(--purple);
+  background: var(--beige);
+  box-shadow: 0 0 5px var(--beige);
 }
 
 button.controls {
@@ -134,15 +135,15 @@ button.controls {
 
 @keyframes line {
   0% {
-    background: #589AD3; /* var(--blue) with opacity */
+    background: var(--blue); /* var(--blue) with opacity */
   }
   30% {
-    background: var(--pink);
+    background: var(--purple);
   }
 }
 
 @keyframes pulse {
   40% {
-    background: #FCD7D6;
+    background: var(--pink);
   }
 }

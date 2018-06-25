@@ -84,7 +84,7 @@ function play() {
         setTimeout(() => {
           console.log('removing', pixel); 
           pixel.classList.remove('strike');
-        }, 200);   
+        }, 100);   
       }
     }
     // Get ready for the next column.
