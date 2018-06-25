@@ -1,0 +1,109 @@
+<body>
+  <canvas id="c"></canvas>
+  <canvas id="d"></canvas>
+</body>
+<script>
+var c = document.getElementById('c')
+var ctx = c.getContext('2d')
+var mouse = { x: 0, y: 0, old_x: undefined, old_y: undefined }
+
+var w = 100
+var h = 100
+var spacing = 20
+var grid = []
+var ripples = []
+
+init();
+
+function init() {
+  for(var y = 0; y < w; y++) {
+  	grid[y] = []
+  	for(var x = 0; x < w; x++) {
+  		grid[y][x] = {
+  			radius: 2,
+  			color: 'red'
+  		}
+  	}
+  }
+  console.log(grid);
+
+  window.addEventListener('mouseup', function(e) {
+  	addRipple(e.clientX, e.clientY)
+  })
+}
+
+function addRipple(x, y) {
+	ripples.push({
+		x: x,
+		y: y,
+		distance: 0
+	})
+  console.log(ripples)
+}
+
+
+CanvasRenderingContext2D.prototype.circle = function (x, y, r) {
+	this.beginPath()
+	this.arc(x, y, r, 0, 2 * Math.PI, false)
+	this.closePath()
+}
+
+var angleTools = {
+	getAngle: function(obj1, obj2) {
+		var dX = obj2.x - obj1.x
+		var dY = obj2.y - obj1.y
+		return Math.atan2(dY, dX) / Math.PI * 180
+	},
+	getDistance: function(obj1, obj2) {
+		var dx = obj1.x - obj2.x
+		var dy = obj1.y - obj2.y
+		return Math.sqrt(dx * dx + dy * dy)
+	},
+	moveOnAngle: function(obj, distance) {
+		var vel = this.getOneFrameDistance(obj, distance)
+		obj.x += vel.x
+		obj.y += vel.y
+	},
+	getOneFrameDistance: function(obj, speed) {
+		return {
+			x: speed * Math.cos(obj.rotation * Math.PI / 180),
+			y: speed * Math.sin(obj.rotation * Math.PI / 180)
+		}
+	}
+}
+
+function render() {
+	ctx.clearRect(0, 0, c.width, c.height)
+
+	for(var i = 0; i < ripples.length; i++) {
+		ripples[i].distance += 10
+	}
+
+	for(var y = 0; y < grid.length; y++) {
+		for(var x = 0; x < grid[y].length; x++) {
+			ctx.fillStyle = grid[y][x].color
+
+			var pos      = { x: x * spacing, y: y * spacing }
+			pos.rotation = angleTools.getAngle(mouse, pos)
+			pos.radius   = grid[y][x].radius
+
+			for(var j = 0; j < ripples.length; j++) {
+				var distanceFromRippleCenter = angleTools.getDistance(ripples[j], pos)
+				if(distanceFromRippleCenter > ripples[j].distance - 20 && distanceFromRippleCenter < ripples[j].distance + 20) {
+					pos.radius *= 2
+          if(pos.radius > 50) pos.radius = 50
+				}
+			}
+
+			ctx.circle(pos.x, pos.y, pos.radius)
+			ctx.fill()
+		}
+	}
+}
+
+;(function animloop(){
+	window.requestAnimationFrame(animloop)
+	render()
+})()
+  
+</script>

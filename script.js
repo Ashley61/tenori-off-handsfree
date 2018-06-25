@@ -1,4 +1,5 @@
 let dots = [];
+let ripples = [];
 let isMouseDown = false;
 let isPlaying = false;
 const RIPPLE_RADIUS = 3;
@@ -10,7 +11,7 @@ init();
     console.log('animating'); 
     window.requestAnimationFrame(draw);
     animloop();
-  }, 1000);
+  }, 2000);
 })()
 
 
@@ -44,7 +45,7 @@ function init() {
   document.getElementById('container').addEventListener('mouseover', activate);
 }
 
-function draw(time = 1) {
+function draw(time = 0) {
   const rows = document.querySelectorAll('.container > .row');
   for (let i = 0; i < 16; i++) {
     const pixels = rows[i].querySelectorAll('.pixel');
@@ -57,13 +58,16 @@ function draw(time = 1) {
       }
       
       if (dots[i][j].ripple) {
-        pixels[j].style.opacity = dots[i][j].opacity;
+        pixels[j].style.opacity = dots[i][j].opacity - time;
+        console.log(time);
         pixels[j].classList.add('ripple');
       } else {
         pixels[j].classList.remove('ripple');
       }
     }
   }
+  
+  time += 0.001;
 }
 
 function activate(event) {
@@ -96,7 +100,7 @@ function activate(event) {
     }
   }
   
-  draw(1);
+  draw(0);
 }
 
 let playTimeout;
