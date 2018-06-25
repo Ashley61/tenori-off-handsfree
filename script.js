@@ -53,6 +53,8 @@ function activate(event) {
   }
   
   const isOn = button.classList.contains('on');
+
+  // We could also just call draw() here but let's not loop if we don't have to.
   if (isOn) {
     // Turn it off.
     dots[button.dataset.row][button.dataset.col] = 0;
@@ -62,21 +64,31 @@ function activate(event) {
     dots[button.dataset.row][button.dataset.col] = 1;
     button.classList.add('on');
   }
-  // We could also just call draw() here but let's not loop if we don't have to.
 }
 
 function play() {
   // Go through every note
-  function clearStep() {
-    if (notesToDelete.length === 0) {
+  let currentColumn = 0;
+  function playStep() {
+    // Animate the cells in this current column.
+    const rows = document.querySelectorAll('.container > .row');
+    for (let i = 0; i < 16; i++) {
+      const pixels = rows[i].querySelectorAll('.pixel');
+      if (dots[i][currentColumn]) {
+        pixels[currentColumn].classList.add('playing');
+      }
+    }
+    
+    // Get ready for the next column.
+    currentColumn++;
+    if (currentColumn === 16) {
       clearTimeout(t);
     } else {
-      notesToDelete.pop();
       window.requestAnimationFrame(() => {
-        drawNotes(notesToDelete);
-        clearStep();
+        playStep();
       });
-    }
+    }  
   }
-  const t = setTimeout(clearStep, 800);
+
+  const t = setTimeout(playStep, 1000);
 }

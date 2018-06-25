@@ -44,7 +44,102 @@ h1 {
 }
 
 .pixel.playing {
-  opacity: 0; 
+/*   opacity: 0; 
   transform: scale(8);
   transition: all 0.5s;
+  */
+  -webkit-animation: line 3s infinite;
+          animation: line 3s infinite;
+
+}
+
+
+
+
+/* Amazing trick from https://codepen.io/woodwoerk/pen/rxrLqa */
+.forward .pixel {
+  -webkit-animation: line 3s linear infinite;
+          animation: line 3s linear infinite;
+}
+.forward .pixel:nth-child(16n + 0) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+.forward .pixel:nth-child(16n + 1) {
+  -webkit-animation-delay: 0.1875s;
+          animation-delay: 0.1875s;
+}
+.forward .pixel:nth-child(16n + 2) {
+  -webkit-animation-delay: 0.375s;
+          animation-delay: 0.375s;
+}
+.forward .pixel:nth-child(16n + 3) {
+  -webkit-animation-delay: 0.5625s;
+          animation-delay: 0.5625s;
+}
+.forward .pixel:nth-child(16n + 4) {
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+.forward .pixel:nth-child(16n + 5) {
+  -webkit-animation-delay: 0.9375s;
+          animation-delay: 0.9375s;
+}
+.forward .pixel:nth-child(16n + 6) {
+  -webkit-animation-delay: 1.125s;
+          animation-delay: 1.125s;
+}
+.forward .pixel:nth-child(16n + 7) {
+  -webkit-animation-delay: 1.3125s;
+          animation-delay: 1.3125s;
+}
+.forward .pixel:nth-child(16n + 8) {
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1.5s;
+}
+.forward .pixel:nth-child(16n + 9) {
+  -webkit-animation-delay: 1.6875s;
+          animation-delay: 1.6875s;
+}
+.forward .pixel:nth-child(16n + 10) {
+  -webkit-animation-delay: 1.875s;
+          animation-delay: 1.875s;
+}
+.forward .pixel:nth-child(16n + 11) {
+  -webkit-animation-delay: 2.0625s;
+          animation-delay: 2.0625s;
+}
+.forward .pixel:nth-child(16n + 12) {
+  -webkit-animation-delay: 2.25s;
+          animation-delay: 2.25s;
+}
+.forward .pixel:nth-child(16n + 13) {
+  -webkit-animation-delay: 2.4375s;
+          animation-delay: 2.4375s;
+}
+.forward .pixel:nth-child(16n + 14) {
+  -webkit-animation-delay: 2.625s;
+          animation-delay: 2.625s;
+}
+.forward .pixel:nth-child(16n + 15) {
+  -webkit-animation-delay: 2.8125s;
+          animation-delay: 2.8125s;
+}
+.forward .pixel:nth-child(16n + 16) {
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+}
+
+@keyframes line {
+  0% {
+    background: #FCD7D6;
+  }
+  30% {
+    background: #F36E6B;
+  }
+}
+@keyframes pulse {
+  40% {
+    background: #FCD7D6;
+  }
 }
