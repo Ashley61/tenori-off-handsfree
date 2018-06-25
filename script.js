@@ -3,7 +3,6 @@ let isMouseDown = false;
 let isPlaying = false;
 
 init();
-draw();
 
 function init() {
   const container = document.getElementById('container');
@@ -17,7 +16,7 @@ function init() {
     container.appendChild(rowEl);
     
     for (let j = 0; j < 16; j++) {
-      dots[i][j] = {on:0, radius: 1};
+      dots[i][j] = {on:false, opacity: 1, ripple: false};
       
       const button = document.createElement('button');
       button.classList.add('pixel');
@@ -26,6 +25,7 @@ function init() {
       rowEl.appendChild(button);
     }
   }
+  draw();
   
   //document.getElementById('container').addEventListener('click', activate);
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
@@ -38,9 +38,18 @@ function draw() {
   for (let i = 0; i < 16; i++) {
     const pixels = rows[i].querySelectorAll('.pixel');
     for (let j = 0; j < 16; j++) {
-      pixels[j].classList.remove('on');
-      if (dots[i][j]) {
+      pixels[j].style.opacity = dots[i][j].opacity;
+      
+      if (dots[i][j].on) {
         pixels[j].classList.add('on');
+      } else {
+        pixels[j].classList.remove('on');
+      }
+      
+      if (dots[i][j].ripple) {
+        pixels[j].classList.add('ripple');
+      } else {
+        pixels[j].classList.remove('ripple');
       }
     }
   }
@@ -48,24 +57,31 @@ function draw() {
 
 function activate(event) {
   const button = event.target;
-    
   // We only care about clicking on the buttons, not the container itself.
   if (button.localName !== 'button' || !isMouseDown) {
     return;
   }
   
   const isOn = button.classList.contains('on');
-
-  // We could also just call draw() here but let's not loop if we don't have to.
-  if (isOn) {
-    // Turn it off.
-    dots[button.dataset.row][button.dataset.col] = 0;
-    button.classList.remove('on');
-  } else {
-    // Turn it on.
-    dots[button.dataset.row][button.dataset.col] = 1;
-    button.classList.add('on');
+  const x = button.dataset.row;
+  const y = button.dataset.col;
+  
+  const dot = dots[x][y];
+  dot.on = isOn ? 0 : 1;
+  
+  // Draw a circle around this pixel of radius 2.
+  for (let i = 0; i < 16; i++) {
+    for (let j = 0; j < 16; j++) {
+      const dist = Math.sqrt((i-x) ^ 2 + (j-y)^2); 
+      if (dist <= 2 ) {
+        console.log(i,j);
+        dots[i][j].ripple = true;
+        dots[i][j].opacity = 1;
+      }
+    }
   }
+  debugger
+  draw();
 }
 
 let playTimeout;

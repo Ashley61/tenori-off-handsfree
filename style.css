@@ -39,7 +39,7 @@ button.pixel {
   display: inline-block;
   margin: 2px;
   font-family: monospace;
-  background: var(--pink);
+  background: var(--beige);
   height: 20px;
   width: 20px;
   border: none;
@@ -55,8 +55,13 @@ button.pixel:active {
 }
 
 button.pixel.on {
-  background: var(--beige);
-  box-shadow: 0 0 5px var(--beige);
+  background: var(--blue);
+  box-shadow: 0 0 5px var(--blue);
+}
+
+button.pixel.ripple {
+  background: var(--pink);
+  box-shadow: 0 0 5px var(--pink);
 }
 
 button.controls {

@@ -3,6 +3,7 @@ let isMouseDown = false;
 let isPlaying = false;
 
 init();
+draw();
 
 function init() {
   const container = document.getElementById('container');
@@ -25,7 +26,6 @@ function init() {
       rowEl.appendChild(button);
     }
   }
-  draw();
   
   //document.getElementById('container').addEventListener('click', activate);
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
@@ -55,21 +55,17 @@ function activate(event) {
   }
   
   const isOn = button.classList.contains('on');
-  const dot = dots[button.dataset.row][button.dataset.col];
+
   // We could also just call draw() here but let's not loop if we don't have to.
   if (isOn) {
     // Turn it off.
-    dot.on = 0;
+    dots[button.dataset.row][button.dataset.col] = 0;
     button.classList.remove('on');
   } else {
     // Turn it on.
-    dot.on = 1;
+    dots[button.dataset.row][button.dataset.col] = 1;
     button.classList.add('on');
-    
-    // Draw a circle around this
   }
-  
-  draw();
 }
 
 let playTimeout;
