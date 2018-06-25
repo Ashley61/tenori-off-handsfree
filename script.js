@@ -1,4 +1,6 @@
 let dots = [];
+let isMouseDown = false;
+
 init();
 draw();
 
@@ -23,14 +25,10 @@ function init() {
     }
   }
   
-  document.getElementById('container').addEventListener('click', (event) => {
-    
-  });
-}
-
-function enableSome() {
-  dots[3][5] = 1;
-  draw();
+  //document.getElementById('container').addEventListener('click', activate);
+  document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
+  document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
+  document.getElementById('container').addEventListener('mouseover', activate);
 }
 
 function draw() {
@@ -50,13 +48,35 @@ function activate(event) {
   const button = event.target;
     
   // We only care about clicking on the buttons, not the container itself.
-  if (button.localName !== 'button') {
+  if (button.localName !== 'button' || !isMouseDown) {
     return;
   }
   
   const isOn = button.classList.contains('on');
   if (isOn) {
-    
-  dots[button.dataset.row][button.dataset.col] = !button.classList.contains('on');
-  draw();
+    // Turn it off.
+    dots[button.dataset.row][button.dataset.col] = 0;
+    button.classList.remove('on');
+  } else {
+    // Turn it on.
+    dots[button.dataset.row][button.dataset.col] = 1;
+    button.classList.add('on');
+  }
+  // We could also just call draw() here but let's not loop if we don't have to.
+}
+
+function play() {
+  // Go through every note
+  function clearStep() {
+    if (notesToDelete.length === 0) {
+      clearTimeout(t);
+    } else {
+      notesToDelete.pop();
+      window.requestAnimationFrame(() => {
+        drawNotes(notesToDelete);
+        clearStep();
+      });
+    }
+  }
+  const t = setTimeout(clearStep, 800);
 }

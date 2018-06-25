@@ -42,3 +42,9 @@ h1 {
   background: #129BE9;
   box-shadow: 0 0 5px #129BE9;
 }
+
+.pixel.playing {
+  opacity: 0; 
+  transform: scale(8);
+  transition: all 0.5s;
+}
