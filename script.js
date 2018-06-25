@@ -66,6 +66,20 @@ function activate(event) {
   }
 }
 
+function playOrPause() {
+  const container = document.getElementById('container');
+  if (container.classList.contains('playing')) {
+    container.classList.remove('playing');
+    clearTimeout(playTimeout);
+    updateButtons(false);
+  } else {
+    container.classList.add('playing');
+    play();
+    updateButtons(true);
+  }
+}
+
+let playTimeout;
 function play() {
   // Go through every note
   let currentColumn = 0;
@@ -82,7 +96,7 @@ function play() {
     // Get ready for the next column.
     currentColumn++;
     if (currentColumn === 16) {
-      clearTimeout(t);
+      clearTimeout(playTimeout);
     } else {
       window.requestAnimationFrame(() => {
         playStep();
@@ -90,5 +104,18 @@ function play() {
     }  
   }
 
-  const t = setTimeout(playStep, 1000);
+  playTimeout = setTimeout(playStep, 1000);
+}
+
+function updateButtons(isPlaying) {
+  const btn = document.getElementById('btnPlay');
+  if (isPlaying) {
+    btn.querySelector('.iconPlay').setAttribute('hidden', true);
+    btn.querySelector('.iconPause').removeAttribute('hidden');
+    btn.title = 'Pause';
+  } else {
+    btn.querySelector('.iconPlay').removeAttribute('hidden');
+    btn.querySelector('.iconPause').setAttribute('hidden', true);
+    btn.title = 'Play';
+  }
 }
