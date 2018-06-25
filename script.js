@@ -1,8 +1,19 @@
 let dots = [];
 let isMouseDown = false;
 let isPlaying = false;
+const RIPPLE_RADIUS = 3;
 
 init();
+
+;(function animloop(){
+  setTimeout(() => {
+    console.log('animating'); 
+    window.requestAnimationFrame(draw);
+    animloop();
+  }, 1000);
+})()
+
+
 
 function init() {
   const container = document.getElementById('container');
@@ -33,20 +44,20 @@ function init() {
   document.getElementById('container').addEventListener('mouseover', activate);
 }
 
-function draw() {
+function draw(time = 1) {
   const rows = document.querySelectorAll('.container > .row');
   for (let i = 0; i < 16; i++) {
     const pixels = rows[i].querySelectorAll('.pixel');
     for (let j = 0; j < 16; j++) {
-      pixels[j].style.opacity = dots[i][j].opacity;
-      
       if (dots[i][j].on) {
         pixels[j].classList.add('on');
+        continue;
       } else {
         pixels[j].classList.remove('on');
       }
       
       if (dots[i][j].ripple) {
+        pixels[j].style.opacity = dots[i][j].opacity;
         pixels[j].classList.add('ripple');
       } else {
         pixels[j].classList.remove('ripple');
@@ -63,8 +74,8 @@ function activate(event) {
   }
   
   const isOn = button.classList.contains('on');
-  const x = button.dataset.row;
-  const y = button.dataset.col;
+  const x = parseInt(button.dataset.row);
+  const y = parseInt(button.dataset.col);
   
   const dot = dots[x][y];
   dot.on = isOn ? 0 : 1;
@@ -72,16 +83,20 @@ function activate(event) {
   // Draw a circle around this pixel of radius 2.
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 16; j++) {
-      const dist = Math.sqrt((i-x) ^ 2 + (j-y)^2); 
-      if (dist <= 2 ) {
-        console.log(i,j);
+      if (x === i && y === j) {
+        continue;
+      }
+      
+      const dist = Math.sqrt((i-x)*(i-x) + (j-y)*(j-y)); 
+      
+      if (dist <= RIPPLE_RADIUS ) {
         dots[i][j].ripple = true;
-        dots[i][j].opacity = 1;
+        dots[i][j].opacity = 1/dist;
       }
     }
   }
-  debugger
-  draw();
+  
+  draw(1);
 }
 
 let playTimeout;
