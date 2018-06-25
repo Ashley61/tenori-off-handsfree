@@ -86,33 +86,25 @@ function play() {
   const rows = document.querySelectorAll('.container > .row');
   
   function playStep() {
-    console.log(currentColumn);
-    // Clear all the previously struck notes.
-    const struck = document.querySelectorAll('.container .struck');
-    for (let i = 0; i < struck.length; i++) {
-      struck[i].classList.remove('struck');
-    }
-    
     // Strike all the active notes in this current column.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
       if (dots[i][currentColumn]) {
-        pixels[currentColumn].classList.add('strike');
+        const pixel = pixels[currentColumn];
+        pixel.classList.add('strike');
+        
+        setTimeout(() => {
+          console.log('removing', pixel); 
+          pixel.classList.remove('strike');
+        }, 200);   
       }
     }
-    
     // Get ready for the next column.
     currentColumn++;
-    if (currentColumn === 16) {
-      clearTimeout(playTimeout);
-    } else {
-      window.requestAnimationFrame(() => {
-        playStep();
-      });
-    }  
+    setTimeout(playStep, 200);
   }
 
-  playTimeout = setTimeout(playStep, 1000);
+  playTimeout = setTimeout(playStep, 200);
 }
 
 function updateButtons(isPlaying) {
