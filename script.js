@@ -1,5 +1,6 @@
 let dots = [];
 let isMouseDown = false;
+let isPlaying = false;
 
 init();
 draw();
@@ -66,19 +67,6 @@ function activate(event) {
   }
 }
 
-function playOrPause() {
-  const container = document.getElementById('container');
-  if (container.classList.contains('playing')) {
-    container.classList.remove('playing');
-    clearTimeout(playTimeout);
-    updateButtons(false);
-  } else {
-    container.classList.add('playing');
-    play();
-    updateButtons(true);
-  }
-}
-
 let playTimeout;
 function play() {
   // Go through every note
@@ -101,10 +89,28 @@ function play() {
     }
     // Get ready for the next column.
     currentColumn++;
-    setTimeout(playStep, 200);
+    if (currentColumn === 16) {
+      currentColumn = 0;
+    }
+    if (isPlaying) {
+      setTimeout(playStep, 100);
+    }
   }
+  playTimeout = setTimeout(playStep, 100);
+}
 
-  playTimeout = setTimeout(playStep, 200);
+function playOrPause() {
+  const container = document.getElementById('container');
+  if (container.classList.contains('playing')) {
+    container.classList.remove('playing');
+    clearTimeout(playTimeout);
+    isPlaying = false;
+  } else {
+    container.classList.add('playing');
+    play();
+    isPlaying = true;
+  }
+  updateButtons(isPlaying);
 }
 
 function updateButtons(isPlaying) {
@@ -119,3 +125,4 @@ function updateButtons(isPlaying) {
     btn.title = 'Play';
   }
 }
+
