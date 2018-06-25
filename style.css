@@ -13,7 +13,7 @@ body {
   text-align: center;
   --beige: #FEE4D0;
   --pink: #CC6DCD;
-  --blue: 129BE9;
+  --blue: #129BE9;
 }
 
 h1 {
@@ -46,8 +46,12 @@ button.pixel {
   border-radius: 5px;
 }
 
+button.pixel:hover {
+  opacity: 0.7;
+}
+
 button.pixel:active {
-  opacity: 0.
+  opacity: 0.7;
 }
 
 button.pixel.on {
@@ -65,20 +69,11 @@ button.controls {
   z-index: 100;
 }
 
-  
-
-.pixel.playing {
-/*   opacity: 0; 
+.playing .pixel.strike {
+  opacity: 0; 
   transform: scale(8);
   transition: all 0.5s;
-  */
-  -webkit-animation: line 3s infinite;
-          animation: line 3s infinite;
-
 }
-
-
-
 
 /* Amazing trick from https://codepen.io/woodwoerk/pen/rxrLqa */
 .playing .pixel {
@@ -138,10 +133,10 @@ button.controls {
 
 @keyframes line {
   0% {
-    background: #FCD7D6;
+    background: #589AD3; /* var(--blue) with opacity */
   }
   30% {
-    background: #FEE4D0;
+    background: var(--pink);
   }
 }
 

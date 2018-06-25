@@ -83,13 +83,21 @@ let playTimeout;
 function play() {
   // Go through every note
   let currentColumn = 0;
+  const rows = document.querySelectorAll('.container > .row');
+  
   function playStep() {
-    // Animate the cells in this current column.
-    const rows = document.querySelectorAll('.container > .row');
+    console.log(currentColumn);
+    // Clear all the previously struck notes.
+    const struck = document.querySelectorAll('.container .struck');
+    for (let i = 0; i < struck.length; i++) {
+      struck[i].classList.remove('struck');
+    }
+    
+    // Strike all the active notes in this current column.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
       if (dots[i][currentColumn]) {
-        pixels[currentColumn].classList.add('playing');
+        pixels[currentColumn].classList.add('strike');
       }
     }
     
