@@ -6,13 +6,12 @@ const RIPPLE_RADIUS = 3;
 
 init();
 
-// ;(function animloop(){
-//   setTimeout(() => {
-//     console.log('animating'); 
-//     window.requestAnimationFrame(draw);
-//     animloop();
-//   }, 2000);
-// })()
+;(function animloop(){
+  setTimeout(() => {
+    window.requestAnimationFrame(draw);
+    animloop();
+  }, 200);
+})()
 
 
 
@@ -51,7 +50,7 @@ function draw() {
     if (ripples[i].distance > 6) {
         ripples.splice(i, 1);
     } else {
-      ripples[i].distance += 2;
+      ripples[i].distance += 1;
     }
   }
 
@@ -75,10 +74,10 @@ function draw() {
       for(let r = 0; r < ripples.length; r++) {
         const ripple = ripples[r];
         let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
-
+  
         if(distanceFromRippleCenter > ripple.distance - 0.7 && 
            distanceFromRippleCenter < ripple.distance + 0.7 &&
-           distanceFromRippleCenter < 6) {
+           distanceFromRippleCenter < 3.5) {
           pixels[j].classList.add('ripple');
         }
       }
@@ -99,47 +98,55 @@ function activate(event) {
   
   const dot = dots[x][y];
   dot.on = isOn ? 0 : 1;
-  
-  ripples.push({x: x, y: y, distance: 0});
-  
-//   // Draw a circle around this pixel of radius 2.
-//   for (let i = 0; i < 16; i++) {
-//     for (let j = 0; j < 16; j++) {
-//       if (x === i && y === j) {
-//         continue;
-//       }
-      
-//       const dist = Math.sqrt((i-x)*(i-x) + (j-y)*(j-y)); 
-      
-//       if (dist <= RIPPLE_RADIUS ) {
-//         dots[i][j].ripple = true;
-//         dots[i][j].opacity = 1/dist;
-//       }
-//     }
-//   }
-    draw();
+  draw();
 }
 
 let playTimeout;
 function play() {
-  // Go through every note
   let currentColumn = 0;
-  const rows = document.querySelectorAll('.container > .row');
+//   // Go through every note
+//   let currentColumn = 0;
+//   const rows = document.querySelectorAll('.container > .row');
+  
+//   function playStep() {
+//     // Strike all the active notes in this current column.
+//     for (let i = 0; i < 16; i++) {
+//       const pixels = rows[i].querySelectorAll('.pixel');
+//       if (dots[i][currentColumn]) {
+//         const pixel = pixels[currentColumn];
+//         pixel.classList.add('strike');
+        
+//         setTimeout(() => {
+//           console.log('removing', pixel); 
+//           pixel.classList.remove('strike');
+//         }, 100);   
+//       }
+//     }
+//     // Get ready for the next column.
+//     currentColumn++;
+//     if (currentColumn === 16) {
+//       currentColumn = 0;
+//     }
+//     if (isPlaying) {
+//       setTimeout(playStep, 100);
+//     }
+//   }
   
   function playStep() {
-    // Strike all the active notes in this current column.
-    for (let i = 0; i < 16; i++) {
-      const pixels = rows[i].querySelectorAll('.pixel');
-      if (dots[i][currentColumn]) {
-        const pixel = pixels[currentColumn];
-        pixel.classList.add('strike');
-        
-        setTimeout(() => {
-          console.log('removing', pixel); 
-          pixel.classList.remove('strike');
-        }, 100);   
+    // Every new full frame, add ripples for the dots that are on
+    if (currentColumn === 0) {
+      console.log(currentColumn);
+      for (let i = 0; i < 16; i++) {
+        for (let j = 0; j < 16; j++) {
+          if (dots[i][j].on) {
+            ripples.push({x: i, y: j, distance: 0});
+          }
+        }
       }
     }
+    
+    draw();
+    
     // Get ready for the next column.
     currentColumn++;
     if (currentColumn === 16) {
@@ -147,6 +154,8 @@ function play() {
     }
     if (isPlaying) {
       setTimeout(playStep, 100);
+    } else {
+      clearTimeout(playTimeout);
     }
   }
   playTimeout = setTimeout(playStep, 100);
@@ -154,12 +163,12 @@ function play() {
 
 function playOrPause() {
   const container = document.getElementById('container');
-  if (container.classList.contains('playing')) {
-    container.classList.remove('playing');
+  if (isPlaying) {
+    //container.classList.remove('playing');
     clearTimeout(playTimeout);
     isPlaying = false;
   } else {
-    container.classList.add('playing');
+    //container.classList.add('playing');
     play();
     isPlaying = true;
   }
