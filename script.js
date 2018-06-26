@@ -111,26 +111,27 @@ function play() {
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
       
-      if (dots[i][currentColumn].on) {
-        ripples.push({x: i, y: currentColumn, distance: 0});
-      } else {
-        pixels[currentColumn].classList.add('
+      // Reset the previous frame.
+      for (let j = 0; j < 16; j++) {
+        pixels[j].classList.remove('now');
+        pixels[j].style.opacity = 1;
       }
       
-      pixels[currentColumn]
+      if (dots[i][currentColumn].on) {
+        ripples.push({x: i, y: currentColumn, distance: 0});
+        pixels[currentColumn].classList.add('strike');
+      } else {
+        pixels[currentColumn].classList.add('now');
+      }
       
-      
-      // Strike all the active notes in this current column.
-//       const pixels = rows[i].querySelectorAll('.pixel');
-//       if (dots[i][currentColumn].on) {
-//         const pixel = pixels[currentColumn];
-//         pixel.classList.add('strike');
-        
-//         // setTimeout(() => {
-//         //   console.log('removing', pixel); 
-//         //   pixel.classList.remove('strike');
-//         // }, 100);   
-//       }
+      if (currentColumn > 1) {
+        pixels[currentColumn - 1].classList.add('now');
+        pixels[currentColumn - 1].style.opacity = 0.8;
+      }
+      if (currentColumn > 2) {
+        pixels[currentColumn - 2].classList.add('now');
+        pixels[currentColumn - 2].style.opacity = 0.4;
+      }
     }
     
     draw();
@@ -141,12 +142,13 @@ function play() {
       currentColumn = 0;
     }
     if (isPlaying) {
-      setTimeout(playStep, 100);
+      setTimeout(playStep, 200);
     } else {
       clearTimeout(playTimeout);
+      currentColumn = 0;
     }
   }
-  playTimeout = setTimeout(playStep, 100);
+  playTimeout = setTimeout(playStep, 200);
 }
 
 function playOrPause() {
