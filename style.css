@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: monospace;
   margin: 2em;
   text-align: center;
   --pink: #E61E8C;
@@ -15,6 +15,9 @@ body {
   --purple: #2A298B;
   --yellow: #FFED5E;
   --green: #74EE16;
+  
+  font-size: 14px;
+  color: var(--purple);
 }
 
 h1 {
@@ -22,7 +25,9 @@ h1 {
   font-weight: normal;
   font-size: 60px;
   color: var(--pink);
+  margin: 10px;
 }
+
 h1 > .subtitle {
   font-family: monospace;
   font-weight: normal;
@@ -30,6 +35,17 @@ h1 > .subtitle {
   color: #740DAC;
 }
 
+footer {
+  text-align: center;
+  padding: 14px; 
+  margin: 24px auto;
+  border-top: 4px solid var(--blue);
+  max-width: 500px;
+}
+
+a:link, a:visited {
+  color: var(--pink);
+}
 .container {
   text-align: center;
   line-height: 1;
@@ -79,16 +95,21 @@ button.controls {
   text-align: left;
   font-size: 14px;
   font-weight: 600;
-  background-color: #fff;
-  border: solid #222 2px;
+  border: solid var(--purple) 2px;
+  color: var(--purple);
   border-radius: 5px;
   padding: 10px 12px;
   cursor: pointer;
-  -webkit-box-shadow: 4px 4px 0 #222;
-  box-shadow: 4px 4px 0 #222;
-  margin: 8px;
+  -webkit-box-shadow: 4px 4px 0 var(--purple);
+  box-shadow: 4px 4px 0 var(--purple);
+  margin: 16px 8px;
 }
+button.controls:hover {
+  background-color: var(--blue);
+  -webkit-box-shadow: 2px 2px 0 var(--purple);
+  box-shadow: 2px 2px 0 var(--purple);
 
+}
 .playing .pixel.now {
   background: var(--green); 
 }

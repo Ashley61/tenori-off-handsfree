@@ -30,6 +30,7 @@ function init() {
   synth.connect(gain);
   gain.toMaster();
 
+  //synth = new Tone.PolySynth(4, Tone.MonoSynth); //ew Tone.DuoSynth();
   synth.voice0.oscillator.type = 'triangle';
   synth.voice1.oscillator.type = 'triangle';
 
@@ -45,7 +46,9 @@ function init() {
 
 function reset() {
   const container = document.getElementById('container');
+  ripples = [];
   container.innerHTML = '';
+  
   for (let i = 0; i < 16; i++) {
     let row = [];
     dots.push(row);
