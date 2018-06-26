@@ -60,7 +60,7 @@ button.pixel.on {
 }
 
 button.pixel.ripple {
-  background: var(--pink) !important;
+  background: #cc6dcd80 !important; /* var(--pink) with an opacity */
   box-shadow: 0 0 5px var(--pink);
   opacity: 1 !important;
 }

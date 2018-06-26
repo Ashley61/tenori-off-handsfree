@@ -4,12 +4,12 @@ let isMouseDown = false;
 let isPlaying = false;
 let synth;
 
-const notes = ['C3', 'D3', 'E3', 'F3', 'G3', 'C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4', 'C4', 'D4', 'E4', 'F4'];
+const notes = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
+               'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
+               'B2', 'A2', 'G2', 'F2'];
 init();
 
 function init() {
-  const container = document.getElementById('container');
-  
   // Set up tone
   // http://tonejs.org/docs/#DuoSynth
   synth = new Tone.DuoSynth();
@@ -22,6 +22,17 @@ function init() {
 
 
   // Draw the grid.
+  reset();
+  
+  //document.getElementById('container').addEventListener('click', activate);
+  document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
+  document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
+  document.getElementById('container').addEventListener('mouseover', activate);
+}
+
+function reset() {
+  const container = document.getElementById('container');
+  container.innerHTML = '';
   for (let i = 0; i < 16; i++) {
     let row = [];
     dots.push(row);
@@ -40,14 +51,10 @@ function init() {
     }
   }
   draw();
-  
-  //document.getElementById('container').addEventListener('click', activate);
-  document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
-  document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
-  document.getElementById('container').addEventListener('mouseover', activate);
 }
-
+  
 function draw() {
+  
   // First, advance all the ripples.
   for (let i = 0; i < ripples.length; i++) {
     if (ripples[i].distance > 6) {
@@ -110,7 +117,7 @@ function play() {
   const rows = document.querySelectorAll('.container > .row');
   
   function playStep() {
-    let playNoteOnThisColumn = false;
+    let playNoteOnThisColumn = -1;
     // Every new full frame, add ripples for the dots that are on.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
@@ -123,7 +130,7 @@ function play() {
       
       if (dots[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0});
-        playNoteOnThisColumn = true;
+        playNoteOnThisColumn = i;
       } else {
         pixels[currentColumn].classList.add('now');
       }
@@ -139,8 +146,8 @@ function play() {
     }
     
     // Play the note
-    if (playNoteOnThisColumn)
-      synth.triggerAttackRelease(notes[currentColumn], '16n');
+    if (playNoteOnThisColumn !== -1)
+      synth.triggerAttackRelease(notes[playNoteOnThisColumn], '16n');
     
     draw();
     
