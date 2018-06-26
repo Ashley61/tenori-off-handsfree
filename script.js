@@ -10,7 +10,7 @@ const SYNTH = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4',
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
 
-// From https://codepen.io/teropa/pen/JLjXGK
+// From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
 let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
 
 let reverb = new Tone.Convolver(
@@ -230,6 +230,15 @@ function playOrPause() {
 function synthOrDrums() {
   isSynth = !isSynth;
   const btn = document.getElementById('btnSynth');
-  btn.textContent = isSynth ? 'Synth' : 'Drums';
+  btn.classList.remove('synth');
+  btn.classList.remove('drums');
+  
+  if (isSynth) {
+    btn.textContent = 'Synth';
+    btn.classList.add('synth');
+  } else {
+    btn.textContent = 'Drums';
+    btn.classList.add('drums');
+  }
   
 }

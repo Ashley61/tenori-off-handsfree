@@ -65,8 +65,8 @@ button.pixel {
   margin: 2px;
   font-family: monospace;
   background: var(--yellow);
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   border: none;
   border-radius: 5px;
 }
@@ -79,6 +79,10 @@ button.pixel:active {
   opacity: 0.7;
 }
 
+.playing .pixel.now {
+  background: var(--green); 
+}
+
 button.pixel.on.synth {
   background: var(--pink);
   box-shadow: 0 0 5px var(--pink);
@@ -89,13 +93,13 @@ button.pixel.on.drums {
 }
 
 button.pixel.ripple.synth {
-  background: #e61e8c5e !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
-  box-shadow: 0 0 5px #e61e8c5e;
+  background: #e61e8c38 !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+  box-shadow: 0 0 5px #e61e8c38;
   opacity: 1 !important;
 }
 button.pixel.ripple.drums{
-  background: #4deeea7d !important; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
-  box-shadow: 0 0 5px var(--blue);
+  background: #4deeea40 !important; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
+  box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
 }
 
@@ -114,11 +118,14 @@ button.controls {
   margin: 16px 8px;
 }
 button.controls:hover {
-  background-color: var(--blue);
+  background-color: var(--green);
   -webkit-box-shadow: 2px 2px 0 var(--purple);
   box-shadow: 2px 2px 0 var(--purple);
-
 }
-.playing .pixel.now {
-  background: var(--green); 
+#btnSynth.synth {
+  background-color: var(--pink);
+  color: white;
+}
+#btnSynth.drums {
+  background-color: var(--blue);
 }
