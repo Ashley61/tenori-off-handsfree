@@ -24,32 +24,31 @@
     <button class="controls" id="btnDrums" onclick="playDrums()">
       Drums
     </button>
-    <br>
     <button class="controls" id="btnPlay" onclick="playOrPause()">
       Play
     </button>
     <button class="controls" onclick="reset()">
       Reset
     </button>
+    <br>
     <button class="controls" onclick="showScript()">
-      
+      Script
     </button>
     <button class="controls" onclick="showHelp()">
       Help
     </button>
-    <br>
     <button class="controls" onclick="loadDemo(1)">
-      Demo 1
+      1
     </button>
     <button class="controls" onclick="loadDemo(2)">
-      Demo 2
+      2
     </button>
     <button class="controls" onclick="loadDemo(3)">
-      Demo 3
+      3
     </button>
     <br><br>
     
-    <div class="text" id="help" hidden>
+    <div class="dialog" id="help" hidden>
       <h2>What is this?</h2>
       <p>
         A <a href="https://en.wikipedia.org/wiki/Tenori-on">Tenori-on</a> is a dope electronic music
@@ -70,25 +69,11 @@
         Ok
       </button>
     </div>
-    <div class="text" id="script" hidden>
-      <h2>What is this?</h2>
-      <p>
-        A <a href="https://en.wikipedia.org/wiki/Tenori-on">Tenori-on</a> is a dope electronic music
-        instrument that Yamaha made for a hot minute. It's a fancy "sequencer", I'm told. 
-        I don't particularly like electronic music,
-        but I love pixels and patterns and generating things out of pixels and patterns. This means
-        I <b>love</b> the Tenori-on. However, I have never seen one in real life, and they're
-        p <a href="https://reverb.com/item/11642149-yamaha-tenori-on">expensive</a> so I made 
-        a shitty JavaScript version of what I think it kind of looks like, since I don't
-        aaaaactually know.
-      </p>
-      <p>
-        You can change between drums or a synth sound, export your song to a json, or send the
-        link to a pal to have them listen to your masterpiece. It prolly has bugs so uhh, refresh when you're stuck.
-        Ok, go make fun shit now.
-      </p>
-      <button class="controls" onclick="showHelp()">
-        Ok
+    
+    <div class="dialog" id="script" hidden>
+      <h2>Working on it...</h2>
+      <button class="controls" onclick="load(); showScript()">
+        Load
       </button>
     </div>
     

@@ -250,12 +250,18 @@ function playDrums() {
 
 function showHelp() {
   const helpBox = document.getElementById('help');
-  const container = document.getElementById('container');
   if (helpBox.hidden) {
     helpBox.hidden = false;
-    container.hidden = true;
   } else {
     helpBox.hidden = true;
-    container.hidden = false;
+  }
+}
+
+function showScript() {
+  const scriptBox = document.getElementById('script');
+  if (scriptBox.hidden) {
+    scriptBox.hidden = false;
+  } else {
+    scriptBox.hidden = true;
   }
 }
