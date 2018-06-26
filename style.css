@@ -53,6 +53,7 @@ footer {
 a:link, a:visited {
   color: var(--pink);
 }
+
 .container {
   text-align: center;
   line-height: 1;
@@ -63,6 +64,61 @@ a:link, a:visited {
   user-select: none;  
 }
 
+/* Thank you Glitch for these styles!! */
+.glitcheroni {
+  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  border: solid var(--purple) 2px;
+  color: var(--purple);
+  border-radius: 5px;
+  
+  -webkit-box-shadow: 4px 4px 0 var(--purple);
+  box-shadow: 4px 4px 0 var(--purple);
+}
+
+.dialog {
+  font-family: monospace;
+  font-weight: 100;
+  background: white;
+  z-index: 10;
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/***********************
+ * Action buttons
+ ***********************/
+button.controls {
+  -webkit-box-shadow: 4px 4px 0 var(--purple);
+  box-shadow: 4px 4px 0 var(--purple);
+  cursor: pointer;
+  padding: 10px 12px;
+  margin: 4px 8px;
+}
+
+button.controls:hover {
+  background-color: var(--green);
+  -webkit-box-shadow: 2px 2px 0 var(--purple);
+  box-shadow: 2px 2px 0 var(--purple);
+}
+button.controls[disabled] {
+  background: white;
+}
+button.controls.synth {
+  background-color: var(--pink);
+  color: white;
+}
+button.controls.drums {
+  background-color: var(--blue);
+}
+
+/***********************
+ * Note pixels
+ ***********************/
 button.pixel {
   font-size: inherit;
   line-height: inherit;
@@ -88,7 +144,7 @@ button.pixel:active {
 }
 
 .playing .pixel.now {
-  background: var(--green); 
+  background: var(--green) !important; 
   opacity: 1 !important;
 }
 
@@ -110,71 +166,4 @@ button.pixel.ripple.drums{
   background: #4deeea40; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
-}
-
-/* Thank you Glitch for these styles!! */
-.glitchereoni {
-  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-  border: solid var(--purple) 2px;
-  color: var(--purple);
-  border-radius: 5px;
-  
-  -webkit-box-shadow: 4px 4px 0 var(--purple);
-  box-shadow: 4px 4px 0 var(--purple);
-}
-
-button.controls {
-  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-  border: solid var(--purple) 2px;
-  color: var(--purple);
-  border-radius: 5px;
-  
-  -webkit-box-shadow: 4px 4px 0 var(--purple);
-  box-shadow: 4px 4px 0 var(--purple);
-  cursor: pointer;
-  padding: 10px 12px;
-  margin: 4px 8px;
-}
-
-button.controls:hover {
-  background-color: var(--green);
-  -webkit-box-shadow: 2px 2px 0 var(--purple);
-  box-shadow: 2px 2px 0 var(--purple);
-}
-button.controls[disabled] {
-  background: white;
-}
-button.controls.synth {
-  background-color: var(--pink);
-  color: white;
-}
-button.controls.drums {
-  background-color: var(--blue);
-}
-
-.dialog {
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.5;
-  border: solid var(--purple) 2px;
-  color: var(--purple);
-  background: white;
-  border-radius: 5px;
-  padding: 10px 12px;
-  -webkit-box-shadow: 4px 4px 0 var(--purple);
-  box-shadow: 4px 4px 0 var(--purple);
-  max-width: 500px;
-  margin: 24px auto;
-  
-  z-index: 10;
-  position: fixed;
-  top: 300px;
-  left: 50%;
-  transform: translateX(-50%);
 }

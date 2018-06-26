@@ -67,6 +67,19 @@ function init() {
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
   document.getElementById('container').addEventListener('mouseover', activate);
+  document.body.addEventListener('keypress', (event) => {
+    if (event.keyCode == 115) { // s
+      playSynth();
+      event.preventDefault();
+    } else if (event.keyCode == 100) { // d
+      playDrums();
+      event.preventDefault();
+    } else if (event.keyCode == 112) { // p
+      playOrPause();
+      event.preventDefault();
+    }
+  });
+  
 }
 
 function reset(updateLocation = false) {
@@ -184,7 +197,6 @@ function play() {
       // Reset the previous frame.
       for (let j = 0; j < 16; j++) {
         pixels[j].classList.remove('now');
-        pixels[j].style.opacity = 1;
         DRUMS[i].stop();
       }
       
