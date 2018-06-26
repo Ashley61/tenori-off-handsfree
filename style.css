@@ -12,13 +12,25 @@ body {
   text-align: center;
   --beige: #FEE4D0;
   --pink: #CC6DCD;
+  --pink: #E61E8C;
   --blue: #129BE9;
+  --blue: #4DEEEA;
   --purple: #2A298B;
+  --yellow: #FFED5E;
+  --green: #AFFF00;
 }
 
 h1 {
-  font-style: italic;
-  color: #373fff;
+  font-family: 'Monoton', monospace;
+  font-weight: normal;
+  font-size: 60px;
+  color: var(--pink);
+}
+h1 > .subtitle {
+  font-family: monospace;
+  font-weight: normal;
+  font-size: 16px;
+  color: #740DAC;
 }
 
 .container {
@@ -39,7 +51,7 @@ button.pixel {
   display: inline-block;
   margin: 2px;
   font-family: monospace;
-  background: var(--beige);
+  background: var(--yellow);
   height: 20px;
   width: 20px;
   border: none;
@@ -60,8 +72,8 @@ button.pixel.on {
 }
 
 button.pixel.ripple {
-  background: #cc6dcd80 !important; /* var(--pink) with an opacity */
-  box-shadow: 0 0 5px var(--pink);
+  background: var(--blue) !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+  box-shadow: 0 0 5px var(--blue);
   opacity: 1 !important;
 }
 
@@ -76,5 +88,5 @@ button.controls {
 }
 
 .playing .pixel.now {
-  background: var(--blue); 
+  background: var(--green); 
 }
