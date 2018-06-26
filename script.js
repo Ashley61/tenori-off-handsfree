@@ -72,7 +72,7 @@ function reset() {
     container.appendChild(rowEl);
     
     for (let j = 0; j < 16; j++) {
-      dots[i][j] = {on:false, opacity: 1, ripple: false};
+      dots[i][j] = {};
       
       const button = document.createElement('button');
       button.classList.add('pixel');
