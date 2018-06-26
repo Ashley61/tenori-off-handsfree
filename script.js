@@ -6,13 +6,13 @@ const RIPPLE_RADIUS = 3;
 
 init();
 
-;(function animloop(){
-  setTimeout(() => {
-    console.log('animating'); 
-    window.requestAnimationFrame(draw);
-    animloop();
-  }, 2000);
-})()
+// ;(function animloop(){
+//   setTimeout(() => {
+//     console.log('animating'); 
+//     window.requestAnimationFrame(draw);
+//     animloop();
+//   }, 2000);
+// })()
 
 
 
@@ -45,29 +45,36 @@ function init() {
   document.getElementById('container').addEventListener('mouseover', activate);
 }
 
-function draw(time = 0) {
+function draw() {
+  // First, advance all the ripples.
+  
+  for (let i = 0; i < ripples.length; i++) {
+    ripples[i].distance++;
+  }
   const rows = document.querySelectorAll('.container > .row');
   for (let i = 0; i < 16; i++) {
     const pixels = rows[i].querySelectorAll('.pixel');
     for (let j = 0; j < 16; j++) {
-      if (dots[i][j].on) {
+      const dot = dots[i][j];
+      
+      if (dot.on) {
         pixels[j].classList.add('on');
         continue;
       } else {
         pixels[j].classList.remove('on');
       }
       
-      if (dots[i][j].ripple) {
-        pixels[j].style.opacity = dots[i][j].opacity - time;
-        console.log(time);
-        pixels[j].classList.add('ripple');
-      } else {
-        pixels[j].classList.remove('ripple');
-      }
+      // Is this pixel inside a ripple?
+      for(let ripple of ripples) {
+        let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
+        
+				if(distanceFromRippleCenter > ripple.distance - 20 && distanceFromRippleCenter < ripples[j].distance + 20) {
+					pos.radius *= 2
+          if(pos.radius > 50) pos.radius = 50
+				}
+			}
     }
   }
-  
-  time += 0.001;
 }
 
 function activate(event) {
@@ -84,23 +91,24 @@ function activate(event) {
   const dot = dots[x][y];
   dot.on = isOn ? 0 : 1;
   
-  // Draw a circle around this pixel of radius 2.
-  for (let i = 0; i < 16; i++) {
-    for (let j = 0; j < 16; j++) {
-      if (x === i && y === j) {
-        continue;
-      }
-      
-      const dist = Math.sqrt((i-x)*(i-x) + (j-y)*(j-y)); 
-      
-      if (dist <= RIPPLE_RADIUS ) {
-        dots[i][j].ripple = true;
-        dots[i][j].opacity = 1/dist;
-      }
-    }
-  }
+  ripples.push({x: x, y: y, distance: 0});
   
-  draw(0);
+//   // Draw a circle around this pixel of radius 2.
+//   for (let i = 0; i < 16; i++) {
+//     for (let j = 0; j < 16; j++) {
+//       if (x === i && y === j) {
+//         continue;
+//       }
+      
+//       const dist = Math.sqrt((i-x)*(i-x) + (j-y)*(j-y)); 
+      
+//       if (dist <= RIPPLE_RADIUS ) {
+//         dots[i][j].ripple = true;
+//         dots[i][j].opacity = 1/dist;
+//       }
+//     }
+//   }
+    draw();
 }
 
 let playTimeout;
