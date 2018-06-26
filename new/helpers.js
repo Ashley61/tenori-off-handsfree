@@ -55,8 +55,10 @@ class NoiseyMakey {
   }
   
   // Drums need to be cleared since they're just a looping mp3.
-  clearDrum(which) {
-    this.drumSounds[which].stop();
+  resetDrums() {
+    for (let i = 0; i < 16; i++) {
+      this.drumSounds[i].stop();
+    }
   }
   
   _makeASynth() {
@@ -136,7 +138,7 @@ class Board {
     }
   }
   
-  animate(currentColumn) {
+  animate(currentColumn, noiseyMakey) {
     for (let i = 0; i < 16; i++) {
       const pixels = this.ui.rows[i].querySelectorAll('.pixel');
       this._clearPreviousAnimation(pixels);
@@ -155,24 +157,35 @@ class Board {
         pixels[currentColumn].classList.add('active');
       
         // Play the note.
-        const playSynth = board.data[i][currentColumn].on === 1;
-        if (playSynth) {
+        if (sound === 1) {
           noiseyMakey.playSynth(i);
         } else {
           noiseyMakey.playDrum(i);
         }
       } else {
-        // If it
-        pixels[currentColumn].classList.add('now');
+        // It's not a sound, it is a time bar.
+        pixels[currentColumn].classList.add('bar');
       }
     }
     this.draw();
-    
+  }
+  
+  // Remove animation artifacts like the green bar line and the ripples.
+  clearAnimation() {
+    this.ripples = [];
+    const bars = this.ui.container.querySelectorAll('.bar');
+    const rips = this.ui.container.querySelectorAll('.ripple');
+    for (let bar of bars) {
+      bar.classList.remove('bar');
+    }
+    for (let rip of rips) {
+      rip.classList.remove('ripple');
+    } 
   }
   
   _clearPreviousAnimation(row) {
     for (let j = 0; j < 16; j++) {
-      row[j].classList.remove('time');
+      row[j].classList.remove('bar');
       row[j].classList.remove('active');
     }
   }

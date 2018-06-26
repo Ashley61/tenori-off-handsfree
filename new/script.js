@@ -17,7 +17,7 @@ function init() {
     }
   }
   
-  // Event listeners.
+  // Set upvent listeners.
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; clickCell(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
   document.getElementById('container').addEventListener('mouseover', clickCell);
@@ -66,57 +66,25 @@ function animate() {
   
   // An animation step.
   function step() {
-    // Draw the board at this step
-    board.animate();
-    
-    // Play the sound
-    for (let i = 0; i < 16; i++) {
-      noiseyMakey.clearDrum(i);
-    }
-    
-    for (let i = 0; i < 16; i++) {
-      const pixels = this.ui.rows.querySelectorAll('.pixel');
-      this._clearPreviousAnimation(pixels);
-      
-      // On the current column any cell can either be:
-      // - a sound we need to make
-      // - empty, in which case we paint the green time bar.
-      
-      // Is the current cell at this time a sound?
-      const sound = this.data[i][currentColumn].on
-      if (sound) {
-        // Start a ripple from here!
-        this.ripples.push({x: i, y: currentColumn, distance: 0, sound:sound});
-        
-        // It's a note getting struck.
-        pixels[currentColumn].classList.add('active');
-      
-        // Play the note.
-        const playSynth = board.data[i][currentColumn].on === 1;
-        if (playSynth) {
-          noiseyMakey.playSynth(i);
-        } else {
-          noiseyMakey.playDrum(i);
-        }
-      } else {
-        // If it
-        pixels[currentColumn].classList.add('now');
-      }
-    }
+    // Draw the board at this step.
+    noiseyMakey.resetDrums();
+    board.animate(currentColumn, noiseyMakey);
     
     // Get ready for the next column.
     currentColumn++;
     if (currentColumn === 16) {
       currentColumn = 0;
     }
+    
+    // Did we get paused mid step?
     if (isAnimating) {
-      setTimeout(playStep, 100);
+      setTimeout(step, 100);
     } else {
       clearTimeout(animationIndex);
       currentColumn = 0;
+      board.clearAnimation();
     }
   }
-  
 }
 
 
@@ -146,22 +114,20 @@ function loadDemo(which) {
 
 function playOrPause() {
   const container = document.getElementById('container');
-  const btn = document.getElementById('btnPlay');
+  
   if (isAnimating) {
     container.classList.remove('playing');
-    clearTimeout(playTimeout);
-    
-    isAnimating = false;
+    //clearTimeout(animationIndex);
     noiseyMakey.pause();
     
   } else {
     container.classList.add('playing');
     animate();
-    
-    isAnimating = true;
     noiseyMakey.play();
   }
-  btn.textContent = isAnimating? 'Pause' : 'Play!';
+  
+  isAnimating = !isAnimating;
+  document.getElementById('btnPlay').textContent = isAnimating? 'Pause' : 'Play!';
 }
 
 function playSynth() {
@@ -178,25 +144,17 @@ function playDrums() {
 
 function showHelp() {
   const helpBox = document.getElementById('help');
-  if (helpBox.hidden) {
-    helpBox.hidden = false;
-  } else {
-    helpBox.hidden = true;
-  }
+  helpBox.hidden = !helpBox.hidden;
 }
 
 /***********************************
  * Save and load application state
  ***********************************/
 function encode(arr) {
-  let bits = ''
+  let bits = '';
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 16; j++) {
-      if (arr[i][j].on) {
-        bits += arr[i][j].on
-      } else {
-        bits += 0;
-      }
+      bits += arr[i][j].on ? arr[i][j].on : 0;
     }
   }
   return bits;
