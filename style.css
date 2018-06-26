@@ -75,6 +75,7 @@ button.pixel {
   width: 30px;
   border: none;
   border-radius: 5px;
+  contain: content;
 }
 
 button.pixel:hover {
