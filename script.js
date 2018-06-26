@@ -45,15 +45,16 @@ init();
 function init() {
   // Set up tone
   // http://tonejs.org/docs/#DuoSynth
-  synth = new Tone.DuoSynth();
+  //synth = new Tone.DuoSynth();
+  synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
   let gain  = new Tone.Gain(0.5);
   
   synth.connect(gain);
   gain.toMaster();
 
   //synth = new Tone.PolySynth(4, Tone.MonoSynth); //ew Tone.DuoSynth();
-  synth.voice0.oscillator.type = 'triangle';
-  synth.voice1.oscillator.type = 'triangle';
+  // synth.voice0.oscillator.type = 'triangle';
+  // synth.voice1.oscillator.type = 'triangle';
 
 
   // Draw the grid.
@@ -163,8 +164,8 @@ function play() {
   const rows = document.querySelectorAll('.container > .row');
   
   function playStep() {
-    let playNoteOnThisColumn = -1;
     let playSynth = false;
+    
     // Every new full frame, add ripples for the dots that are on.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
@@ -177,21 +178,29 @@ function play() {
       
       if (dots[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0, synth: dots[i][currentColumn].on === 1});
-        playNoteOnThisColumn = i;
-        playSynth = dots[i][currentColumn].on === 1;
+        // playNoteOnThisColumn = i;
+        const playSynth = dots[i][currentColumn].on === 1;
+        if (playSynth) {
+          synth.triggerAttackRelease(SYNTH[i], '16n');
+        } else {
+          cn
+          DRUMS[i].start();
+        }
+      
+        
       } else {
         pixels[currentColumn].classList.add('now');
       }
     }
     
     // Play the note
-    if (playNoteOnThisColumn !== -1) {
-      if (playSynth) {
-        synth.triggerAttackRelease(SYNTH[playNoteOnThisColumn], '16n');
-      } else {
-        DRUMS[playNoteOnThisColumn % DRUMS.length].start();
-      }
-    }
+    // if (playNoteOnThisColumn !== -1) {
+    //   if (playSynth) {
+    //     synth.triggerAttackRelease(SYNTH[playNoteOnThisColumn], '16n');
+    //   } else {
+    //     DRUMS[playNoteOnThisColumn % DRUMS.length].start();
+    //   }
+    // }
     
     draw();
     
@@ -224,7 +233,7 @@ function playOrPause() {
     isPlaying = true;
     Tone.Transport.start();
   }
-  btn.textContent = isPlaying ? 'Pause' : 'True';
+  btn.textContent = isPlaying ? 'Pause' : 'Play';
 }
 
 function synthOrDrums() {
