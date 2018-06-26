@@ -2,22 +2,25 @@ let dots = [];
 let ripples = [];
 let isMouseDown = false;
 let isPlaying = false;
-const RIPPLE_RADIUS = 3;
+let synth;
 
+const notes = ['C3', 'D3', 'E3', 'F3', 'G3', 'C3', 'D3', 'E3', 'F3', 'G3', 'A4', 'B4', 'C4', 'D4', 'E4', 'F4'];
 init();
-
-;(function animloop(){
-  setTimeout(() => {
-    window.requestAnimationFrame(draw);
-    animloop();
-  }, 200);
-})()
-
-
 
 function init() {
   const container = document.getElementById('container');
   
+  // Set up tone
+  // http://tonejs.org/docs/#DuoSynth
+  synth = new Tone.DuoSynth();
+  let gain  = new Tone.Gain(0.5);
+  synth.connect(gain);
+  gain.toMaster();
+
+  synth.voice0.oscillator.type = 'triangle';
+  synth.voice1.oscillator.type = 'triangle';
+
+
   // Draw the grid.
   for (let i = 0; i < 16; i++) {
     let row = [];
@@ -107,7 +110,8 @@ function play() {
   const rows = document.querySelectorAll('.container > .row');
   
   function playStep() {
-    // Every new full frame, add ripples for the dots that are on
+    let playNoteOnThisColumn = false;
+    // Every new full frame, add ripples for the dots that are on.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
       
@@ -119,20 +123,24 @@ function play() {
       
       if (dots[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0});
-        pixels[currentColumn].classList.add('strike');
+        playNoteOnThisColumn = true;
       } else {
         pixels[currentColumn].classList.add('now');
       }
       
-      if (currentColumn > 1) {
-        pixels[currentColumn - 1].classList.add('now');
-        pixels[currentColumn - 1].style.opacity = 0.8;
-      }
-      if (currentColumn > 2) {
-        pixels[currentColumn - 2].classList.add('now');
-        pixels[currentColumn - 2].style.opacity = 0.4;
-      }
+      // if (currentColumn > 1) {
+      //   pixels[currentColumn - 1].classList.add('now');
+      //   pixels[currentColumn - 1].style.opacity = 0.8;
+      // }
+      // if (currentColumn > 2) {
+      //   pixels[currentColumn - 2].classList.add('now');
+      //   pixels[currentColumn - 2].style.opacity = 0.4;
+      // }
     }
+    
+    // Play the note
+    if (playNoteOnThisColumn)
+      synth.triggerAttackRelease(notes[currentColumn], '16n');
     
     draw();
     
@@ -142,13 +150,13 @@ function play() {
       currentColumn = 0;
     }
     if (isPlaying) {
-      setTimeout(playStep, 200);
+      setTimeout(playStep, 100);
     } else {
       clearTimeout(playTimeout);
       currentColumn = 0;
     }
   }
-  playTimeout = setTimeout(playStep, 200);
+  playTimeout = setTimeout(playStep, 100);
 }
 
 function playOrPause() {
@@ -157,10 +165,12 @@ function playOrPause() {
     container.classList.remove('playing');
     clearTimeout(playTimeout);
     isPlaying = false;
+    Tone.Transport.pause();
   } else {
     container.classList.add('playing');
     play();
     isPlaying = true;
+    Tone.Transport.start();
   }
   updateButtons(isPlaying);
 }
