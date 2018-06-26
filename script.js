@@ -44,19 +44,12 @@ init();
 
 function init() {
   // Set up tone
-  // http://tonejs.org/docs/#DuoSynth
-  //synth = new Tone.DuoSynth();
   synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
   let gain  = new Tone.Gain(0.5);
   
   synth.connect(gain);
   gain.toMaster();
-
-  //synth = new Tone.PolySynth(4, Tone.MonoSynth); //ew Tone.DuoSynth();
-  // synth.voice0.oscillator.type = 'triangle';
-  // synth.voice1.oscillator.type = 'triangle';
-
-
+  
   // Draw the grid.
   reset();
   
@@ -174,6 +167,7 @@ function play() {
       for (let j = 0; j < 16; j++) {
         pixels[j].classList.remove('now');
         pixels[j].style.opacity = 1;
+        DRUMS[i].stop();
       }
       
       if (dots[i][currentColumn].on) {
@@ -206,6 +200,15 @@ function play() {
     }
   }
   playTimeout = setTimeout(playStep, 100);
+}
+
+function loadDemo(which) {
+  switch(which) {
+    case 0:
+    default
+      
+      break;
+  }
 }
 
 function playOrPause() {

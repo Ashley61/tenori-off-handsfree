@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>tenori-on</title>
+    <title>toneori-js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,10 +14,9 @@
   <body>
     <h1>toneori-js 
       <div class="subtitle">
-      It's like a Tenori-on, but shittier and in JavaScript
+      (it's like a Tenori-on, but shittier and in JavaScript)
       </div>
     </h1>
-    <div>(I doubt this works on mobile or at all rn)</div>
   
     <button class="controls synth" id="btnSynth" onclick="playSynth()">
       Synth
@@ -34,7 +33,17 @@
     <button class="controls" id="btnHelp" onclick="showHelp()">
       ?
     </button>
-    
+    <br>
+    <button class="controls" onclick="loadDemo(1)">
+      Demo 1
+    </button>
+    <button class="controls" onclick="loadDemo(2)">
+      Demo 2
+    </button>
+    <button class="controls" onclick="loadDemo(3)">
+      Demo 3
+    </button>
+    <br><br>
     
     <div class="help" id="help" hidden>
       <h2>What is this?</h2>

@@ -121,7 +121,7 @@ button.controls {
   cursor: pointer;
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
-  margin: 16px 8px;
+  margin: 4px 8px;
 }
 
 button.controls:hover {
