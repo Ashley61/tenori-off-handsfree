@@ -47,10 +47,14 @@ function init() {
 
 function draw() {
   // First, advance all the ripples.
-  
   for (let i = 0; i < ripples.length; i++) {
-    ripples[i].distance++;
+    if (ripples[i].distance > 6) {
+        ripples.splice(i, 1);
+    } else {
+      ripples[i].distance += 2;
+    }
   }
+
   const rows = document.querySelectorAll('.container > .row');
   for (let i = 0; i < 16; i++) {
     const pixels = rows[i].querySelectorAll('.pixel');
@@ -63,16 +67,21 @@ function draw() {
       } else {
         pixels[j].classList.remove('on');
       }
+
+      // Clear the old ripple, if it exists.
+      pixels[j].classList.remove('ripple');
       
       // Is this pixel inside a ripple?
-      for(let ripple of ripples) {
+      for(let r = 0; r < ripples.length; r++) {
+        const ripple = ripples[r];
         let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
-        
-				if(distanceFromRippleCenter > ripple.distance - 20 && distanceFromRippleCenter < ripples[j].distance + 20) {
-					pos.radius *= 2
-          if(pos.radius > 50) pos.radius = 50
-				}
-			}
+
+        if(distanceFromRippleCenter > ripple.distance - 0.7 && 
+           distanceFromRippleCenter < ripple.distance + 0.7 &&
+           distanceFromRippleCenter < 6) {
+          pixels[j].classList.add('ripple');
+        }
+      }
     }
   }
 }
