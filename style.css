@@ -82,9 +82,10 @@ a:link, a:visited {
   font-family: monospace;
   font-weight: 100;
   background: white;
+  padding: 24px;
   z-index: 10;
   position: fixed;
-  top: 300px;
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -105,13 +106,12 @@ button.controls:hover {
   -webkit-box-shadow: 2px 2px 0 var(--purple);
   box-shadow: 2px 2px 0 var(--purple);
 }
-button.controls[disabled] {
-  background: white;
-}
+
 button.controls.synth {
   background-color: var(--pink);
   color: white;
 }
+
 button.controls.drums {
   background-color: var(--blue);
 }
@@ -133,25 +133,18 @@ button.pixel {
   border: none;
   border-radius: 5px;
   contain: content;
+  border: 2px solid transparent;
 }
 
 button.pixel:hover {
   opacity: 0.7;
 }
 
-button.pixel:active {
-  opacity: 0.7;
-}
-
-.playing .pixel.now {
-  background: var(--green) !important; 
-  opacity: 1 !important;
-}
-
 button.pixel.on.synth {
   background: var(--pink);
   box-shadow: 0 0 5px var(--pink);
 }
+
 button.pixel.on.drums {
   background: var(--blue);
   box-shadow: 0 0 5px var(--blue);
@@ -162,8 +155,19 @@ button.pixel.ripple.synth {
   box-shadow: 0 0 5px #e61e8c38;
   opacity: 1 !important;
 }
+
 button.pixel.ripple.drums{
   background: #4deeea40; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
+}
+
+.playing .pixel.now {
+  background: var(--green) !important; 
+  opacity: 1 !important;
+}
+
+.playing .pixel.on.active {
+  transform: scale(1.5);
+  z-index:10;
 }

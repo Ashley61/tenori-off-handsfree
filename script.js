@@ -12,15 +12,6 @@ const SYNTH = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4',
 
 // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
 let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
-
-let reverb = new Tone.Convolver(
-  `${sampleBaseUrl}/small-drum-room.wav`
-).toMaster();
-reverb.wet.value = 0.35;
-
-let snarePanner = new Tone.Panner().connect(reverb);
-new Tone.LFO(0.13, -0.25, 0.25).connect(snarePanner.pan).start();
-
 let DRUMS = [
   new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
   new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
@@ -197,12 +188,14 @@ function play() {
       // Reset the previous frame.
       for (let j = 0; j < 16; j++) {
         pixels[j].classList.remove('now');
+        pixels[j].classList.remove('active');
         DRUMS[i].stop();
       }
       
       if (dots[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0, synth: dots[i][currentColumn].on === 1});
-        
+        pixels[currentColumn].classList.add('active');
+      
         // Play the note.
         const playSynth = dots[i][currentColumn].on === 1;
         if (playSynth) {
