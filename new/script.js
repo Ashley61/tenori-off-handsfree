@@ -1,77 +1,17 @@
-class State {
-  constructor() {
-    this.dots = [];
-    this.ripples = [];
-    this.isMouseDown = false;
-    this.isPlaying = false;
-    this.isSynth = false;
-  }
-}
 
-class NoiseyMakey {
-  constructor() {
-    this.initTone();  
-    this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
-               'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
-               'B2', 'A2', 'G2', 'F2'];
-    
-    // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
-    let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
-    this.drumSounds = [
-      new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vm.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-high-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/909-clap-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/909-rim-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/flares-snare-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-hihat-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vl.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-high-vl.mp3`).toMaster(),
-    ];
-  }
-  
-  initTone() {
-    // Set up tone
-    this.synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
-    let gain  = new Tone.Gain(0.5);
-  
-    synth.connect(gain);
-    gain.toMaster();
-  }
-  
-  playSynth() {
-  }
-  
-  clearDrum(which) {
-    this.drumSounds[which].stop();
-  }
-  playDrum(which) {
-    this.drumSounds[which].start(Tone.now(), 0);
-  }
-}
 
 let dots = [];
 let ripples = [];
 let isMouseDown = false;
-let isPlaying = false;
-let isSynth = true;
-
-let synth;
-
-
+let noiseyMakey;
+let board;
 
 init();
 
-let noiseyMakey;
+
 function init() {
   noiseyMakey = new NoiseyMakey();
+  board = new Board();
   
   // Draw the grid.
   reset();
@@ -196,7 +136,7 @@ function activate(event) {
   if (isOn) {
     dot.on = 0;
   } else {
-    dot.on = isSynth ? 1 : 2;
+    dot.on = noiseyMakey.getSound();
   }
   
   window.location.hash = `#${encode(dots)}`;
@@ -247,7 +187,7 @@ function play() {
     if (currentColumn === 16) {
       currentColumn = 0;
     }
-    if (isPlaying) {
+    if (board.isPlaying) {
       setTimeout(playStep, 100);
     } else {
       clearTimeout(playTimeout);
@@ -285,29 +225,29 @@ function loadDemo(which) {
 function playOrPause() {
   const container = document.getElementById('container');
   const btn = document.getElementById('btnPlay');
-  if (isPlaying) {
+  if (board.isPlaying) {
     container.classList.remove('playing');
     clearTimeout(playTimeout);
-    isPlaying = false;
-    Tone.Transport.pause();
+    
+    noiseyMakey.pause();
+    board.pause();
   } else {
     container.classList.add('playing');
     play();
-    isPlaying = true;
-    Tone.context.resume();
-    Tone.Transport.start();
+    board.play();
+    noiseyMakey.play();
   }
-  btn.textContent = isPlaying ? 'Pause' : 'Play!';
+  btn.textContent = board.isPlaying ? 'Pause' : 'Play!';
 }
 
 function playSynth() {
-  isSynth = true;
+  noiseyMakey.isSynth = true;
   document.getElementById('btnSynth').classList.add('synth');
   document.getElementById('btnDrums').classList.remove('drums');
 }
 
 function playDrums() {
-  isSynth = false;
+  noiseyMakey.isSynth = false;
   document.getElementById('btnSynth').classList.remove('synth');
   document.getElementById('btnDrums').classList.add('drums');
 }
@@ -354,3 +294,5 @@ function decode(bits) {
   }
   return arr;
 }
+
+
