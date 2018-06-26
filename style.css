@@ -129,6 +129,7 @@ button.pixel {
   width: 25px;
   border: none;
   border-radius: 5px;
+  padding: 0;
 }
 
 button.pixel:hover {
@@ -147,13 +148,13 @@ button.pixel.on.drums {
 
 button.pixel.ripple.synth {
   background: #e61e8c38; /* var(--pink) with an opacity */
-  xbox-shadow: 0 0 5px #e61e8c38;
+  box-shadow: 0 0 5px #e61e8c38;
   opacity: 1 !important;
 }
 
 button.pixel.ripple.drums{
   background: #4deeea40; /* var(--blue) with an opacity */
-  xbox-shadow: 0 0 5px #4deeea40;
+  box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
 }
 
@@ -178,9 +179,8 @@ button.pixel.ripple.drums{
     font-size: 10px;
   }
   button.pixel {
-    height: 20px;
-    width: 20px;
-    line-height: 20px;
+    height: calc(90vw / 20);
+    width: calc(90vw / 20);
   }
   button.controls {
     padding: 8px;
@@ -188,16 +188,9 @@ button.pixel.ripple.drums{
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 360px) {
   button.pixel {
-    height: 16px;
-    width: 16px;
-  }
-}
-
-@media (max-width: 350px) {
-  button.pixel {
-    height: 12px;
-    width: 12px;
+    height: calc(80vw / 20);
+    width: calc(80vw / 20);
   }
 }
