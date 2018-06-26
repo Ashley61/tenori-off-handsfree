@@ -27,11 +27,15 @@
     <button class="controls" id="btnPlay" onclick="playOrPause()">
       Play
     </button>
-    <button class="controls" onclick="reset()">
+<!--     <button class="controls" onclick="reset()">
       Reset
+    </button> -->
+    <br>
+    <button class="controls" onclick="showHelp()">
+      Help
     </button>
-    <button class="controls" id="btnHelp" onclick="showHelp()">
-      ?
+    <button class="controls" onclick="showScript()">
+      Load/Save
     </button>
     <br>
     <button class="controls" onclick="loadDemo(1)">
@@ -45,16 +49,43 @@
     </button>
     <br><br>
     
-    <div class="help" id="help" hidden>
+    <div class="text" id="help" hidden>
       <h2>What is this?</h2>
       <p>
         A <a href="https://en.wikipedia.org/wiki/Tenori-on">Tenori-on</a> is a dope electronic music
-        instrument that Yamaha made for a hot minute. I don't particularly like electronic music,
+        instrument that Yamaha made for a hot minute. It's a fancy "sequencer", I'm told. 
+        I don't particularly like electronic music,
         but I love pixels and patterns and generating things out of pixels and patterns. This means
         I <b>love</b> the Tenori-on. However, I have never seen one in real life, and they're
         p <a href="https://reverb.com/item/11642149-yamaha-tenori-on">expensive</a> so I made 
         a shitty JavaScript version of what I think it kind of looks like, since I don't
         aaaaactually know.
+      </p>
+      <p>
+        You can change between drums or a synth sound, export your song to a json, or send the
+        link to a pal to have them listen to your masterpiece. It prolly has bugs so uhh, refresh when you're stuck.
+        Ok, go make fun shit now.
+      </p>
+      <button class="controls" onclick="showHelp()">
+        Ok
+      </button>
+    </div>
+    <div class="text" id="script" hidden>
+      <h2>What is this?</h2>
+      <p>
+        A <a href="https://en.wikipedia.org/wiki/Tenori-on">Tenori-on</a> is a dope electronic music
+        instrument that Yamaha made for a hot minute. It's a fancy "sequencer", I'm told. 
+        I don't particularly like electronic music,
+        but I love pixels and patterns and generating things out of pixels and patterns. This means
+        I <b>love</b> the Tenori-on. However, I have never seen one in real life, and they're
+        p <a href="https://reverb.com/item/11642149-yamaha-tenori-on">expensive</a> so I made 
+        a shitty JavaScript version of what I think it kind of looks like, since I don't
+        aaaaactually know.
+      </p>
+      <p>
+        You can change between drums or a synth sound, export your song to a json, or send the
+        link to a pal to have them listen to your masterpiece. It prolly has bugs so uhh, refresh when you're stuck.
+        Ok, go make fun shit now.
       </p>
       <button class="controls" onclick="showHelp()">
         Ok
