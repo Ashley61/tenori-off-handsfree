@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/0.7.1/Tone.min.js"></script>
     
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&text=tenori-f" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
   </head>  
   <body>
     <h1>tenori-off</h1>
@@ -20,18 +21,19 @@
     <button class="controls glitcheroni" id="btnDrums" onclick="playDrums()">
       Drums
     </button>
-    <button class="controls glitcheroni " id="btnPlay" onclick="playOrPause()" style="width:90px">
+    <button class="controls glitcheroni" id="btnPlay" onclick="playOrPause()" style="width:90px">
       Play 
     </button>
-    <button class="controls glitcheroni " onclick="reset(true)">
+    <button class="controls glitcheroni" onclick="reset(true)">
       Reset
     </button>
-    <button class="controls glitcheroni " onclick="showHelp()">
+    <button class="controls glitcheroni" onclick="showHelp()">
       Help
     </button>
+    
     <br><br>
     
-    <div class="dialog glitcheroni " id="help" hidden>
+    <div class="dialog glitcheroni" id="help" hidden>
       <h2>What is this?</h2>
       <p>
         A <a href="https://en.wikipedia.org/wiki/Tenori-on">Tenori-on</a> is a dope electronic music
@@ -50,23 +52,16 @@
       <p>
         Ok, go make fun shit now!
       </p>
-      <button class="controls glitcheroni" onclick="showHelp()">
-        Ok
-      </button>
+      <button class="controls glitcheroni" onclick="showHelp()">Ok</button>
     </div>
     
     <div class="container" id="container"></div>  
    
     <br>
-    <button class="controls glitcheroni " onclick="loadDemo(1)">
-      Demo1
-    </button>
-    <button class="controls glitcheroni " onclick="loadDemo(2)">
-      Demo2
-    </button>
-    <button class="controls glitcheroni " onclick="loadDemo(3)">
-      Demo3
-    </button>
+    
+    <button class="controls glitcheroni" onclick="loadDemo(1)">Demo1</button>
+    <button class="controls glitcheroni" onclick="loadDemo(2)">Demo2</button>
+    <button class="controls glitcheroni" onclick="loadDemo(3)">Demo3</button>
     
     <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->

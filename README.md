@@ -1,37 +1,18 @@
-Welcome to Glitch
+tenori-off
 =================
+## What is this?
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+A [](https://en.wikipedia.org/wiki/Tenori-on) >Tenori-on</a> is a dope electronic music
+instrument that Yamaha made for a hot minute. It's a fancy "sequencer", I'm told. 
+I don't particularly like electronic music,
+but I love pixels and patterns and generating things out of pixels and patterns. This means
+I <b>love</b> the Tenori-on. However, I have never seen one in real life, and they're
+kind of <a href="https://reverb.com/item/11642149-yamaha-tenori-on">expensive</a> so I made 
+a shitty JavaScript version of what I think it kind of looks like, since I don't
+aaaaactually know.
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+You can change between drums or a synth sound, and send the
+url to a pal to have them listen to your masterpiece. It prolly has bugs so uhh, refresh when you're stuck.
 
-Find out more [about Glitch](https://glitch.com/about).
+Ok, go make fun shit now!
 
-
-Your Project
-------------
-
-### ← README.md
-
-That's this file, where you can tell people what your cool website does and how you built it.
-
-### ← index.html
-
-Where you'll write the content of your website. 
-
-### ← style.css
-
-CSS files add styling rules to your content.
-
-### ← script.js
-
-If you're feeling fancy you can add interactivity to your site with JavaScript.
-
-### ← assets
-
-Drag in `assets`, like images or music, to add them to your project
-
-Made by [Fog Creek](https://fogcreek.com/)
--------------------
-
-\ ゜o゜)ノ

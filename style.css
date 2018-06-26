@@ -29,13 +29,6 @@ h1 {
   margin: 10px;
 }
 
-h1 > .subtitle {
-  font-family: monospace;
-  font-weight: normal;
-  font-size: 16px;
-  color: #740DAC;
-}
-
 h2 {
   font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
   font-weight: normal;
@@ -51,6 +44,7 @@ footer {
 }
 
 a:link, a:visited {
+  font-weight: bold;
   color: var(--pink);
 }
 
@@ -151,13 +145,13 @@ button.pixel.on.drums {
 }
 
 button.pixel.ripple.synth {
-  background: #e61e8c38; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+  background: #e61e8c38; /* var(--pink) with an opacity */
   box-shadow: 0 0 5px #e61e8c38;
   opacity: 1 !important;
 }
 
 button.pixel.ripple.drums{
-  background: #4deeea40; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
+  background: #4deeea40; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
 }
