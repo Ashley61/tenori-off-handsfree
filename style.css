@@ -122,7 +122,6 @@ button.controls {
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
   margin: 16px 8px;
-  width: 100px;
 }
 
 button.controls:hover {
@@ -144,13 +143,14 @@ button.controls.drums {
 .help {
   text-align: left;
   font-size: 14px;
-  font-weight: 600;
+  line-height: 1.5;
   border: solid var(--purple) 2px;
   color: var(--purple);
+  background: white;
   border-radius: 5px;
   padding: 10px 12px;
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
   max-width: 500px;
-  margin: 14px auto;
+  margin: 24px auto;
 }

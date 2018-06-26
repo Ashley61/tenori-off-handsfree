@@ -237,3 +237,18 @@ function playDrums() {
   document.getElementById('btnSynth').classList.remove('synth');
   document.getElementById('btnDrums').classList.add('drums');
 }
+
+function showHelp() {
+  const helpBox = document.getElementById('help');
+  const container = document.getElementById('container');
+  const btn = document.getElementById('btnHelp');
+  if (helpBox.hidden) {
+    helpBox.hidden = false;
+    container.hidden = true;
+    btn.textContent = 'X';
+  } else {
+    helpBox.hidden = true;
+    container.hidden = false;
+    btn.textContent = '?';
+  }
+}
