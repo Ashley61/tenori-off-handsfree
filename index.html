@@ -12,11 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
   </head>  
   <body>
-    <h1>tenori-off
-      <div class="subtitle">
-      (it's like a Tenori-on, but shittier and in JavaScript)
-      </div>
-    </h1>
+    <h1>tenori-off</h1>
   
     <button class="controls glitcheroni synth" id="btnSynth" onclick="playSynth()">
       Synth
@@ -25,23 +21,13 @@
       Drums
     </button>
     <button class="controls glitcheroni " id="btnPlay" onclick="playOrPause()">
-      Play
+      Play 
     </button>
     <button class="controls glitcheroni " onclick="reset(true)">
       Reset
     </button>
-    <br>
     <button class="controls glitcheroni " onclick="showHelp()">
       Help
-    </button>
-    <button class="controls glitcheroni " onclick="loadDemo(1)">
-      Demo1
-    </button>
-    <button class="controls glitcheroni " onclick="loadDemo(2)">
-      Demo2
-    </button>
-    <button class="controls glitcheroni " onclick="loadDemo(3)">
-      Demo3
     </button>
     <br><br>
     
@@ -69,6 +55,17 @@
     
     <div class="container" id="container"></div>  
    
+    <br>
+    <button class="controls glitcheroni " onclick="loadDemo(1)">
+      Demo1
+    </button>
+    <button class="controls glitcheroni " onclick="loadDemo(2)">
+      Demo2
+    </button>
+    <button class="controls glitcheroni " onclick="loadDemo(3)">
+      Demo3
+    </button>
+    
     <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>

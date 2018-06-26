@@ -8,7 +8,7 @@
 
 body {
   font-family: monospace;
-  margin: 2em;
+  margin: 1em;
   text-align: center;
   --pink: #E61E8C;
   --blue: #4DEEEA;
@@ -72,8 +72,8 @@ button.pixel {
   margin: 2px;
   font-family: monospace;
   background: var(--yellow);
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   border: none;
   border-radius: 5px;
   contain: content;
@@ -89,6 +89,7 @@ button.pixel:active {
 
 .playing .pixel.now {
   background: var(--green); 
+  opacity: 1 !important;
 }
 
 button.pixel.on.synth {
@@ -101,12 +102,12 @@ button.pixel.on.drums {
 }
 
 button.pixel.ripple.synth {
-  background: #e61e8c38 !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+  background: #e61e8c38; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
   box-shadow: 0 0 5px #e61e8c38;
   opacity: 1 !important;
 }
 button.pixel.ripple.drums{
-  background: #4deeea40 !important; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
+  background: #4deeea40; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px #4deeea40;
   opacity: 1 !important;
 }
