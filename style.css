@@ -112,6 +112,19 @@ button.pixel.ripple.drums{
 }
 
 /* Thank you Glitch for these styles!! */
+.glitchereoni {
+  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  border: solid var(--purple) 2px;
+  color: var(--purple);
+  border-radius: 5px;
+  
+  -webkit-box-shadow: 4px 4px 0 var(--purple);
+  box-shadow: 4px 4px 0 var(--purple);
+}
+
 button.controls {
   font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
   text-align: left;
@@ -120,10 +133,11 @@ button.controls {
   border: solid var(--purple) 2px;
   color: var(--purple);
   border-radius: 5px;
-  padding: 10px 12px;
-  cursor: pointer;
+  
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
+  cursor: pointer;
+  padding: 10px 12px;
   margin: 4px 8px;
 }
 
@@ -156,7 +170,6 @@ button.controls.drums {
   box-shadow: 4px 4px 0 var(--purple);
   max-width: 500px;
   margin: 24px auto;
-  
   
   z-index: 10;
   position: fixed;
