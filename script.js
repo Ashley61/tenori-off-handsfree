@@ -161,4 +161,3 @@ function updateButtons(isPlaying) {
     btn.title = 'Play';
   }
 }
-
