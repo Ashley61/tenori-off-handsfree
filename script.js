@@ -174,34 +174,23 @@ function play() {
       for (let j = 0; j < 16; j++) {
         pixels[j].classList.remove('now');
         pixels[j].style.opacity = 1;
-        //DRUMS[j].stop();
       }
       
       if (dots[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0, synth: dots[i][currentColumn].on === 1});
-        // playNoteOnThisColumn = i;
+        
+        // Play the note.
         const playSynth = dots[i][currentColumn].on === 1;
         if (playSynth) {
           synth.triggerAttackRelease(SYNTH[i], '16n');
         } else {
-          Tone.context.resume();
-          DRUMS[i].start('16n');
+          DRUMS[i].start(Tone.now(), 0);
+          console.log('drum', i);
         }
-      
-        
       } else {
         pixels[currentColumn].classList.add('now');
       }
     }
-    
-    // Play the note
-    // if (playNoteOnThisColumn !== -1) {
-    //   if (playSynth) {
-    //     synth.triggerAttackRelease(SYNTH[playNoteOnThisColumn], '16n');
-    //   } else {
-    //     DRUMS[playNoteOnThisColumn % DRUMS.length].start();
-    //   }
-    // }
     
     draw();
     
@@ -232,11 +221,14 @@ function playOrPause() {
     container.classList.add('playing');
     play();
     isPlaying = true;
+    Tone.context.resume();
     Tone.Transport.start();
   }
   btn.textContent = isPlaying ? 'Pause' : 'Play';
 }
 
+function playSynth() {
+}
 function synthOrDrums() {
   isSynth = !isSynth;
   const btn = document.getElementById('btnSynth');

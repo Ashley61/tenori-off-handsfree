@@ -118,15 +118,19 @@ button.controls {
   margin: 16px 8px;
   width: 100px;
 }
+
 button.controls:hover {
   background-color: var(--green);
   -webkit-box-shadow: 2px 2px 0 var(--purple);
   box-shadow: 2px 2px 0 var(--purple);
 }
-#btnSynth.synth {
+button.controls[disabled] {
+  background: white;
+}
+button.controls.synth {
   background-color: var(--pink);
   color: white;
 }
-#btnSynth.drums {
+button.controls.drums {
   background-color: var(--blue);
 }
