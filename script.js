@@ -104,45 +104,33 @@ function activate(event) {
 let playTimeout;
 function play() {
   let currentColumn = 0;
-//   // Go through every note
-//   let currentColumn = 0;
-//   const rows = document.querySelectorAll('.container > .row');
-  
-//   function playStep() {
-//     // Strike all the active notes in this current column.
-//     for (let i = 0; i < 16; i++) {
-//       const pixels = rows[i].querySelectorAll('.pixel');
-//       if (dots[i][currentColumn]) {
-//         const pixel = pixels[currentColumn];
-//         pixel.classList.add('strike');
-        
-//         setTimeout(() => {
-//           console.log('removing', pixel); 
-//           pixel.classList.remove('strike');
-//         }, 100);   
-//       }
-//     }
-//     // Get ready for the next column.
-//     currentColumn++;
-//     if (currentColumn === 16) {
-//       currentColumn = 0;
-//     }
-//     if (isPlaying) {
-//       setTimeout(playStep, 100);
-//     }
-//   }
+  const rows = document.querySelectorAll('.container > .row');
   
   function playStep() {
     // Every new full frame, add ripples for the dots that are on
-    if (currentColumn === 0) {
-      console.log(currentColumn);
-      for (let i = 0; i < 16; i++) {
-        for (let j = 0; j < 16; j++) {
-          if (dots[i][j].on) {
-            ripples.push({x: i, y: j, distance: 0});
-          }
-        }
+    for (let i = 0; i < 16; i++) {
+      const pixels = rows[i].querySelectorAll('.pixel');
+      
+      if (dots[i][currentColumn].on) {
+        ripples.push({x: i, y: currentColumn, distance: 0});
+      } else {
+        pixels[currentColumn].classList.add('
       }
+      
+      pixels[currentColumn]
+      
+      
+      // Strike all the active notes in this current column.
+//       const pixels = rows[i].querySelectorAll('.pixel');
+//       if (dots[i][currentColumn].on) {
+//         const pixel = pixels[currentColumn];
+//         pixel.classList.add('strike');
+        
+//         // setTimeout(() => {
+//         //   console.log('removing', pixel); 
+//         //   pixel.classList.remove('strike');
+//         // }, 100);   
+//       }
     }
     
     draw();
@@ -164,11 +152,11 @@ function play() {
 function playOrPause() {
   const container = document.getElementById('container');
   if (isPlaying) {
-    //container.classList.remove('playing');
+    container.classList.remove('playing');
     clearTimeout(playTimeout);
     isPlaying = false;
   } else {
-    //container.classList.add('playing');
+    container.classList.add('playing');
     play();
     isPlaying = true;
   }
@@ -185,5 +173,14 @@ function updateButtons(isPlaying) {
     btn.querySelector('.iconPlay').removeAttribute('hidden');
     btn.querySelector('.iconPause').setAttribute('hidden', true);
     btn.title = 'Play';
+  }
+}
+
+
+function Ripple(x, y, distance) {
+  this.x = x;
+  this.y = y;
+  this.distance = distance;
+  this.draw = function() {
   }
 }

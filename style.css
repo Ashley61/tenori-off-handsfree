@@ -140,10 +140,10 @@ button.controls {
 
 @keyframes line {
   0% {
-    background: var(--blue); /* var(--blue) with opacity */
+    background: #fe9efd5e; /* var(--blue) with opacity */
   }
-  30% {
-    background: var(--purple);
+  20% {
+    background: var(--beige);
   }
 }
 
