@@ -158,7 +158,7 @@ button.pixel.ripple.drums{
   opacity: 1 !important;
 }
 
-.playing .pixel.now {
+.playing .pixel.time {
   background: var(--green) !important; 
   opacity: 1 !important;
 }

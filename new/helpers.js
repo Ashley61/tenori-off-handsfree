@@ -102,7 +102,7 @@ class Board {
       }
     }
     
-    this.ui.dotRows = document.querySelectorAll('.container > .row');
+    this.ui.rows = document.querySelectorAll('.container > .row');
     this.draw();
   }
   
@@ -123,7 +123,7 @@ class Board {
     this._updateRipples();
     
     for (let i = 0; i < 16; i++) {
-      const pixels = this.ui.dotRows[i].querySelectorAll('.pixel');
+      const pixels = this.ui.rows[i].querySelectorAll('.pixel');
       
       for (let j = 0; j < 16; j++) {
         // Maybe it's a sound?
@@ -136,14 +136,45 @@ class Board {
     }
   }
   
-  // Clears the green line that represents time.
-  clearLine() {
-    for (let j = 0; j < 16; j++) {
-      pixels[j].classList.remove('now');
-      pixels[j].classList.remove('active');
-      noiseyMakey.clearDrum(i);
+  animate(currentColumn) {
+    for (let i = 0; i < 16; i++) {
+      const pixels = this.ui.rows[i].querySelectorAll('.pixel');
+      this._clearPreviousAnimation(pixels);
+      
+      // On the current column any cell can either be:
+      // - a sound we need to make
+      // - empty, in which case we paint the green time bar.
+      
+      // Is the current cell at this time a sound?
+      const sound = this.data[i][currentColumn].on
+      if (sound) {
+        // Start a ripple from here!
+        this.ripples.push({x: i, y: currentColumn, distance: 0, sound:sound});
+        
+        // It's a note getting struck.
+        pixels[currentColumn].classList.add('active');
+      
+        // Play the note.
+        const playSynth = board.data[i][currentColumn].on === 1;
+        if (playSynth) {
+          noiseyMakey.playSynth(i);
+        } else {
+          noiseyMakey.playDrum(i);
+        }
+      } else {
+        // If it
+        pixels[currentColumn].classList.add('now');
+      }
     }
-
+    this.draw();
+    
+  }
+  
+  _clearPreviousAnimation(row) {
+    for (let j = 0; j < 16; j++) {
+      row[j].classList.remove('time');
+      row[j].classList.remove('active');
+    }
   }
   
   _updateRipples() {
@@ -192,7 +223,7 @@ class Board {
          distanceFromRippleCenter < ripple.distance + 0.7 &&
          distanceFromRippleCenter < 3.5) {
         uiCell.classList.add('ripple');
-        uiCell.classList.add(ripple.synth ? 'synth' : 'drums');
+        uiCell.classList.add(ripple.sound === 1 ? 'synth' : 'drums');
       }
     }
   }

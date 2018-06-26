@@ -66,14 +66,29 @@ function animate() {
   
   // An animation step.
   function step() {
-    // Every new full frame, add ripples for the dots that are on.
+    // Draw the board at this step
+    board.animate();
+    
+    // Play the sound
     for (let i = 0; i < 16; i++) {
-      const pixels = rows[i].querySelectorAll('.pixel');
+      noiseyMakey.clearDrum(i);
+    }
+    
+    for (let i = 0; i < 16; i++) {
+      const pixels = this.ui.rows.querySelectorAll('.pixel');
+      this._clearPreviousAnimation(pixels);
       
-      board.clearLine();
+      // On the current column any cell can either be:
+      // - a sound we need to make
+      // - empty, in which case we paint the green time bar.
       
-      if (board.data[i][currentColumn].on) {
-        ripples.push({x: i, y: currentColumn, distance: 0, synth: board.data[i][currentColumn].on === 1});
+      // Is the current cell at this time a sound?
+      const sound = this.data[i][currentColumn].on
+      if (sound) {
+        // Start a ripple from here!
+        this.ripples.push({x: i, y: currentColumn, distance: 0, sound:sound});
+        
+        // It's a note getting struck.
         pixels[currentColumn].classList.add('active');
       
         // Play the note.
@@ -84,11 +99,10 @@ function animate() {
           noiseyMakey.playDrum(i);
         }
       } else {
+        // If it
         pixels[currentColumn].classList.add('now');
       }
     }
-    
-    board.draw();
     
     // Get ready for the next column.
     currentColumn++;
