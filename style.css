@@ -114,11 +114,14 @@ button.controls.drums {
  * Note pixels
  ***********************/
 button.pixel {
+  display: inline-block;
+  -webkit-appearance: none;
+  -webkit-border-radius:0px;
+  appearance: none;
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
   cursor: pointer;
-  display: inline-block;
   margin: 2px;
   font-family: monospace;
   background: var(--yellow);
@@ -126,7 +129,6 @@ button.pixel {
   width: 25px;
   border: none;
   border-radius: 5px;
-  content:' ';
 }
 
 button.pixel:hover {
