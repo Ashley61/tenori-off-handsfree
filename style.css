@@ -127,7 +127,6 @@ button.pixel {
   border: none;
   border-radius: 5px;
   contain: content;
-  border: 2px solid transparent;
 }
 
 button.pixel:hover {
@@ -177,14 +176,18 @@ button.pixel.ripple.drums{
     font-size: 10px;
   }
   button.pixel {
-    height: calc(50vh / 20) !important;
-    width: calc(50vw / 20) !important;
+    height: 16px;
+    width: 16px;
+  }
+  button.controls {
+    padding: 8px;
+    margin: 4px 0;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 340px) {
   button.pixel {
-    height: 10px !important;
-    width: 10px !important;
+    height: calc(70vw / 20);
+    width: calc(70vw / 20);
   }
 }

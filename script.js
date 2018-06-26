@@ -258,7 +258,7 @@ function playOrPause() {
     Tone.context.resume();
     Tone.Transport.start();
   }
-  btn.textContent = isPlaying ? 'Pause' : 'Play';
+  btn.textContent = isPlaying ? 'Pause' : 'Play!';
 }
 
 function playSynth() {
