@@ -67,7 +67,7 @@ a:link, a:visited {
   border: solid var(--purple) 2px;
   color: var(--purple);
   border-radius: 5px;
-  
+  background: white;
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
 }
@@ -164,4 +164,27 @@ button.pixel.ripple.drums{
 .playing .pixel.on.active {
   transform: scale(1.5);
   z-index:10;
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 40px;
+  }
+  .glitchButtonElement > img {
+    width: 30px;
+  }
+  .glitcheroni {
+    font-size: 10px;
+  }
+  button.pixel {
+    height: calc(50vh / 20) !important;
+    width: calc(50vw / 20) !important;
+  }
+}
+
+@media (max-width: 400px) {
+  button.pixel {
+    height: 10px !important;
+    width: 10px !important;
+  }
 }
