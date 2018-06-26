@@ -3,7 +3,7 @@
  ***********************************/
 class NoiseyMakey {
   constructor() {
-    this.initTone();  
+    this.synth = this.makeASynth()
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
@@ -30,35 +30,38 @@ class NoiseyMakey {
     ];
   }
   
-  initTone() {
-    // Set up tone
-    this.synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
-    
-    const gain  = new Tone.Gain(0.5);
-    this.synth.connect(gain);
-    gain.toMaster();
+  makeASynth() {
+    // Set up tone.
+    const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
+    synth.connect(new Tone.Gain(0.5).toMaster());
+    return synth;
   }
   
-  getSound() {
-    return this.isSynth ? 1 : 2;
-  }
-  
-  playSynth(which) {
-    synth.triggerAttackRelease(this.synthSounds[which], '16n');
-  }
-  
-  clearDrum(which) {
-    this.drumSounds[which].stop();
-  }
-  playDrum(which) {
-    this.drumSounds[which].start(Tone.now(), 0);
-  }
-  play() {
+   play() {
     Tone.context.resume();
     Tone.Transport.start();
   }
   pause() {
     Tone.Transport.pause();
+  }
+  
+  // Whether we are currently on to play a drum or a synth
+  getSound() {
+    return this.isSynth ? 1 : 2;
+  }
+  
+  // Play specific sounds.
+  playSynth(which) {
+    this.synth.triggerAttackRelease(this.synthSounds[which], '16n');
+  }
+  
+  playDrum(which) {
+    this.drumSounds[which].start(Tone.now(), 0);
+  }
+  
+  // Drums need to be cleared since they're just a looping mp3.
+  clearDrum(which) {
+    this.drumSounds[which].stop();
   }
 }
 
@@ -67,15 +70,18 @@ class NoiseyMakey {
  ***********************************/
 class Board {
   constructor() {
-    this.dots = this.init();
+    this.reset();
+    
     this.ripples = [];
     this.isMouseDown = false;
     this.isPlaying = false;
     this.isSynth = false;
   }
   
-  init() {
+  reset() {
     this.dots = [];
+    this.dotRows = document.querySelectorAll('.container > .row');
+    
     for (let i = 0; i < 16; i++) {
       this.dots.push([]);
       for (let j = 0; j < 16; j++) {
@@ -90,4 +96,14 @@ class Board {
   play() {
     this.isPlaying = true;
   }
+  
+  toggle(i,j, sound) {
+    const dot = this.dots[i][j];
+    if (dot.on) {
+      dot.on = 0;
+    } else {
+      dot.on = sound;
+    }
+  }
+  
 }
