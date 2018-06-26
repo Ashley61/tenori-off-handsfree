@@ -79,13 +79,22 @@ button.pixel:active {
   opacity: 0.7;
 }
 
-button.pixel.on {
+button.pixel.on.synth {
   background: var(--pink);
   box-shadow: 0 0 5px var(--pink);
 }
+button.pixel.on.drums {
+  background: var(--blue);
+  box-shadow: 0 0 5px var(--blue);
+}
 
-button.pixel.ripple {
-  background: var(--blue) !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+button.pixel.ripple.synth {
+  background: #e61e8c5e !important; /*#cc6dcd80 !important; /* var(--pink) with an opacity */
+  box-shadow: 0 0 5px #e61e8c5e;
+  opacity: 1 !important;
+}
+button.pixel.ripple.drums{
+  background: #4deeea7d !important; /*#cc6dcd80 !important; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px var(--blue);
   opacity: 1 !important;
 }

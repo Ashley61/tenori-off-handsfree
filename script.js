@@ -109,6 +109,10 @@ function draw() {
       
       if (dot.on) {
         pixels[j].classList.add('on');
+        pixels[j].classList.remove('drums');
+        pixels[j].classList.remove('synth');
+        
+        pixels[j].classList.add(dot.on === 1 ? 'synth' : 'drums');
         continue;
       } else {
         pixels[j].classList.remove('on');
@@ -126,6 +130,7 @@ function draw() {
            distanceFromRippleCenter < ripple.distance + 0.7 &&
            distanceFromRippleCenter < 3.5) {
           pixels[j].classList.add('ripple');
+          pixels[j].classList.add(ripple.synth ? 'synth' : 'drums');
         }
       }
     }
@@ -144,7 +149,11 @@ function activate(event) {
   const y = parseInt(button.dataset.col);
   
   const dot = dots[x][y];
-  dot.on = isOn ? 0 : 1;
+  if (isOn) {
+    dot.on = 0;
+  } else {
+    dot.on = isSynth ? 1 : 2;
+  }
   draw();
 }
 
@@ -155,6 +164,7 @@ function play() {
   
   function playStep() {
     let playNoteOnThisColumn = -1;
+    let playSynth = false;
     // Every new full frame, add ripples for the dots that are on.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
@@ -166,8 +176,9 @@ function play() {
       }
       
       if (dots[i][currentColumn].on) {
-        ripples.push({x: i, y: currentColumn, distance: 0});
+        ripples.push({x: i, y: currentColumn, distance: 0, synth: dots[i][currentColumn].on === 1});
         playNoteOnThisColumn = i;
+        playSynth = dots[i][currentColumn].on === 1;
       } else {
         pixels[currentColumn].classList.add('now');
       }
@@ -175,10 +186,11 @@ function play() {
     
     // Play the note
     if (playNoteOnThisColumn !== -1) {
-      if (isSynth)
+      if (playSynth) {
         synth.triggerAttackRelease(SYNTH[playNoteOnThisColumn], '16n');
-      else 
+      } else {
         DRUMS[playNoteOnThisColumn % DRUMS.length].start();
+      }
     }
     
     draw();
@@ -200,6 +212,7 @@ function play() {
 
 function playOrPause() {
   const container = document.getElementById('container');
+  const btn = document.getElementById('btnPlay');
   if (isPlaying) {
     container.classList.remove('playing');
     clearTimeout(playTimeout);
@@ -211,14 +224,12 @@ function playOrPause() {
     isPlaying = true;
     Tone.Transport.start();
   }
-  updateButtons(isPlaying);
+  btn.textContent = isPlaying ? 'Pause' : 'True';
 }
 
-function updateButtons(isPlaying) {
-  const btn = document.getElementById('btnPlay');
-  if (isPlaying) {
-    btn.textContent = btn.title = 'Pause';
-  } else {
-    btn.textContent = btn.title = 'Play';
-  }
+function synthOrDrums() {
+  isSynth = !isSynth;
+  const btn = document.getElementById('btnSynth');
+  btn.textContent = isSynth ? 'Synth' : 'Drums';
+  
 }
