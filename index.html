@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/style.css">
     <script src="/script.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/0.7.1/Tone.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
   </head>  
   <body>
@@ -16,29 +18,12 @@
       It's like a Tenori-on, but shittier and in JavaScript
       </div></h1>
   
-    <button class="controls" id="btnPlay" onclick="playOrPause()" title="Play">
-      <svg class="iconPlay" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
-        <g>
-          <path fill="transparent" d="M12,20c4.41,0,8-3.59,8-8s-3.59-8-8-8c-4.41,0-8,3.59-8,8S7.59,20,12,20z M10,7.5l6,4.5l-6,4.5V7.5z"/>
-          <path d="M12,22c5.52,0,10-4.48,10-10S17.52,2,12,2C6.48,2,2,6.48,2,12S6.48,22,12,22z M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8    c-4.41,0-8-3.59-8-8S7.59,4,12,4z"/>
-          <polygon fill="black" points="10,7.5 10,16.5 16,12"/>
-        </g>
-      </svg>
-      <svg class="iconPause" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" hidden>
-        <g>
-          <path fill="transparent" d="M12,4c-4.41,0-8,3.59-8,8c0,4.41,3.59,8,8,8s8-3.59,8-8C20,7.59,16.41,4,12,4z M11,16H9V8h2V16z M15,16h-2    V8h2V16z"/>
-          <rect fill="black" x="13" y="8" width="2" height="8"/>
-          <rect fill="black" x="9" y="8" width="2" height="8"/>
-          <path d="M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10s10-4.48,10-10C22,6.48,17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8    c0-4.41,3.59-8,8-8s8,3.59,8,8C20,16.41,16.41,20,12,20z"/>
-        </g>
-      </svg>
+    <button class="controls" id="btnPlay" onclick="playOrPause()">
+      Play
     </button>
     
-    <button class="controls" id="btnReset" onclick="reset()" title="Reset">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
-        <path d="M0 0h24v24H0z" fill="none"/>
-        <path d="M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2-9c-4.97 0-9 4.03-9 9H0l4 4 4-4H5c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.51 0-2.91-.49-4.06-1.3l-1.42 1.44C8.04 20.3 9.94 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/>
-      </svg>
+    <button class="controls" id="btnReset" onclick="reset()">
+      Reset
     </button>
     
     <div class="container" id="container"></div>  

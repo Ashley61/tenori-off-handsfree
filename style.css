@@ -10,14 +10,11 @@ body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   margin: 2em;
   text-align: center;
-  --beige: #FEE4D0;
-  --pink: #CC6DCD;
   --pink: #E61E8C;
-  --blue: #129BE9;
   --blue: #4DEEEA;
   --purple: #2A298B;
   --yellow: #FFED5E;
-  --green: #AFFF00;
+  --green: #74EE16;
 }
 
 h1 {
@@ -78,13 +75,18 @@ button.pixel.ripple {
 }
 
 button.controls {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  fill: black;
-  color: black;
+  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #fff;
+  border: solid #222 2px;
+  border-radius: 5px;
+  padding: 10px 12px;
   cursor: pointer;
-  z-index: 100;
+  -webkit-box-shadow: 4px 4px 0 #222;
+  box-shadow: 4px 4px 0 #222;
+  margin: 8px;
 }
 
 .playing .pixel.now {

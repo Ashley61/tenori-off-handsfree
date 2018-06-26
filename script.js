@@ -4,9 +4,22 @@ let isMouseDown = false;
 let isPlaying = false;
 let synth;
 
-const notes = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
+const SYNTH = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
+
+const DRUM_CLASSES = [
+  'Kick',
+  'Snare',
+  'Hi-hat closed',
+  'Hi-hat open',
+  'Tom low',
+  'Tom mid',
+  'Tom high',
+  'Clap',
+  'Rim'
+];
+
 init();
 
 function init() {
@@ -134,20 +147,12 @@ function play() {
       } else {
         pixels[currentColumn].classList.add('now');
       }
-      
-      // if (currentColumn > 1) {
-      //   pixels[currentColumn - 1].classList.add('now');
-      //   pixels[currentColumn - 1].style.opacity = 0.8;
-      // }
-      // if (currentColumn > 2) {
-      //   pixels[currentColumn - 2].classList.add('now');
-      //   pixels[currentColumn - 2].style.opacity = 0.4;
-      // }
     }
     
     // Play the note
-    if (playNoteOnThisColumn !== -1)
-      synth.triggerAttackRelease(notes[playNoteOnThisColumn], '16n');
+    if (playNoteOnThisColumn !== -1) {
+      synth.triggerAttackRelease(SYNTH[playNoteOnThisColumn], '16n');
+    }
     
     draw();
     
@@ -185,13 +190,9 @@ function playOrPause() {
 function updateButtons(isPlaying) {
   const btn = document.getElementById('btnPlay');
   if (isPlaying) {
-    btn.querySelector('.iconPlay').setAttribute('hidden', true);
-    btn.querySelector('.iconPause').removeAttribute('hidden');
-    btn.title = 'Pause';
+    btn.textContent = btn.title = 'Pause';
   } else {
-    btn.querySelector('.iconPlay').removeAttribute('hidden');
-    btn.querySelector('.iconPause').setAttribute('hidden', true);
-    btn.title = 'Play';
+    btn.textContent = btn.title = 'Play';
   }
 }
 
