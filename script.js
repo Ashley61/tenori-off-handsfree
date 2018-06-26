@@ -174,6 +174,7 @@ function play() {
       for (let j = 0; j < 16; j++) {
         pixels[j].classList.remove('now');
         pixels[j].style.opacity = 1;
+        //DRUMS[j].stop();
       }
       
       if (dots[i][currentColumn].on) {
@@ -183,8 +184,8 @@ function play() {
         if (playSynth) {
           synth.triggerAttackRelease(SYNTH[i], '16n');
         } else {
-          cn
-          DRUMS[i].start();
+          Tone.context.resume();
+          DRUMS[i].start('16n');
         }
       
         

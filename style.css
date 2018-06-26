@@ -116,6 +116,7 @@ button.controls {
   -webkit-box-shadow: 4px 4px 0 var(--purple);
   box-shadow: 4px 4px 0 var(--purple);
   margin: 16px 8px;
+  width: 100px;
 }
 button.controls:hover {
   background-color: var(--green);
