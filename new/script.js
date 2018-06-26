@@ -10,12 +10,13 @@ function init() {
   if (window.location.hash) {
     try {
       board.data = decode(window.location.hash.slice(1));
-      draw();
+      board.draw();
     } catch(err) {
       window.location.hash = 'not-a-valid-pattern-url';
     }
   }
   
+  // Event listeners.
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
   document.getElementById('container').addEventListener('mouseover', activate);
@@ -31,61 +32,14 @@ function init() {
       event.preventDefault();
     }
   });
-  
 }
 
-function reset(updateLocation = false) {
+function reset(clearLocation = false) {
   board.reset();
-  draw();
+  board.draw();
   
-  if (updateLocation) {
+  if (clearLocation) {
     window.location.hash = '';
-  }
-}
-  
-function draw() {
-  // First, advance all the ripples.
-  for (let i = 0; i < ripples.length; i++) {
-    if (ripples[i].distance > 6) {
-        ripples.splice(i, 1);
-    } else {
-      ripples[i].distance += 1;
-    }
-  }
-
-  const rows = document.querySelectorAll('.container > .row');
-  for (let i = 0; i < 16; i++) {
-    const pixels = rows[i].querySelectorAll('.pixel');
-    for (let j = 0; j < 16; j++) {
-      const dot = board.data[i][j];
-      
-      if (dot.on) {
-        pixels[j].classList.add('on');
-        pixels[j].classList.remove('drums');
-        pixels[j].classList.remove('synth');
-        
-        pixels[j].classList.add(dot.on === 1 ? 'synth' : 'drums');
-        continue;
-      } else {
-        pixels[j].classList.remove('on');
-      }
-
-      // Clear the old ripple, if it exists.
-      pixels[j].classList.remove('ripple');
-      
-      // Is this pixel inside a ripple?
-      for(let r = 0; r < ripples.length; r++) {
-        const ripple = ripples[r];
-        let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
-  
-        if(distanceFromRippleCenter > ripple.distance - 0.7 && 
-           distanceFromRippleCenter < ripple.distance + 0.7 &&
-           distanceFromRippleCenter < 3.5) {
-          pixels[j].classList.add('ripple');
-          pixels[j].classList.add(ripple.synth ? 'synth' : 'drums');
-        }
-      }
-    }
   }
 }
 
@@ -97,9 +51,10 @@ function activate(event) {
     return;
   }
   
-  board.toggle(parseInt(button.dataset.row), parseInt(button.dataset.col), noiseyMakey.getSound());
+  const x = parseInt(button.dataset.row);
+  const y = parseInt(button.dataset.col);
+  board.toggleCell(x, y, noiseyMakey.getSound());
   window.location.hash = `#${encode(board.data)}`;
-  draw();
 }
 
 let playTimeout;
@@ -138,7 +93,7 @@ function play() {
       }
     }
     
-    draw();
+    board.draw();
     
     // Get ready for the next column.
     currentColumn++;
@@ -173,7 +128,7 @@ function loadDemo(which) {
       break;
   }
   window.location.hash = `#${encode(board.data)}`;
-  draw();
+  board.draw();
 }
 
 /***********************************

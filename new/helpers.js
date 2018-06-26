@@ -3,7 +3,7 @@
  ***********************************/
 class NoiseyMakey {
   constructor() {
-    this.synth = this.makeASynth()
+    this.synth = this._makeASynth()
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
@@ -30,17 +30,11 @@ class NoiseyMakey {
     ];
   }
   
-  makeASynth() {
-    // Set up tone.
-    const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
-    synth.connect(new Tone.Gain(0.5).toMaster());
-    return synth;
-  }
-  
-   play() {
+  play() {
     Tone.context.resume();
     Tone.Transport.start();
   }
+  
   pause() {
     Tone.Transport.pause();
   }
@@ -63,11 +57,18 @@ class NoiseyMakey {
   clearDrum(which) {
     this.drumSounds[which].stop();
   }
+  
+  _makeASynth() {
+    // Set up tone.
+    const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
+    synth.connect(new Tone.Gain(0.5).toMaster());
+    return synth;
+  }
 }
 
 /***********************************
  * Board of dots
- ***********************************/
+ ***********************************/]
 class Board {
   constructor() {
     this.data = [];
@@ -76,10 +77,7 @@ class Board {
     
     this.reset();
     
-    this.ripples = [];
-    this.isMouseDown = false;
     this.isPlaying = false;
-    this.isSynth = false;
   }
   
   reset() {
@@ -114,13 +112,84 @@ class Board {
     this.isPlaying = true;
   }
   
-  toggle(i,j, sound) {
+  // Toggles a particular dot from on to off.
+  toggleCell(i,j, sound) {
     const dot = this.data[i][j];
     if (dot.on) {
       dot.on = 0;
     } else {
       dot.on = sound;
     }
+    
+    this.draw();
   }
   
+  // Paints the current state of the world.
+  draw() {
+    this._updateRipples();
+    
+    for (let i = 0; i < 16; i++) {
+      const pixels = this.ui.dotRows[i].querySelectorAll('.pixel');
+      
+      for (let j = 0; j < 16; j++) {
+        const cell = board.data[i][j];
+
+        // If the dot is on, set it on with the right sound.
+        if (this._paintSoundCell(board.data[i][j], pixels[j])) {
+          continue;
+        }
+        
+        this._paintRippleCell(pixels[j], i, j);
+      }
+    }
+  }
+  
+  _updateRipples() {
+    for (let i = 0; i < this.ripples.length; i++) {
+      // If the ripples it too big, nuke it.
+      if (this.ripples[i].distance > 6) {
+          this.ripples.splice(i, 1);
+      } else {
+        this.ripples[i].distance += 1;
+      }
+    }
+  }
+  
+   // Displays the right sound on a UI cell, if it's on.
+  _paintSoundCell(dataCell, uiCell) {
+    const didIt = false;
+    if (dataCell.on) {
+      uiCell.classList.add('on');
+      
+      // Display the correct sound.
+      uiCell.classList.remove('drums');
+      uiCell.classList.remove('synth');
+      uiCell.classList.add(dataCell.on === 1 ? 'synth' : 'drums');
+      didIt = true;
+    } else {
+      uiCell.classList.remove('on');
+    }
+    return didIt;
+  }
+  
+  _paintRippleCell(uiCell, i, j) {
+    // Clear the old ripple, if it exists.
+    uiCell.classList.remove('ripple');
+
+    // Is this pixel inside a ripple?
+    for(let r = 0; r < this.ripples.length; r++) {
+      const ripple = this.ripples[r];
+      
+      // Math. We basically want to draw a donut around the ripple center.
+      // A distance is sqrt(x1-x2)^2 + (
+      let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
+
+      if(distanceFromRippleCenter > ripple.distance - 0.7 && 
+         distanceFromRippleCenter < ripple.distance + 0.7 &&
+         distanceFromRippleCenter < 3.5) {
+        pixels[j].classList.add('ripple');
+        pixels[j].classList.add(ripple.synth ? 'synth' : 'drums');
+      }
+    }
+  }
 }
