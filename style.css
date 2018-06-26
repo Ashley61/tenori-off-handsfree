@@ -35,6 +35,12 @@ h1 > .subtitle {
   color: #740DAC;
 }
 
+h2 {
+  font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
+
 footer {
   text-align: center;
   padding: 14px; 
@@ -133,4 +139,18 @@ button.controls.synth {
 }
 button.controls.drums {
   background-color: var(--blue);
+}
+
+.help {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  border: solid var(--purple) 2px;
+  color: var(--purple);
+  border-radius: 5px;
+  padding: 10px 12px;
+  -webkit-box-shadow: 4px 4px 0 var(--purple);
+  box-shadow: 4px 4px 0 var(--purple);
+  max-width: 500px;
+  margin: 14px auto;
 }

@@ -185,7 +185,6 @@ function play() {
           synth.triggerAttackRelease(SYNTH[i], '16n');
         } else {
           DRUMS[i].start(Tone.now(), 0);
-          console.log('drum', i);
         }
       } else {
         pixels[currentColumn].classList.add('now');
@@ -228,19 +227,13 @@ function playOrPause() {
 }
 
 function playSynth() {
+  isSynth = true;
+  document.getElementById('btnSynth').classList.add('synth');
+  document.getElementById('btnDrums').classList.remove('drums');
 }
-function synthOrDrums() {
-  isSynth = !isSynth;
-  const btn = document.getElementById('btnSynth');
-  btn.classList.remove('synth');
-  btn.classList.remove('drums');
-  
-  if (isSynth) {
-    btn.textContent = 'Synth';
-    btn.classList.add('synth');
-  } else {
-    btn.textContent = 'Drums';
-    btn.classList.add('drums');
-  }
-  
+
+function playDrums() {
+  isSynth = false;
+  document.getElementById('btnSynth').classList.remove('synth');
+  document.getElementById('btnDrums').classList.add('drums');
 }
