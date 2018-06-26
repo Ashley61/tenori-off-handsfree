@@ -152,20 +152,20 @@ button.pixel.ripple.synth {
   opacity: 1 !important;
 }
 
-button.pixel.ripple.drums{
+button.pixel.ripple.drums {
   background: #4deeea40; /* var(--blue) with an opacity */
   box-shadow: 0 0 5px #4deeea40;
-  opacity: 1 !important;
-}
-
-.playing .pixel.now {
-  background: var(--green) !important; 
   opacity: 1 !important;
 }
 
 .playing .pixel.on.active {
   transform: scale(1.5);
   z-index:10;
+}
+
+.playing .bar {
+  background: var(--green) !important; 
+  opacity: 1 !important;
 }
 
 @media (max-width: 500px) {

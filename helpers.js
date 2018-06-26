@@ -175,11 +175,16 @@ class Board {
     this.ripples = [];
     const bars = this.ui.container.querySelectorAll('.bar');
     const rips = this.ui.container.querySelectorAll('.ripple');
+    const actives = this.ui.container.querySelectorAll('.active');
+    
     for (let bar of bars) {
       bar.classList.remove('bar');
     }
     for (let rip of rips) {
       rip.classList.remove('ripple');
+    } 
+    for (let active of actives) {
+      active.classList.remove('active');
     } 
   }
   
@@ -206,6 +211,9 @@ class Board {
     let didIt = false;
     if (dataCell.on) {
       uiCell.classList.add('on');
+      
+      // You may have clicked on this when it was part of a ripple.
+      uiCell.classList.remove('ripple');
       
       // Display the correct sound.
       uiCell.classList.remove('drums');
