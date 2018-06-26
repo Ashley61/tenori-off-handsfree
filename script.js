@@ -51,7 +51,20 @@ function init() {
   gain.toMaster();
   
   // Draw the grid.
-  reset();
+  
+  // If there is a location, parse it.
+  if (window.location.hash) {
+    try {
+      const decoded = atob(window.location.hash.slice(1));
+      parsePattern(decoded);
+    } catch(err) {
+      window.location.hash = 'not-a-valid-pattern-url';
+      updateGrid();
+    }
+  } else {
+    reset();
+  }
+
   
   //document.getElementById('container').addEventListener('click', activate);
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
@@ -263,6 +276,24 @@ function testOutput() {
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 16; j++) {
       if (arr[i][j].on) {
+        bits += arr[i][j].on
+      } else {
+        bits += 0;
+      }
+    }
+  }
+  console.log(bits);
+  const encoded = btoa(bits);
+  
+  console.log(encoded);
+}
+
+function testInput() {
+  const arr = JSON.parse('[[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{"on":2},{"on":2},{"on":2},{"on":2},{"on":2},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{"on":0},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{"on":2},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{"on":2},{},{},{"on":0},{"on":2},{},{},{},{"on":2},{},{},{},{"on":2},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],[{},{},{"on":0},{"on":0},{"on":0},{},{"on":1},{},{"on":1},{},{},{},{},{},{},{}],[{},{"on":0},{"on":0},{"on":0},{},{"on":0},{},{"on":1},{},{"on":1},{},{"on":1},{},{"on":1},{},{"on":1}],[{"on":0},{"on":0},{"on":1},{},{"on":0},{"on":0},{"on":0},{"on":0},{"on":1},{},{"on":1},{},{"on":1},{},{"on":1},{}],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]');
+  let bits = ''
+  for (let i = 0; i < 16; i++) {
+    for (let j = 0; j < 16; j++) {
+      if (dots[i][j].on) {
         bits += arr[i][j].on
       } else {
         bits += 0;
