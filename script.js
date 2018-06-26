@@ -51,28 +51,27 @@ function init() {
   gain.toMaster();
   
   // Draw the grid.
+  reset();
   
   // If there is a location, parse it.
   if (window.location.hash) {
     try {
-      
+      dots = decode(window.location.hash.slice(1));
+      draw();
     } catch(err) {
       window.location.hash = 'not-a-valid-pattern-url';
-      //updateGrid();
     }
-  } else {
-    reset();
   }
 
-  
   //document.getElementById('container').addEventListener('click', activate);
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
   document.getElementById('container').addEventListener('mouseover', activate);
 }
 
-function reset() {
+function reset(updateLocation = false) {
   const container = document.getElementById('container');
+  dots = [];
   ripples = [];
   container.innerHTML = '';
   
@@ -94,10 +93,13 @@ function reset() {
     }
   }
   draw();
+  
+  if (updateLocation) {
+    window.location.hash = '';
+  }
 }
   
 function draw() {
-  
   // First, advance all the ripples.
   for (let i = 0; i < ripples.length; i++) {
     if (ripples[i].distance > 6) {
@@ -160,6 +162,10 @@ function activate(event) {
   } else {
     dot.on = isSynth ? 1 : 2;
   }
+  
+  const bits = encode(dots);
+  window.location.hash = `#${bits}`;
+  
   draw();
 }
 
@@ -269,8 +275,7 @@ function showHelp() {
   }
 }
 
-function encode(str) {
-  const arr = JSON.parse(str);
+function encode(arr) {
   let bits = ''
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 16; j++) {
@@ -293,7 +298,7 @@ function decode(bits) {
       arr[i][j] = {};
       const c = bits.charAt(i * 16 + j);
       if (c != '0') {
-        arr[i][j].on = c;
+        arr[i][j].on = parseInt(c);
       }
     }
   }
