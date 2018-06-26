@@ -1,4 +1,5 @@
 let isMouseDown = false;
+let isAnimating = false;
 
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
@@ -17,9 +18,9 @@ function init() {
   }
   
   // Event listeners.
-  document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; activate(event)});
+  document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; clickCell(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
-  document.getElementById('container').addEventListener('mouseover', activate);
+  document.getElementById('container').addEventListener('mouseover', clickCell);
   document.body.addEventListener('keypress', (event) => {
     if (event.keyCode == 115) { // s
       playSynth();
@@ -36,14 +37,13 @@ function init() {
 
 function reset(clearLocation = false) {
   board.reset();
-  board.draw();
   
   if (clearLocation) {
     window.location.hash = '';
   }
 }
 
-function activate(event) {
+function clickCell(event) {
   const button = event.target;
   
   // We only care about clicking on the buttons, not the container itself.
@@ -57,25 +57,20 @@ function activate(event) {
   window.location.hash = `#${encode(board.data)}`;
 }
 
-let playTimeout;
-function play() {
+let animationIndex;
+function animate() {
   let currentColumn = 0;
+  animationIndex = setTimeout(step, 100);
+  
   const rows = document.querySelectorAll('.container > .row');
   
-  function playStep() {
-    let playSynth = false;
-    
+  // An animation step.
+  function step() {
     // Every new full frame, add ripples for the dots that are on.
     for (let i = 0; i < 16; i++) {
       const pixels = rows[i].querySelectorAll('.pixel');
       
-      // Reset the previous frame.
-      for (let j = 0; j < 16; j++) {
-        pixels[j].classList.remove('now');
-        pixels[j].classList.remove('active');
-        
-        noiseyMakey.clearDrum(i);
-      }
+      board.clearLine();
       
       if (board.data[i][currentColumn].on) {
         ripples.push({x: i, y: currentColumn, distance: 0, synth: board.data[i][currentColumn].on === 1});
@@ -100,14 +95,14 @@ function play() {
     if (currentColumn === 16) {
       currentColumn = 0;
     }
-    if (board.isPlaying) {
+    if (isAnimating) {
       setTimeout(playStep, 100);
     } else {
-      clearTimeout(playTimeout);
+      clearTimeout(animationIndex);
       currentColumn = 0;
     }
   }
-  playTimeout = setTimeout(playStep, 100);
+  
 }
 
 
@@ -138,19 +133,21 @@ function loadDemo(which) {
 function playOrPause() {
   const container = document.getElementById('container');
   const btn = document.getElementById('btnPlay');
-  if (board.isPlaying) {
+  if (isAnimating) {
     container.classList.remove('playing');
     clearTimeout(playTimeout);
     
+    isAnimating = false;
     noiseyMakey.pause();
-    board.pause();
+    
   } else {
     container.classList.add('playing');
-    play();
-    board.play();
+    animate();
+    
+    isAnimating = true;
     noiseyMakey.play();
   }
-  btn.textContent = board.isPlaying ? 'Pause' : 'Play!';
+  btn.textContent = isAnimating? 'Pause' : 'Play!';
 }
 
 function playSynth() {
@@ -177,7 +174,6 @@ function showHelp() {
 /***********************************
  * Save and load application state
  ***********************************/
-
 function encode(arr) {
   let bits = ''
   for (let i = 0; i < 16; i++) {

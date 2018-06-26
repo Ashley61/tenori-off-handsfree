@@ -3,7 +3,8 @@
  ***********************************/
 class NoiseyMakey {
   constructor() {
-    this.synth = this._makeASynth()
+    this.synth = this._makeASynth();
+    this.isSynth = true;
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
@@ -68,7 +69,7 @@ class NoiseyMakey {
 
 /***********************************
  * Board of dots
- ***********************************/]
+ ***********************************/
 class Board {
   constructor() {
     this.data = [];
@@ -102,14 +103,7 @@ class Board {
     }
     
     this.ui.dotRows = document.querySelectorAll('.container > .row');
-  }
-  
-  pause() {
-    this.isPlaying = false;
-  }
-  
-  play() {
-    this.isPlaying = true;
+    this.draw();
   }
   
   // Toggles a particular dot from on to off.
@@ -132,16 +126,24 @@ class Board {
       const pixels = this.ui.dotRows[i].querySelectorAll('.pixel');
       
       for (let j = 0; j < 16; j++) {
-        const cell = board.data[i][j];
-
-        // If the dot is on, set it on with the right sound.
-        if (this._paintSoundCell(board.data[i][j], pixels[j])) {
+        // Maybe it's a sound?
+        if (this._paintSoundCell(this.data[i][j], pixels[j])) {
           continue;
         }
-        
+        // Maybe it's part of a ripple?
         this._paintRippleCell(pixels[j], i, j);
       }
     }
+  }
+  
+  // Clears the green line that represents time.
+  clearLine() {
+    for (let j = 0; j < 16; j++) {
+      pixels[j].classList.remove('now');
+      pixels[j].classList.remove('active');
+      noiseyMakey.clearDrum(i);
+    }
+
   }
   
   _updateRipples() {
@@ -157,7 +159,7 @@ class Board {
   
    // Displays the right sound on a UI cell, if it's on.
   _paintSoundCell(dataCell, uiCell) {
-    const didIt = false;
+    let didIt = false;
     if (dataCell.on) {
       uiCell.classList.add('on');
       
@@ -181,14 +183,16 @@ class Board {
       const ripple = this.ripples[r];
       
       // Math. We basically want to draw a donut around the ripple center.
-      // A distance is sqrt(x1-x2)^2 + (
+      // A distance is sqrt[(x1-x2)^2 + (y1-y2)^2]
       let distanceFromRippleCenter = Math.sqrt((i-ripple.x)*(i-ripple.x) + (j-ripple.y)*(j-ripple.y));
-
+      
+      // If you're in this magical donut with magical numbers I crafted
+      // by hand, then congratulations: you're a ripple cell!
       if(distanceFromRippleCenter > ripple.distance - 0.7 && 
          distanceFromRippleCenter < ripple.distance + 0.7 &&
          distanceFromRippleCenter < 3.5) {
-        pixels[j].classList.add('ripple');
-        pixels[j].classList.add(ripple.synth ? 'synth' : 'drums');
+        uiCell.classList.add('ripple');
+        uiCell.classList.add(ripple.synth ? 'synth' : 'drums');
       }
     }
   }
