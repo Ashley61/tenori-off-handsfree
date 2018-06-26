@@ -70,6 +70,10 @@ class NoiseyMakey {
  ***********************************/
 class Board {
   constructor() {
+    this.data = [];
+    this.ripples = [];
+    this.ui = {}; // gets populated by this.reset();
+    
     this.reset();
     
     this.ripples = [];
@@ -79,26 +83,39 @@ class Board {
   }
   
   reset() {
-    this.dots = [];
-    this.dotRows = document.querySelectorAll('.container > .row');
+    this.data = [];
+    this.ui.container = document.getElementById('container');
+    this.ui.container.innerHTML = '';
     
     for (let i = 0; i < 16; i++) {
-      this.dots.push([]);
+      this.data.push([]);
+      const rowEl = document.createElement('div');
+      rowEl.classList.add('row');
+      this.ui.container.appendChild(rowEl);
+      
       for (let j = 0; j < 16; j++) {
-        this.dots[i][j] = {};
+        this.data[i][j] = {};
+        const button = document.createElement('button');
+        button.classList.add('pixel');
+        button.dataset.row = i;
+        button.dataset.col = j;
+        rowEl.appendChild(button);
       }
     }
+    
+    this.ui.dotRows = document.querySelectorAll('.container > .row');
   }
   
   pause() {
     this.isPlaying = false;
   }
+  
   play() {
     this.isPlaying = true;
   }
   
   toggle(i,j, sound) {
-    const dot = this.dots[i][j];
+    const dot = this.data[i][j];
     if (dot.on) {
       dot.on = 0;
     } else {
