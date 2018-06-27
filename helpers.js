@@ -27,8 +27,6 @@ class NoiseyMakey {
       new Tone.Player(`${sampleBaseUrl}/909-rim-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster()
     ];
-    
-    debugger
   }
   
   play() {
@@ -51,6 +49,8 @@ class NoiseyMakey {
   }
   
   playDrum(which) {
+    
+    this.magentaPlayer.drumKit.snare.volume.value = -20;
     if (which < this.magentaPitches.length) {
       this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
     } else {
@@ -68,6 +68,7 @@ class NoiseyMakey {
   _makeASynth() {
     // Set up tone.
     const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
+    
     synth.connect(new Tone.Gain(0.5).toMaster());
     return synth;
   }
