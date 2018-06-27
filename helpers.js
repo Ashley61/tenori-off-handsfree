@@ -14,9 +14,8 @@ class NoiseyMakey {
     this.magentaPlayer = new mm.Player();
     
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
-    this.magentaPitches = [35, 38, 42, 46, 45, 48, 50, 49, 51]; //35, 27, 29, 47, 49, 51, 42;
+    this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51]; //35, 27, 29, 47, 55, 52, 44;
 
-    
     // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
     let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
     this.drumSounds = [
@@ -147,7 +146,7 @@ class Board {
   getSynthSequence() {
     const sequence = {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
     
-    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 49, 51, 42];
+    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 55, 52, 44];
     for (let i = 0; i < 16; i++) {
       for (let j = 0; j < 16; j++) {
         // Found a synth note!
@@ -171,21 +170,26 @@ class Board {
       console.log('Something mysterious went wrong, bailing');
     }
     
-    debugger
-    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 49, 51, 42];
+    const magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51];
+    const restOfPitches = [35, 27, 29, 47, 55, 52, 44];
     for (let i = 0; i < sequence.notes.length; i++) {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
       
       const note = sequence.notes[i];      
-      const row = drumPitches.indexOf(note.pitch);
+      const row = magentaPitches.indexOf(note.pitch);
       const col = note.quantizedStartStep;
       
       if (row !== -1) {
         // Don't draw on top of a synth tho
         if (this.data[row][col].on !== 1) {
+          // Sometimes, randomly, pick from the other sound for the same kind of drum.
+          
           this.data[row][col].on = 2;
         }
-      }    }
+      } else {
+        debugger
+      }
+    }
     this.draw();
   }
   
