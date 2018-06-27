@@ -27,6 +27,7 @@ h1 {
   font-size: 60px;
   color: var(--pink);
   margin: 0;
+  text-shadow: -4px 4px 0 var(--blue);
 }
 
 h2 {
