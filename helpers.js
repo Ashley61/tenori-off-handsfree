@@ -97,6 +97,7 @@ class Board {
       for (let j = 0; j < 16; j++) {
         this.data[i][j] = {};
         const button = document.createElement('button');
+        button.setAttribute('aria-label', 'cell, empty');
         button.classList.add('pixel');
         button.dataset.row = i;
         button.dataset.col = j;
@@ -109,14 +110,15 @@ class Board {
   }
   
   // Toggles a particular dot from on to off.
-  toggleCell(i,j, sound) {
+  toggleCell(i,j, sound, uiButton) {
     const dot = this.data[i][j];
     if (dot.on) {
       dot.on = 0;
     } else {
       dot.on = sound;
     }
-    
+    debugger
+    uiButton.setAttribute('aria-label', sound === 1 ? 'cell, empty');
     this.draw();
   }
   

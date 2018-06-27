@@ -53,7 +53,7 @@ function clickCell(event) {
   
   const x = parseInt(button.dataset.row);
   const y = parseInt(button.dataset.col);
-  board.toggleCell(x, y, noiseyMakey.getSound());
+  board.toggleCell(x, y, noiseyMakey.getSound(), button);
   
   // New board state, so update the URL.
   window.location.hash = `#${encode(board.data)}`;
