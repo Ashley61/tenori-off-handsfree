@@ -103,6 +103,12 @@ a:link, a:visited {
   margin: 4px 8px;
 }
 
+
+[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .controls > input {
   font-family: inherit;
   font-size: inherit;

@@ -142,8 +142,23 @@ class Board {
     this.draw();
   }
   
+  // Take the toggled synth notes so that Magenta can dream up some drums.
   getSynthSequence() {
-    {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
+    const sequence = {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
+    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 36, 48, 42, 50, 45, 49, 51];
+    
+    for (let i = 0; i < 16; i++) {
+      for (let j = 0; j < 16; j++) {
+        // Found a synth note!
+        if (this.data[i][j].on === 1) {
+          sequence.notes.push(
+            {pitch: drumPitches[i], quantizedStartStep: j, isDrum: true, quantizedEndStep: j + 1},
+          );
+        }
+      }
+    }
+    
+    return sequence;
   }
   
   // Paints the current state of the world.

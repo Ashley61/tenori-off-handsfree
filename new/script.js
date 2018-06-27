@@ -14,6 +14,10 @@ let rnn = new mm.MusicRNN(
 Promise.all([
   rnn.initialize()
 ]).then(([vars]) => {
+  const btn = document.getElementById('btnAuto');
+  btn.removeAttribute('disabled');
+  btn.textContent = 'Generate drums!';
+  
   console.log('RNN ready');
 });
 
