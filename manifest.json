@@ -1,8 +1,8 @@
 {
   "name": "tenori-off",
-  "short_name": "tenori-off",
+  "short_name": "tenoff",
   "description": "Simple music sequencer",
-  "start_url": "/",
+  "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#E61E8C",
   "background_color": "#E61E8C",

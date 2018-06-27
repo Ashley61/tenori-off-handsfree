@@ -34,6 +34,9 @@ function init() {
       event.preventDefault();
     }
   });
+  
+  // Install a fake service worker. Sigh, don't judge.
+  window.onload = ()=>{ navigator.serviceWorker.register('./sw.js')}
 }
 
 function reset(clearLocation = false) {
