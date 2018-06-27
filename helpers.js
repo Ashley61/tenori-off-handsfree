@@ -4,6 +4,8 @@
 class NoiseyMakey {
   constructor() {
     this.synth = this._makeASynth();
+    this.wham = this._makeAWham();
+    
     this.isSynth = true;
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
@@ -66,6 +68,24 @@ class NoiseyMakey {
     const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
     synth.connect(new Tone.Gain(0.5).toMaster());
     return synth;
+  }
+  
+  _makeAWham() {
+    const synth = new Tone.PolySynth(3, Tone.Synth, {
+			"oscillator" : {
+				"type" : "fatsawtooth",
+				"count" : 3,
+				"spread" : 30
+			},
+			"envelope": {
+				"attack": 0.01,
+				"decay": 0.1,
+				"sustain": 0.5,
+				"release": 0.4,
+				"attackCurve" : "exponential"
+			},
+		}).toMaster();
+		return synth;
   }
 }
 
