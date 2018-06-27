@@ -16,4 +16,4 @@ The **Improvise** button will auto generate drums to match your synth using
 
 ### Ok, go make fun shit now!
 
-![gif](https://user-images.githubusercontent.com/1369170/41939945-11167450-794c-11e8-88e6-17dc4b8c73bf.gif)
+![gif](https://user-images.githubusercontent.com/1369170/41994031-05b13eea-7a02-11e8-9948-077a0a56b038.gif)
