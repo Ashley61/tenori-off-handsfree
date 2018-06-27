@@ -96,7 +96,7 @@ button.controls {
 }
 
 button.controls:hover {
-  background-color: var(--green);
+  background-color: var(--yellow) !important;
   -webkit-box-shadow: 2px 2px 0 var(--purple);
   box-shadow: 2px 2px 0 var(--purple);
 }
@@ -108,6 +108,10 @@ button.controls.synth {
 
 button.controls.drums {
   background-color: var(--blue);
+}
+
+#btnPlay {
+  background-color: var(--green);
 }
 
 /***********************
