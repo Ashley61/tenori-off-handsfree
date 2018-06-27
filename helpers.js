@@ -173,6 +173,7 @@ class Board {
       console.log('Something mysterious went wrong, bailing');
     }
     
+    // Took these from https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
     const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 
                          35, 27, 28, 31, 32, 33, 34, 37, 39];
     for (let note of sequence.notes) {
