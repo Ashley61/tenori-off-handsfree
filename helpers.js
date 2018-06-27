@@ -173,19 +173,23 @@ class Board {
       console.log('Something mysterious went wrong, bailing');
     }
     
-    // Took these from https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
-    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 
-                         35, 27, 28, 31, 32, 33, 34, 37, 39];
-    for (let note of sequence.notes) {
+    // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
+    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 44, 67, 29, 47, 30];
+        for (let note of sequence.notes) {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
       const row = drumPitches.indexOf(note.pitch);
+
       const col = note.quantizedStartStep;
       
-      // Don't draw on top of a synth tho
-      if (this.data[row][col].on !== 1) {
-        this.data[row][col].on = 2;
-      }
-    }
+      console.log(row, note.pitch);
+      
+      if (row !== -1) {
+        debugger
+        // Don't draw on top of a synth tho
+        if (this.data[row][col].on !== 1) {
+          this.data[row][col].on = 2;
+        }
+      }    }
     this.draw();
   }
   
@@ -317,4 +321,4 @@ class Board {
       }
     }
   }
-}
+}4
