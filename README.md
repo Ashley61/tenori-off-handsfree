@@ -2,18 +2,18 @@ tenori-off
 =================
 ## What is this?
 
-A [Tenori-on](https://en.wikipedia.org/wiki/Tenori-on) is a dope electronic music
-instrument that Yamaha made for a hot minute. It's a fancy "sequencer", I'm told. 
-
+A ✨[Tenori-on](https://en.wikipedia.org/wiki/Tenori-on)✨ is a dope electronic music
+instrument sequencer thinkie that Yamaha made for a hot minute.  
 I don't particularly like electronic music,
-but I love pixels and patterns and generating things out of pixels and patterns. This means
-I **love** the Tenori-on. However, I have never seen one in real life, and they're
+but I love pixels and patterns and generating things out of pixels and patterns, which means
+I **LOVE** the Tenori-on
+
+owever, I have never seen one in real life, and they're
 kind of [expensive](https://reverb.com/item/11642149-yamaha-tenori-on) so I made 
 a shitty JavaScript version of what I think it kind of looks like, since I don't
 aaaaactually know.
 
-You can change between drums or a synth sound, and send the
-url to a pal to have them listen to your masterpiece. It prolly has bugs so uhh, refresh when you're stuck.
+You can change between drums or a synth sound (also using the **D** or **S** keys). The URL also holds the state, so you can send it to a pal to have them listen to your masterpiece. If you hit a bug, refreshing usually makes it go away.
 
 ### Ok, go make fun shit now!
 
