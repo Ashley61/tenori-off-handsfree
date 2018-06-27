@@ -149,7 +149,6 @@ class Board {
     // I made up the last 7 pitches because I needed more.
     const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 
                          35, 27, 28, 31, 32, 33, 34, 37, 39];
-                         //136, 148, 142, 150, 145, 149, 151];
     
     for (let i = 0; i < 16; i++) {
       for (let j = 0; j < 16; j++) {
@@ -180,7 +179,11 @@ class Board {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
       const row = drumPitches.indexOf(note.pitch);
       const col = note.quantizedStartStep;
-      this.data[row][col].on = 2;
+      
+      // Don't draw on top of a synth tho
+      if (this.data[row][col].on === 0) {
+        this.data[row][col].on = 2;
+      }
     }
     this.draw();
   }
