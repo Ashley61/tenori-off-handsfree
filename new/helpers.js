@@ -145,7 +145,7 @@ class Board {
   // Take the toggled synth notes so that Magenta can dream up some drums.
   getSynthSequence() {
     const sequence = {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
-    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 36, 48, 42, 50, 45, 49, 51];
+    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 136, 148, 142, 150, 145, 149, 151];
     
     for (let i = 0; i < 16; i++) {
       for (let j = 0; j < 16; j++) {
@@ -155,10 +155,30 @@ class Board {
             {pitch: drumPitches[i], quantizedStartStep: j, isDrum: true, quantizedEndStep: j + 1},
           );
         }
+        // If it's a drum note, delete it pre-emptively.
+        if (this.data[i][j].on === 2) {
+          this.data[i][j].on = 0;
+        }
       }
     }
     
     return sequence;
+  }
+  
+  drawDreamSequence(sequence, originalSequence) {
+    if (JSON.stringify(sequence.notes) === JSON.stringify(originalSequence.notes)) {
+      debugger
+    }
+    
+    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 136, 148, 142, 150, 145, 149, 151];
+    debugger
+    for (let note of sequence.notes) {
+      // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
+      const row = drumPitches.indexOf(note.pitch);
+      const col = note.quantizedStartStep;
+      this.data[row][col].on = 2;
+    }
+    this.draw();
   }
   
   // Paints the current state of the world.

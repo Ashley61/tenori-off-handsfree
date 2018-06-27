@@ -16,9 +16,7 @@ Promise.all([
 ]).then(([vars]) => {
   const btn = document.getElementById('btnAuto');
   btn.removeAttribute('disabled');
-  btn.textContent = 'Generate drums!';
-  
-  console.log('RNN ready');
+  btn.textContent = 'Dream up drums!';
 });
 
 init();
@@ -174,7 +172,9 @@ function showHelp() {
 
 function autoDrums() {
   const sequence = board.getSynthSequence(); 
-
+  const dreamSequence = rnn.continueSequence(sequence, 16, 1).then((seq) => {
+    board.drawDreamSequence(seq);
+  });
 }
 
 /***********************************
