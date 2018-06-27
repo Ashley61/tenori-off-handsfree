@@ -94,6 +94,12 @@ a:link, a:visited {
   transform: translateX(-50%);
 }
 
+.dialog > p > b {
+  background: var(--yellow);
+  padding: 3px;
+  border-radius: 3px;
+}
+
 /***********************
  * Action buttons
  ***********************/

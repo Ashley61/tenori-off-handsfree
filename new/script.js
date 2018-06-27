@@ -11,12 +11,13 @@ const board = new Board();
 let rnn = new mm.MusicRNN(
     'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
 );
+
 Promise.all([
   rnn.initialize()
 ]).then(([vars]) => {
   const btn = document.getElementById('btnAuto');
   btn.removeAttribute('disabled');
-  btn.textContent = 'Dream up drums!';
+  btn.textContent = 'Improvise drums!!';
 });
 
 init();
@@ -172,7 +173,7 @@ function showHelp() {
 
 function autoDrums() {
   const sequence = board.getSynthSequence(); 
-  const dreamSequence = rnn.continueSequence(sequence, 16, 1).then((dream) => {
+  const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
     board.drawDreamSequence(dream, sequence);
     // New board state, so update the URL.
     window.location.hash = `#${encode(board.data)}`;
