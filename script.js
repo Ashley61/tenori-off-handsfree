@@ -16,6 +16,8 @@ function init() {
   // If there is a location, parse it.
   if (window.location.hash) {
     try {
+      const hash = window.location.hash.slice(1);
+      const parsed = hash.split('&');
       board.data = decode(window.location.hash.slice(1));
       board.draw();
     } catch(err) {
@@ -65,8 +67,7 @@ function clickCell(event) {
   const y = parseInt(button.dataset.col);
   board.toggleCell(x, y, noiseyMakey.getSound(), button);
   
-  // New board state, so update the URL.
-  window.location.hash = `#${encode(board.data)}`;
+  updateLocation();
 }
 
 function animate() {
@@ -120,7 +121,7 @@ function loadDemo(which) {
       board.data = decode('0000000000000000000111100000000000000000000000000011111000000000000010000000000000010000010000000010000001000000000000000100000000000000100000000000001100000000000000000010010000000000001001000000000000100100000000000000010000000000000010000000000000000000');
       break;
   }
-  window.location.hash = `#${encode(board.data)}`;
+  updateLocation();
   board.draw();
 }
 
@@ -166,34 +167,47 @@ function autoDrums() {
 
   // Load the magenta model if we haven't already.
   if (btn.hasAttribute('not-loaded')) {
-    btn.textContent = 'Loading...';
+    loadRNN();
+  } else {
     btn.setAttribute('disabled', true);
     
-    rnn = new mm.MusicRNN(
-        'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
-    );
-    Promise.all([
-      rnn.initialize()
-    ]).then(([vars]) => {
-      const btn = document.getElementById('btnAuto');
-      btn.removeAttribute('not-loaded');
-      btn.removeAttribute('disabled');
-      btn.textContent = 'Improvise!';
-    });
-  } else {
-    const sequence = board.getSynthSequence(); 
-    const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
-      board.drawDreamSequence(dream, sequence);
-      // New board state, so update the URL.
-      window.location.hash = `#${encode(board.data)}`;
+    // Don't block the UI thread while this is happening.
+    setTimeout(() => {
+      const sequence = board.getSynthSequence(); 
+      const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
+        board.drawDreamSequence(dream, sequence);
+        
+        updateLocation();
+        btn.removeAttribute('disabled');
+      });
     });
   }
-  
+}
+
+function loadRNN() {
+  const btn = document.getElementById('btnAuto');
+  btn.textContent = 'Loading...';
+  btn.setAttribute('disabled', true);
+  rnn = new mm.MusicRNN(
+    'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+  );
+  Promise.all([
+    rnn.initialize()
+  ]).then(([vars]) => {
+    const btn = document.getElementById('btnAuto');
+    btn.removeAttribute('not-loaded');
+    btn.removeAttribute('disabled');
+    btn.textContent = 'Improvise!';
+  });
 }
 
 /***********************************
  * Save and load application state
  ***********************************/
+function updateLocation() {
+  // New board state, so update the URL.
+  window.location.hash = `#${encode(board.data)}`;
+}
 function encode(arr) {
   let bits = '';
   for (let i = 0; i < 16; i++) {
