@@ -171,15 +171,15 @@ button.pixel.on.drums {
 }
 
 button.pixel.ripple.synth {
-  background: #e61e8c38; /* var(--pink) with an opacity */
-  box-shadow: 0 0 5px #e61e8c38;
-  opacity: 1 !important;
+  background: var(--pink);
+  opacity: 0.3;
+  box-shadow: 0 0 5px var(--pink);
 }
 
 button.pixel.ripple.drums {
-  background: #4deeea40; /* var(--blue) with an opacity */
-  box-shadow: 0 0 5px #4deeea40;
-  opacity: 1 !important;
+  background: var(--blue);
+  opacity: 0.3;
+  box-shadow: 0 0 5px var(--purple);
 }
 
 .playing .pixel.on.active {
