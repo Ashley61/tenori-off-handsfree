@@ -163,6 +163,8 @@ function showHelp() {
 
 function autoDrums() {
   const btn = document.getElementById('btnAuto');
+  
+  // Load the magenta model if we haven't already.
   if (btn.hasAttribute('not-loaded')) {
     btn.textContent = 'Loading...';
     btn.setAttribute('disabled', true);
@@ -174,16 +176,19 @@ function autoDrums() {
       rnn.initialize()
     ]).then(([vars]) => {
       const btn = document.getElementById('btnAuto');
+      btn.removeAttribute('not-loaded');
       btn.removeAttribute('disabled');
       btn.textContent = 'Improvise!';
     });
+  } else {
+    const sequence = board.getSynthSequence(); 
+    const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
+      board.drawDreamSequence(dream, sequence);
+      // New board state, so update the URL.
+      window.location.hash = `#${encode(board.data)}`;
+    });
   }
-  const sequence = board.getSynthSequence(); 
-  const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
-    board.drawDreamSequence(dream, sequence);
-    // New board state, so update the URL.
-    window.location.hash = `#${encode(board.data)}`;
-  });
+  
 }
 
 /***********************************
