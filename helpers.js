@@ -13,21 +13,10 @@ class NoiseyMakey {
     
     // TODO: maybe use these?
     this.magentaPlayer = new mm.Player();
-    this.magentaPitches = [36, 48, 42, 46, 45, 48, 50, 49, 51, 35, 27, 44, 67, 29, 47, 30];
-//     this.magentaDrums = [
-//       this.magentaPlayer.drumKit.kick,
-//       this.magentaPlayer.drumKit.snare,
-//       this.magentaPlayer.drumKit.closedHihat,
-//       this.magentaPlayer.drumKit.openHihat,
-//       this.magentaPlayer.drumKit.tomLow,
-//       this.magentaPlayer.drumKit.tomMid,
-//       this.magentaPlayer.drumKit.tomHigh,
-//       this.magentaPlayer.drumKit.crash,
-//       this.magentaPlayer.drumKit.ride,
-//       this.magentaPlayer.drumKit.loClick,
-//       this.magentaPlayer.drumKit.hiClick,
-//     ];
     
+    // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
+    this.magentaPitches = [35, 38, 42, 46, 45, 48, 50, 49, 51]; //35, 44, 67, 29, 47, 30, 55];
+
     // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
     let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
     this.drumSounds = [
@@ -70,7 +59,9 @@ class NoiseyMakey {
   }
   
   playDrum(which) {
-    this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
+    if (which < this.magentaPitches.length) {
+      this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
+    } el
     //this.drumSounds[which].start(Tone.now(), 0);
   }
   
