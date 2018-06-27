@@ -10,19 +10,20 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton&text=tenori-f" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
   </head>
-  <script src="https://unpkg.com/@magenta/music@1.1.5/dist/magentamusic.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/0.7.1/Tone.min.js" defer></script>
   <body>
     <h1>tenori-off</h1>
   
-    <button class="controls glitcheroni synth" id="btnSynth" onclick="playSynth()">
+    <button class="controls glitcheroni synth" id="btnSynth" onclick="playSynth()" title="Adding synth sounds">
       Synth
     </button>
-    <button class="controls glitcheroni" id="btnDrums" onclick="playDrums()">
+    <button class="controls glitcheroni" id="btnDrums" onclick="playDrums()" title="Adding drum sounds">
       Drums
     </button>
-    <button class="controls glitcheroni" onclick="autoDrums()" disabled id="btnAuto">
+    <button class="controls glitcheroni" onclick="autoDrums()" disabled id="btnAuto" title="Improvise drums using Machine Learning">
       Loading...
+    </button>
+    <button class="controls glitcheroni" onclick="showHelp()" title="Help">
+      ?
     </button>
     <br>
     <label class="controls glitcheroni">Step<input placeholder="100" type="number" value="100" id="input">ms</label>
@@ -32,9 +33,7 @@
     <button class="controls glitcheroni" onclick="reset(true)">
       Reset
     </button>
-    <button class="controls glitcheroni" onclick="showHelp()">
-      Help
-    </button>
+    
     
     <br><br>
     
@@ -54,7 +53,7 @@
         listen to your masterpiece. If you hit a bug, refreshing usually makes it go away.
       </p>
       <p>
-        The <b>Improvise drums!!</b> button will auto generate drums to match your synth using 
+        The <b>Improvise</b> button will auto generate drums to match your synth using 
         ~*machine learning*~ via <a href="https://magenta.tensorflow.org/js">Magenta.js</a>!
       </p>
       <p>
@@ -89,6 +88,10 @@
       I have no idea what I'm doing, a <a href="https://twitter.com/notwaldorf">Meownica</a> production.
     </footer>
   </body>
+  
+  <script src="https://unpkg.com/@magenta/music@1.1.5/dist/magentamusic.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/0.7.1/Tone.min.js"></script>
+  
   <!-- these could be a module with imports -->
   <script src="./helpers.js"></script>
   <script src="./script.js" defer></script>

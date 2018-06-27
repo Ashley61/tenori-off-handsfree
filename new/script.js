@@ -17,7 +17,7 @@ Promise.all([
 ]).then(([vars]) => {
   const btn = document.getElementById('btnAuto');
   btn.removeAttribute('disabled');
-  btn.textContent = 'Improvise drums!!';
+  btn.textContent = 'Improvise';
 });
 
 init();
