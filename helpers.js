@@ -146,9 +146,8 @@ class Board {
   getSynthSequence() {
     const sequence = {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
     
-    // I made up the last 7 pitches because I needed more.
-    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 
-                         35, 27, 28, 31, 32, 33, 34, 37, 39];
+    // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
+    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 35, 27, 28, 31, 32, 33, 34, 37, 39];
     
     for (let i = 0; i < 16; i++) {
       for (let j = 0; j < 16; j++) {
@@ -174,17 +173,14 @@ class Board {
     }
     
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
-    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 44, 67, 29, 47, 30];
-        for (let note of sequence.notes) {
+    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 35, 27, 28, 31, 32, 33, 34, 37, 39];
+    for (let i = 0; i < sequence.notes.length; i++) {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
+      const note = sequence.notes[i];      
       const row = drumPitches.indexOf(note.pitch);
-
       const col = note.quantizedStartStep;
       
-      console.log(row, note.pitch);
-      
       if (row !== -1) {
-        debugger
         // Don't draw on top of a synth tho
         if (this.data[row][col].on !== 1) {
           this.data[row][col].on = 2;
