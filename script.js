@@ -1,5 +1,6 @@
 let isMouseDown = false;
 let isAnimating = false;
+let animationSpeed = 100;
 
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
@@ -20,6 +21,9 @@ function init() {
   document.getElementById('container').addEventListener('mousedown', (event) => {isMouseDown = true; clickCell(event)});
   document.getElementById('container').addEventListener('mouseup', () => isMouseDown = false);
   document.getElementById('container').addEventListener('mouseover', clickCell);
+  document.getElementById('input').addEventListener('change', (event) => {
+    animationSpeed = parseInt(event.target.value);
+  });
   
   // Secret keys! (not so secret)
   document.body.addEventListener('keypress', (event) => {
@@ -61,7 +65,7 @@ function clickCell(event) {
 
 function animate() {
   let currentColumn = 0;
-  let animationIndex = setTimeout(step, 100);
+  let animationIndex = setTimeout(step, animationSpeed);
   
   const rows = document.querySelectorAll('.container > .row');
   
@@ -79,7 +83,7 @@ function animate() {
     
     // Did we get paused mid step?
     if (isAnimating) {
-      setTimeout(step, 100);
+      setTimeout(step, animationSpeed);
     } else {
       clearTimeout(animationIndex);
       currentColumn = 0;

@@ -93,13 +93,20 @@ a:link, a:visited {
   margin: 4px 8px;
 }
 
+.controls.label {
+  padding-right: 0;
+}
+
 .controls > input {
   font-family: inherit;
   font-size: inherit;
+  color: inherit;
   border: none;
   background: none;
   box-shadow: none;
-  width: 70px;
+  padding: 0;
+  margin: 0;
+  width: 60px;
 }
 
 button.controls:hover {
