@@ -18,7 +18,11 @@ function init() {
     try {
       const hash = window.location.hash.slice(1);
       const parsed = hash.split('&');
-      board.data = decode(window.location.hash.slice(1));
+      board.data = decode(parsed[0]);
+      if (parsed[1]) {
+        document.getElementById('input').value = parsed[1];
+        animationSpeed = parsed[1];
+      }
       board.draw();
     } catch(err) {
       window.location.hash = 'not-a-valid-pattern-url';
@@ -31,6 +35,7 @@ function init() {
   document.getElementById('container').addEventListener('mouseover', clickCell);
   document.getElementById('input').addEventListener('change', (event) => {
     animationSpeed = parseInt(event.target.value);
+    updateLocation();
   });
   
   // Secret keys! (not so secret)
@@ -206,7 +211,8 @@ function loadRNN() {
  ***********************************/
 function updateLocation() {
   // New board state, so update the URL.
-  window.location.hash = `#${encode(board.data)}`;
+  const speed = parseInt(document.getElementById('input').value);
+  window.location.hash = `#${encode(board.data)}&${speed}`;
 }
 function encode(arr) {
   let bits = '';

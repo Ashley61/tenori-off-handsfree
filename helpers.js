@@ -6,6 +6,8 @@ class NoiseyMakey {
     this.synth = this._makeASynth();
     this.wham = this._makeAWham();
     
+    const player = new mm.Player();
+    debugger
     this.isSynth = true;
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
@@ -14,6 +16,20 @@ class NoiseyMakey {
     // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
     let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
     this.drumSounds = [
+      player.drumKit.kick,
+      player.drumKit.snare,
+      player.drumKit.closedHihat,
+      player.drumKit.openHihat,
+      player.drumKit.tomLow,
+      player.drumKit.tomMid,
+      player.drumKit.tomHigh,
+      player.drumKit.crash,
+      player.drumKit.ride,
+      player.drumKit.loClick,
+      player.drumKit.hiClic
+      
+      
+      
       new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster(),
