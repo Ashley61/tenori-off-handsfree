@@ -181,7 +181,7 @@ class Board {
       const col = note.quantizedStartStep;
       
       // Don't draw on top of a synth tho
-      if (this.data[row][col].on === 0) {
+      if (this.data[row][col].on !== 1) {
         this.data[row][col].on = 2;
       }
     }

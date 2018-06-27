@@ -19,11 +19,8 @@
     <button class="controls glitcheroni" id="btnDrums" onclick="playDrums()" title="Adding drum sounds">
       Drums
     </button>
-    <button class="controls glitcheroni" onclick="autoDrums()" disabled id="btnAuto" title="Improvise drums using Machine Learning">
-      Loading...
-    </button>
-    <button class="controls glitcheroni" onclick="showHelp()" title="Help">
-      ?
+    <button class="controls glitcheroni" onclick="autoDrums()" id="btnAuto" not-loaded title="Improvise drums using Machine Learning">
+      Load ML (big!)
     </button>
     <br>
     <label class="controls glitcheroni">Step<input placeholder="100" type="number" value="100" id="input">ms</label>
@@ -33,8 +30,9 @@
     <button class="controls glitcheroni" onclick="reset(true)">
       Reset
     </button>
-    
-    
+    <button class="controls glitcheroni" onclick="showHelp()" title="Help">
+      ?
+    </button>
     <br><br>
     
     <div class="dialog glitcheroni" id="help" hidden>
