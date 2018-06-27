@@ -6,43 +6,47 @@ class NoiseyMakey {
     this.synth = this._makeASynth();
     this.wham = this._makeAWham();
     
-    const player = new mm.Player();
-    
     this.isSynth = true;
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
     
+    // TODO: maybe use these?
+    this.magentaPlayer = new mm.Player();
+    this.magentaPitches = [36, 48, 42, 46, 45, 48, 50, 49, 51, 35, 27, 44, 67, 29, 47, 30];
+//     this.magentaDrums = [
+//       this.magentaPlayer.drumKit.kick,
+//       this.magentaPlayer.drumKit.snare,
+//       this.magentaPlayer.drumKit.closedHihat,
+//       this.magentaPlayer.drumKit.openHihat,
+//       this.magentaPlayer.drumKit.tomLow,
+//       this.magentaPlayer.drumKit.tomMid,
+//       this.magentaPlayer.drumKit.tomHigh,
+//       this.magentaPlayer.drumKit.crash,
+//       this.magentaPlayer.drumKit.ride,
+//       this.magentaPlayer.drumKit.loClick,
+//       this.magentaPlayer.drumKit.hiClick,
+//     ];
+    
     // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
     let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
     this.drumSounds = [
-      player.drumKit.kick,
-      player.drumKit.snare,
-      player.drumKit.closedHihat,
-      player.drumKit.openHihat,
-      player.drumKit.tomLow,
-      player.drumKit.tomMid,
-      player.drumKit.tomHigh,
-      player.drumKit.crash,
-      player.drumKit.ride,
-      player.drumKit.loClick,
-      player.drumKit.hiClick,
-      // new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vh.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vm.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/slamdam-tom-high-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/909-clap-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/909-rim-vh.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/flares-snare-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/808-hihat-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vl.mp3`).toMaster(),
-      // new Tone.Player(`${sampleBaseUrl}/slamdam-tom-high-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/flares-snare-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-hihat-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/808-hihat-open-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vl.mp3`).toMaster(),
+      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-high-vl.mp3`).toMaster(),
     ];
   }
   
@@ -66,16 +70,13 @@ class NoiseyMakey {
   }
   
   playDrum(which) {
-    if (which <= 10) {
-      this.drumSounds[which].triggerAttackRelease('16n');
-    } else {
-      this.drumSounds[which].start(Tone.now(), 0);
-    }
+    this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
+    //this.drumSounds[which].start(Tone.now(), 0);
   }
   
   // Drums need to be cleared since they're just a looping mp3.
   resetDrums() {
-    for (let i = 11; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       this.drumSounds[i].stop();
     }
   }
@@ -166,7 +167,7 @@ class Board {
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
     //
     const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 35, 27, 28, 31, 32, 33, 34, 37, 39];
-    const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 35, 27, 28, 31, 32, 33, 34, 37, 39];
+    //const drumPitches = [36, 48, 42, 50, 45, 49, 51, 38, 46, 35, 27, 28, 31, 32, 33, 34, 37, 39];
     
     
     for (let i = 0; i < 16; i++) {
