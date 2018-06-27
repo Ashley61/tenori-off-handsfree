@@ -41,6 +41,7 @@ h3 {
   font-family: "Press Start 2P", "Helvetica Neue", helvetica, arial, sans-serif;
   font-weight: normal;
   font-size: 16px;
+  vertical-align: middle;
 }
 
 footer {
@@ -226,6 +227,12 @@ button.pixel.ripple.drums {
 }
 
 @media (max-width: 360px) {
+  h3 {
+    font-size: 13px;
+  }
+  .glitcheroni {
+   font-size: 8px; 
+  }
   button.pixel {
     height: calc(80vw / 20);
     width: calc(80vw / 20);
