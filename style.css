@@ -87,12 +87,19 @@ a:link, a:visited {
 /***********************
  * Action buttons
  ***********************/
-button.controls {
-  -webkit-box-shadow: 4px 4px 0 var(--purple);
-  box-shadow: 4px 4px 0 var(--purple);
+.controls {
   cursor: pointer;
   padding: 10px 12px;
   margin: 4px 8px;
+}
+
+.controls > input {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  box-shadow: none;
+  width: 70px;
 }
 
 button.controls:hover {

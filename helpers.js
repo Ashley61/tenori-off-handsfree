@@ -117,7 +117,7 @@ class Board {
     } else {
       dot.on = sound;
     }
-    debugger
+    
     uiButton.setAttribute('aria-label', sound === 1 ? 'cell, synth' : 'cell, drums');
     this.draw();
   }
