@@ -172,8 +172,10 @@ function showHelp() {
 
 function autoDrums() {
   const sequence = board.getSynthSequence(); 
-  const dreamSequence = rnn.continueSequence(sequence, 16, 1).then((seq) => {
-    board.drawDreamSequence(seq);
+  const dreamSequence = rnn.continueSequence(sequence, 16, 1).then((dream) => {
+    board.drawDreamSequence(dream, sequence);
+    // New board state, so update the URL.
+    window.location.hash = `#${encode(board.data)}`;
   });
 }
 
