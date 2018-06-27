@@ -11,7 +11,6 @@ class NoiseyMakey {
                'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 
                'B2', 'A2', 'G2', 'F2'];
     
-    // TODO: maybe use these?
     this.magentaPlayer = new mm.Player();
     
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
@@ -172,9 +171,11 @@ class Board {
       console.log('Something mysterious went wrong, bailing');
     }
     
+    debugger
     const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 49, 51, 42];
     for (let i = 0; i < sequence.notes.length; i++) {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
+      
       const note = sequence.notes[i];      
       const row = drumPitches.indexOf(note.pitch);
       const col = note.quantizedStartStep;
