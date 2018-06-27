@@ -4,6 +4,12 @@ let animationSpeed = 100;
 
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
+
+// The RNN is a recurrent neural network:
+// We use it to give it an initial sequence of music, and 
+// it continues playing to match that!
+let rnn;
+
 init();
 
 function init() {
@@ -153,6 +159,36 @@ function playDrums() {
 function showHelp() {
   const helpBox = document.getElementById('help');
   helpBox.hidden = !helpBox.hidden;
+}
+
+function autoDrums() {
+  const btn = document.getElementById('btnAuto');
+
+  // Load the magenta model if we haven't already.
+  if (btn.hasAttribute('not-loaded')) {
+    btn.textContent = 'Loading...';
+    btn.setAttribute('disabled', true);
+    
+    rnn = new mm.MusicRNN(
+        'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+    );
+    Promise.all([
+      rnn.initialize()
+    ]).then(([vars]) => {
+      const btn = document.getElementById('btnAuto');
+      btn.removeAttribute('not-loaded');
+      btn.removeAttribute('disabled');
+      btn.textContent = 'Improvise!';
+    });
+  } else {
+    const sequence = board.getSynthSequence(); 
+    const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
+      board.drawDreamSequence(dream, sequence);
+      // New board state, so update the URL.
+      window.location.hash = `#${encode(board.data)}`;
+    });
+  }
+  
 }
 
 /***********************************
