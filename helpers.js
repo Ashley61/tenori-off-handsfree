@@ -27,6 +27,8 @@ class NoiseyMakey {
       new Tone.Player(`${sampleBaseUrl}/909-rim-vh.mp3`).toMaster(),
       new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster()
     ];
+    
+    debugger
   }
   
   play() {
@@ -170,24 +172,28 @@ class Board {
       console.log('Something mysterious went wrong, bailing');
     }
     
-    const magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51];
-    const restOfPitches = [35, 27, 29, 47, 55, 52, 44];
+    const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 55, 52, 44];
+    const numOtherPitches = 7;
     for (let i = 0; i < sequence.notes.length; i++) {
       // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
       
       const note = sequence.notes[i];      
-      const row = magentaPitches.indexOf(note.pitch);
       const col = note.quantizedStartStep;
+      
+      // Note: I've noticed that the RNN always returns the base pitches, so one of the 0-9 pitches
+      // This means that we'd never generate any random sounds on the bottom of the board, so
+      // flip a coin and sometimes randomly, pick from the bottom sounds for the same kind of drum.
+      // You know, keep it intresting.
+      let row = drumPitches.indexOf(note.pitch);
+      if (row < numOtherPitches && Math.random() < 0.5) {
+        row += numOtherPitches;
+      }
       
       if (row !== -1) {
         // Don't draw on top of a synth tho
         if (this.data[row][col].on !== 1) {
-          // Sometimes, randomly, pick from the other sound for the same kind of drum.
-          
           this.data[row][col].on = 2;
         }
-      } else {
-        debugger
       }
     }
     this.draw();
