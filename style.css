@@ -219,6 +219,8 @@ button.pixel.ripple.drums {
   button.pixel {
     height: calc(90vw / 20);
     width: calc(90vw / 20);
+    margin: 1px;
+    border-radius: 4px;
   }
   button.controls {
     padding: 8px;
