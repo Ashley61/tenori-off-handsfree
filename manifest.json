@@ -1,6 +1,6 @@
 {
   "name": "tenori-off",
-  "short_name": "tenoff",
+  "short_name": "",
   "description": "Simple music sequencer",
   "start_url": "index.html",
   "display": "standalone",

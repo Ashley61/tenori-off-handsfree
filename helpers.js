@@ -21,7 +21,7 @@ class NoiseyMakey {
     this.magentaPlayer.drumKit.ride.volume.value = -6;
     
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
-    this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, /*repeat*/ 35, 27, 47, 52]; //, 27, 29, 47, 55, 52, 44;
+    this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, /*repeat*/ 35, 27, 44, 47, 30, 52, 55]; 
 
   }
   
@@ -46,19 +46,7 @@ class NoiseyMakey {
   }
   
   playDrum(which) {
-    if (which < this.magentaPitches.length) {
-      this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
-    } else {
-      this.drumSounds[which - this.magentaPitches.length].start();
-    }
-  }
-  
-  // Drums need to be cleared since they're just a looping mp3.
-  resetDrums() {
-    for (let i = 0; i < this.drumSounds.length; i++) {
-      this.drumSounds[i].stop();
-      this.drumSounds[i].retrigger = true;
-    }
+   this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
   }
   
   _makeASynth() {

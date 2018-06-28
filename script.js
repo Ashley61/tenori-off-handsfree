@@ -87,7 +87,6 @@ function animate() {
   // An animation step.
   function step() {
     // Draw the board at this step.
-    noiseyMakey.resetDrums();
     board.animate(currentColumn, noiseyMakey);
     
     // Get ready for the next column.
