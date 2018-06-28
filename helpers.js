@@ -3,22 +3,8 @@
  ***********************************/
 class NoiseyMakey {
   constructor() {
-    
-    // From https://codepen.io/teropa/pen/JLjXGK. Thanks teropa!! <3
-    let sampleBaseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699';
-    this.drumSounds = [
-      new Tone.Player(`${sampleBaseUrl}/808-kick-vm.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/flares-snare-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-low-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/slamdam-tom-mid-vm.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/909-clap-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/909-rim-vh.mp3`).toMaster(),
-      new Tone.Player(`${sampleBaseUrl}/808-kick-vl.mp3`).toMaster()
-    ];
-    
     this.synth = this._makeASynth();
     this.wham = this._makeAWham();
-    
     
     this.isSynth = true;
     this.synthSounds = ['B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4', 
@@ -35,7 +21,7 @@ class NoiseyMakey {
     this.magentaPlayer.drumKit.ride.volume.value = -6;
     
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
-    this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51]; //35, 27, 29, 47, 55, 52, 44;
+    this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, /*repeat*/ 35, 27, 47, 52]; //, 27, 29, 47, 55, 52, 44;
 
   }
   
