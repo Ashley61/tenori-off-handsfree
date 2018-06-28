@@ -42,6 +42,7 @@ class NoiseyMakey {
   // Play specific sounds.
   // TODO: should probably use magenta's synth for this
   playSynth(which) {
+    //this.magentaPlayer.playNote({startTime: which, endTime: which + 1, pitch: 35, velocity: 100, isDrum: false}, '16n');
     this.synth.triggerAttackRelease(this.synthSounds[which], '16n');
   }
   
