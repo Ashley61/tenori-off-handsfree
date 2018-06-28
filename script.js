@@ -181,7 +181,7 @@ function autoDrums() {
     // Don't block the UI thread while this is happening.
     setTimeout(() => {
       const sequence = board.getSynthSequence(); 
-      const dreamSequence = rnn.continueSequence(sequence, 16, 1.4).then((dream) => {
+      const dreamSequence = rnn.continueSequence(sequence, 16, 1.2).then((dream) => {
         board.drawDreamSequence(dream, sequence);
         
         updateLocation();
