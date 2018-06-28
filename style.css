@@ -224,6 +224,9 @@ button.pixel.ripple.drums {
     padding: 8px;
     margin: 4px 0;
   }
+  .controls > input {
+    width: 40px;
+  }
 }
 
 @media (max-width: 360px) {
