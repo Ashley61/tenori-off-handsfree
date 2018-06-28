@@ -49,6 +49,9 @@ function init() {
     } else if (event.keyCode == 112) { // p
       playOrPause();
       event.preventDefault();
+    }else if (event.keyCode == 105) { // i
+      autoDrums();
+      event.preventDefault();
     }
   });
 }

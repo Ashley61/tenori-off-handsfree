@@ -13,6 +13,13 @@ class NoiseyMakey {
     
     this.magentaPlayer = new mm.Player();
     
+    // Some magenta drums are too loud.
+    this.magentaPlayer.drumKit.kick.volume.value = -3;
+    this.magentaPlayer.drumKit.snare.volume.value = -10;
+    this.magentaPlayer.drumKit.openHihat.volume.value = -10;
+    this.magentaPlayer.drumKit.crash.volume.value = -6;
+    this.magentaPlayer.drumKit.ride.volume.value = -6;
+    
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
     this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51]; //35, 27, 29, 47, 55, 52, 44;
 
@@ -44,13 +51,12 @@ class NoiseyMakey {
   }
   
   // Play specific sounds.
+  // TODO: should probably use magenta's synth for this
   playSynth(which) {
     this.synth.triggerAttackRelease(this.synthSounds[which], '16n');
   }
   
   playDrum(which) {
-    
-    this.magentaPlayer.drumKit.snare.volume.value = -20;
     if (which < this.magentaPitches.length) {
       this.magentaPlayer.drumKit.playNote(this.magentaPitches[which]);
     } else {
@@ -68,8 +74,6 @@ class NoiseyMakey {
   _makeASynth() {
     // Set up tone.
     const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
-    
-    synth.connect(new Tone.Gain(0.5).toMaster());
     return synth;
   }
   
