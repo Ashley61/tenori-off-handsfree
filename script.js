@@ -181,6 +181,7 @@ function autoDrums() {
     // Don't block the UI thread while this is happening.
     setTimeout(() => {
       const sequence = board.getSynthSequence(); 
+      // High temperature to get interesting beats!
       const dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
         board.drawDreamSequence(dream, sequence);
         
