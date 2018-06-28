@@ -23,13 +23,9 @@ class NoiseyMakey {
     // From https://github.com/tensorflow/magenta-js/blob/master/music/src/core/data.ts#L35
     this.magentaPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, /*repeat*/ 35, 27, 29, 47, 30, 52, 44]; 
 
-    
-    const clap = new Tone
-      .NoiseSynth({
-        noise: {type: 'white'},
-        envelope: {attack: 0.005, decay: 0.05, sustain: 0.1, release: 0.4}
-      })
-      .toMaster();
+    const envelope = {attack: 0, decay: 4, sustain: 0, release: 0.1, attackCurve: 'exponential'};
+     
+    const clap = new Tone.NoiseSynth({envelope}).toMaster();
     debugger
   }
   
