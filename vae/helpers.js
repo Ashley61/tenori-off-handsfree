@@ -132,7 +132,7 @@ class Board {
   }
   
   // Take the toggled synth notes so that Magenta can dream up some drums.
-  getSynthSequence() {
+  getSynthSequence(forceToDrum = false) {
     const sequence = {notes:[], quantizationInfo: {stepsPerQuarter: 4}};
     
     const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 55, 52, 44];
@@ -141,7 +141,7 @@ class Board {
         // Found a synth note!
         if (this.data[i][j].on === 1) {
           sequence.notes.push(
-            {pitch: drumPitches[i], quantizedStartStep: j, isDrum: false, quantizedEndStep: j + 1},
+            {pitch: drumPitches[i], quantizedStartStep: j, isDrum: forceToDrum ? true: false, quantizedEndStep: j + 1},
           );
         } 
         
@@ -161,9 +161,6 @@ class Board {
     }
     
     const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 55, 52, 44];
-    const pitchMap = {71: 0, 69: 1, 67: 2, 65: 3, 64: 4, 62: 5, 60: 6,
-                      59: 7, 57: 8, 55: 9, 53: 10, 52: 11, 50: 12, 48: 13,
-                      47: 14, 45: 15}
     
     const numOtherPitches = 7;
     for (let i = 0; i < sequence.notes.length; i++) {

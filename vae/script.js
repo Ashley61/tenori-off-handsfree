@@ -189,25 +189,30 @@ function autoDrums() {
     
     // Don't block the UI thread while this is happening.
     setTimeout(() => {
-      const sequence = board.getSynthSequence(); 
-      let dreamSequence;
-      
       if (useRNN) {
+        const sequence = board.getSynthSequence(); 
+        
         // High temperature to get interesting beats!
-        dreamSequence = model.continueSequence(sequence, 16, 1.3).then((dream) => {
+        model.continueSequence(sequence, 16, 1.3).then((dream) => {
           board.drawDreamSequence(dream, sequence);
           updateLocation();
           btn.removeAttribute('disabled');
         });
       } else {
-        model.decode(model.encode(sequence);
-                     
-        dreamSequence = model.sample(1).then((dreams) => {
-          board.drawDreamSequence(dreams[0], sequence);
-
-          updateLocation();
-          btn.removeAttribute('disabled');
+        const sequence = board.getSynthSequence(true);
+        
+        // TODO: use async/await here omg.
+        model.encode([sequence]).then((encoded) => {
+          model.decode(encoded).then((decoded) => {
+            board.drawDreamSequence(decoded[0], sequence);
+            
+            updateLocation();
+            btn.removeAttribute('disabled');
+          });
         });
+        
+        // Example: This generates a random sequence all the time:
+        // model.sample(1).then((dreams) => {...});
       }
     });
   }
@@ -224,7 +229,7 @@ function loadModel() {
     );
   } else {
     model = new mm.MusicVAE(
-      'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar'
+      'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_2bar_lokl_small'
     );
   }
   
