@@ -10,14 +10,14 @@ Magenta.js has 2 models we can use:
 They both generate sequences of music based on an input,
 but in slightly different ways.
 */
-const useRNN = false;
+let useRNN = false;
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
 
 // The RNN is a recurrent neural network:
 // We use it to give it an initial sequence of music, and 
 // it continues playing to match that!
-let rnn;
+let model;
 
 init();
 
@@ -183,7 +183,7 @@ function autoDrums() {
 
   // Load the magenta model if we haven't already.
   if (btn.hasAttribute('not-loaded')) {
-    loadRNN();
+    loadModel();
   } else {
     btn.setAttribute('disabled', true);
     
@@ -192,23 +192,17 @@ function autoDrums() {
       const sequence = board.getSynthSequence(); 
       let dreamSequence;
       
-      // High temperature to get interesting beats!
-      // For the RNN
-//       const dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
-//         board.drawDreamSequence(dream, sequence);
-        
-//         updateLocation();
-//         btn.removeAttribute('disabled');
-//       });
-      
       if (useRNN) {
-        dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
+        // High temperature to get interesting beats!
+        dreamSequence = model.continueSequence(sequence, 16, 1.3).then((dream) => {
           board.drawDreamSequence(dream, sequence);
           updateLocation();
           btn.removeAttribute('disabled');
         });
       } else {
-        dreamSequence = rnn.sample(1).then((dreams) => {
+        model.decode(model.encode(sequence);
+                     
+        dreamSequence = model.sample(1).then((dreams) => {
           board.drawDreamSequence(dreams[0], sequence);
 
           updateLocation();
@@ -219,18 +213,23 @@ function autoDrums() {
   }
 }
 
-function loadRNN() {
+function loadModel() {
   const btn = document.getElementById('btnAuto');
   btn.textContent = 'Loading...';
   btn.setAttribute('disabled', true);
-  // rnn = new mm.MusicRNN(
-  //   'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
-  // );
-  rnn = new mm.MusicVAE(
-    'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar'
-  );
+  
+  if (useRNN) {
+    model = new mm.MusicRNN(
+      'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+    );
+  } else {
+    model = new mm.MusicVAE(
+      'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar'
+    );
+  }
+  
   Promise.all([
-    rnn.initialize()
+    model.initialize()
   ]).then(([vars]) => {
     const btn = document.getElementById('btnAuto');
     btn.removeAttribute('not-loaded');
