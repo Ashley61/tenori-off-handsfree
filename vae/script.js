@@ -2,6 +2,15 @@ let isMouseDown = false;
 let isAnimating = false;
 let animationSpeed = 100;
 
+
+/*
+Magenta.js has 2 models we can use: 
+  - an RNN (recurrent neural network)
+  - a VAE (variational autoencoder)
+They both generate sequences of music based on an input,
+but in slightly different ways.
+*/
+const useRNN = false;
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
 
@@ -49,7 +58,7 @@ function init() {
     } else if (event.keyCode == 112) { // p
       playOrPause();
       event.preventDefault();
-    }else if (event.keyCode == 105) { // i
+    } else if (event.keyCode == 105) { // i
       autoDrums();
       event.preventDefault();
     }
@@ -181,6 +190,8 @@ function autoDrums() {
     // Don't block the UI thread while this is happening.
     setTimeout(() => {
       const sequence = board.getSynthSequence(); 
+      let dreamSequence;
+      
       // High temperature to get interesting beats!
       // For the RNN
 //       const dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
@@ -190,14 +201,20 @@ function autoDrums() {
 //         btn.removeAttribute('disabled');
 //       });
       
-      // For the VAE.
-      const dreamSequence = rnn.sample(1).then((dreams) => {
-        board.drawDreamSequence(dreams[0], sequence);
-        
-        updateLocation();
-        btn.removeAttribute('disabled');
-      });
-      
+      if (useRNN) {
+        dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
+          board.drawDreamSequence(dream, sequence);
+          updateLocation();
+          btn.removeAttribute('disabled');
+        });
+      } else {
+        dreamSequence = rnn.sample(1).then((dreams) => {
+          board.drawDreamSequence(dreams[0], sequence);
+
+          updateLocation();
+          btn.removeAttribute('disabled');
+        });
+      }
     });
   }
 }

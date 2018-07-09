@@ -141,9 +141,9 @@ class Board {
         // Found a synth note!
         if (this.data[i][j].on === 1) {
           sequence.notes.push(
-            {pitch: drumPitches[i], quantizedStartStep: j, isDrum: true, quantizedEndStep: j + 1},
+            {pitch: drumPitches[i], quantizedStartStep: j, isDrum: false, quantizedEndStep: j + 1},
           );
-        }
+        } 
         // If it's a drum note, delete it pre-emptively.
         if (this.data[i][j].on === 2) {
           this.data[i][j].on = 0;
