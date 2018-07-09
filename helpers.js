@@ -43,9 +43,9 @@ class NoiseyMakey {
   }
   
   // Play specific sounds.
-  // TODO: should probably use magenta's synth for this
+  // TODO: should probably use magenta's synth for this, maybe:
+  // this.magentaPlayer.playNote({startTime: which, endTime: which + 1, pitch: 35, velocity: 100, isDrum: false}, '16n');
   playSynth(which) {
-    //this.magentaPlayer.playNote({startTime: which, endTime: which + 1, pitch: 35, velocity: 100, isDrum: false}, '16n');
     this.synth.triggerAttackRelease(this.synthSounds[which], '16n');
   }
   
@@ -162,7 +162,7 @@ class Board {
     const drumPitches = [36, 38, 42, 46, 45, 48, 50, 49, 51, 35, 27, 29, 47, 55, 52, 44];
     const numOtherPitches = 7;
     for (let i = 0; i < sequence.notes.length; i++) {
-      // note = {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
+      // A note is an object like this: {pitch: 36, quantizedStartStep: 1, quantizedEndStep: 2, isDrum: true}
       
       const note = sequence.notes[i];      
       const col = note.quantizedStartStep;

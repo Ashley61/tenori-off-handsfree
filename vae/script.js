@@ -182,12 +182,22 @@ function autoDrums() {
     setTimeout(() => {
       const sequence = board.getSynthSequence(); 
       // High temperature to get interesting beats!
-      const dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
-        board.drawDreamSequence(dream, sequence);
+      // For the RNN
+//       const dreamSequence = rnn.continueSequence(sequence, 16, 1.3).then((dream) => {
+//         board.drawDreamSequence(dream, sequence);
+        
+//         updateLocation();
+//         btn.removeAttribute('disabled');
+//       });
+      
+      // For the VAE.
+      const dreamSequence = rnn.sample(1).then((dreams) => {
+        board.drawDreamSequence(dreams[0], sequence);
         
         updateLocation();
         btn.removeAttribute('disabled');
       });
+      
     });
   }
 }
@@ -196,8 +206,11 @@ function loadRNN() {
   const btn = document.getElementById('btnAuto');
   btn.textContent = 'Loading...';
   btn.setAttribute('disabled', true);
-  rnn = new mm.MusicRNN(
-    'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+  // rnn = new mm.MusicRNN(
+  //   'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+  // );
+  rnn = new mm.MusicVAE(
+    'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/trio_4bar'
   );
   Promise.all([
     rnn.initialize()
