@@ -148,6 +148,34 @@ button.controls.drums {
   background-color: var(--green);
 }
 
+label.radio {
+  position: relative;
+  display: inline-block;
+  padding-left: 1.5rem;
+  cursor: pointer;
+}
+label.radio > input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+label.radio >  input:checked ~ .control-indicator {
+  background-color: var(--pink);
+}
+
+label.radio > .control-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 /***********************
  * Note pixels
  ***********************/
@@ -176,12 +204,10 @@ button.pixel:hover {
 
 button.pixel.on.synth {
   background: var(--pink);
-  xbox-shadow: 0 0 5px var(--pink);
 }
 
 button.pixel.on.drums {
   background: var(--blue);
-  xbox-shadow: 0 0 5px var(--blue);
 }
 
 button.pixel.ripple.synth {
