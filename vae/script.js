@@ -232,9 +232,14 @@ function loadModel() {
   btn.textContent = 'Loading...';
   btn.setAttribute('disabled', true);
   
+  const root = 
+  const url = 
+      `https://storage.googleapis.com/magentadata/js/checkpoints/${root}/${name}`;
   if (useRNN) {
+    // I used to use https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn
+    // but I think this is the same? 
     model = new mm.MusicRNN(
-      'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn'
+      'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn'
     );
   } else {
     model = new mm.MusicVAE(

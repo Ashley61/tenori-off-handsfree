@@ -148,6 +148,9 @@ button.controls.drums {
   background-color: var(--green);
 }
 
+/***********************
+ * Radio buttons
+ ***********************/
 label.radio {
   position: relative;
   display: inline-block;
@@ -159,11 +162,9 @@ label.radio > input[type="radio"] {
   opacity: 0;
   z-index: -1;
 }
-
 label.radio >  input:checked ~ .control-indicator {
   background-color: var(--pink);
 }
-
 label.radio > .control-indicator {
   position: absolute;
   top: 0;
@@ -176,6 +177,17 @@ label.radio > .control-indicator {
   -ms-user-select: none;
   user-select: none;
 }
+
+/***********************
+ * Text input
+ ***********************/
+input.glitcheroni.text {
+  padding: 4px;
+  font-family: inherit;
+  font-weight: inherit;
+  width: 100%;
+}
+
 /***********************
  * Note pixels
  ***********************/
