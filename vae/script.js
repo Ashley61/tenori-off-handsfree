@@ -49,18 +49,22 @@ function init() {
   
   // Secret keys! (not so secret)
   document.body.addEventListener('keypress', (event) => {
-    if (event.keyCode == 115) { // s
-      playSynth();
-      event.preventDefault();
-    } else if (event.keyCode == 100) { // d
-      playDrums();
-      event.preventDefault();
-    } else if (event.keyCode == 112) { // p
-      playOrPause();
-      event.preventDefault();
-    } else if (event.keyCode == 105) { // i
-      autoDrums();
-      event.preventDefault();
+    switch(event.keyCode) {
+      case 115: // s
+        playSynth();
+        break;
+      case 100: // d
+        playDrums();
+        break;
+      case 112:  // p
+        playOrPause();
+        break;
+      case 105:  // i
+        autoDrums();
+        break;
+      case 109:  // m
+        showSettings();
+        break;
     }
   });
 }
@@ -174,8 +178,13 @@ function playDrums() {
 }
 
 function showHelp() {
-  const helpBox = document.getElementById('help');
-  helpBox.hidden = !helpBox.hidden;
+  const box = document.getElementById('help');
+  box.hidden = !box.hidden;
+}
+
+function showSettings() {
+  const box = document.getElementById('settings');
+  box.hidden = !box.hidden;
 }
 
 function autoDrums() {
