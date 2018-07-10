@@ -81,6 +81,20 @@
           VAE
         </label>
         <br><br>
+        As input to the model, pretend the synth notes you drew are actually drum notes 
+        (useful in the VAE drums_2bar_lokl_small model, for example, but not in the RNN melody model)<br>
+        <label class="radio">
+          <input name="drum" type="radio" id="radioForceDrumYes" checked>
+          <span class="control-indicator glitcheroni"></span>
+          Yes
+        </label>
+        <label class="radio">
+          <input name="drum" type="radio" id="radioForceDrumNo">
+          <span class="control-indicator glitcheroni"></span>
+          No
+        </label>
+        <br><br>
+        
         <label>
           Model name (from the list of <a href="https://goo.gl/magenta/js-checkpoints">checkpoint IDs</a>):<br>
           <input class="glitcheroni text" value="drums_2bar_lokl_small" id="modelName">

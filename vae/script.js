@@ -11,6 +11,8 @@ They both generate sequences of music based on an input,
 but in slightly different ways.
 */
 let useRNN = false;
+let forceInputToDrums = true;
+
 const noiseyMakey = new NoiseyMakey();
 const board = new Board();
 
@@ -48,13 +50,21 @@ function init() {
   });
   document.getElementById('radioRnn').addEventListener('click', (event) => {
     useRNN = event.target.checked;
-    document.getElementById('modelName').value = 'drum_kit_rnn';
-    
+    document.getElementById('modelName').value = 'drum_kit_rnn'; 
+    document.getElementById('radioForceDrumNo').click();
   });
   document.getElementById('radioVae').addEventListener('click', (event) => {
     useRNN = !event.target.checked;
     document.getElementById('modelName').value =  'drums_2bar_lokl_small';
+    document.getElementById('radioForceDrumYes').click();
   });
+  document.getElementById('radioForceDrumYes').addEventListener('click', (event) => {
+    forceInputToDrums = event.target.checked;
+  });
+  document.getElementById('radioForceDrumNo').addEventListener('click', (event) => {
+    forceInputToDrums = !event.target.checked;
+  });
+  
   
   // Secret keys! (not so secret)
   document.body.addEventListener('keypress', (event) => {
@@ -212,7 +222,7 @@ function autoDrums() {
     // Don't block the UI thread while this is happening.
     setTimeout(() => {
       if (useRNN) {
-        const sequence = board.getSynthSequence(); 
+        const sequence = board.getSynthSequence(forceInputToDrums); 
         
         // High temperature to get interesting beats!
         model.continueSequence(sequence, 16, 1.3).then((dream) => {
@@ -221,7 +231,7 @@ function autoDrums() {
           btn.removeAttribute('disabled');
         });
       } else {
-        const sequence = board.getSynthSequence(true);
+        const sequence = board.getSynthSequence(forceInputToDrums);
         
         // TODO: use async/await here omg.
         model.encode([sequence]).then((encoded) => {
