@@ -193,6 +193,10 @@ function showHelp() {
 
 function showSettings() {
   const box = document.getElementById('settings');
+  // If we're closing this, also re-initialize the model if needed
+  if (!box.hidden) {
+    loadModel();
+  }
   box.hidden = !box.hidden;
 }
 
@@ -246,7 +250,10 @@ function loadModel() {
 
   const url = 
       `https://storage.googleapis.com/magentadata/js/checkpoints/${root}/${name}`;
-  model = useRNN ? new mm.MusicRNN(url) : new mm.MusicVAE(url);
+  
+  if (!model || model.checkpointURL != url) {
+    model = useRNN ? new mm.MusicRNN(url) : new mm.MusicVAE(url);
+  }
   
   Promise.all([
     model.initialize()
