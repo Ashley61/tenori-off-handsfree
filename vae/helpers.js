@@ -181,6 +181,7 @@ class Board {
         // flip a coin and sometimes randomly, pick from the bottom sounds for the same kind of drum.
         // You know, keep it intresting.
         let row = drumPitches.indexOf(note.pitch);
+        console.log(note.pitch, row);
         if (row < numOtherPitches && Math.random() < 0.5) {
           row += numOtherPitches;
         }
