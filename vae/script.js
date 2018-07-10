@@ -46,6 +46,15 @@ function init() {
     animationSpeed = parseInt(event.target.value);
     updateLocation();
   });
+  document.getElementById('radioRnn').addEventListener('click', (event) => {
+    useRNN = event.target.checked;
+    document.getElementById('modelName').value = 'drum_kit_rnn';
+    
+  });
+  document.getElementById('radioVae').addEventListener('click', (event) => {
+    useRNN = !event.target.checked;
+    document.getElementById('modelName').value =  'drums_2bar_lokl_small';
+  });
   
   // Secret keys! (not so secret)
   document.body.addEventListener('keypress', (event) => {
@@ -232,20 +241,12 @@ function loadModel() {
   btn.textContent = 'Loading...';
   btn.setAttribute('disabled', true);
   
-  const root = 
+  const name = document.getElementById('modelName').value.trim();
+  const root = useRNN ? 'music_rnn' : 'music_vae';
+
   const url = 
       `https://storage.googleapis.com/magentadata/js/checkpoints/${root}/${name}`;
-  if (useRNN) {
-    // I used to use https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn
-    // but I think this is the same? 
-    model = new mm.MusicRNN(
-      'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn'
-    );
-  } else {
-    model = new mm.MusicVAE(
-      'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_2bar_lokl_small'
-    );
-  }
+  model = useRNN ? new mm.MusicRNN(url) : new mm.MusicVAE(url);
   
   Promise.all([
     model.initialize()

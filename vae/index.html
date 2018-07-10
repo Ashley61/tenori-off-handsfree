@@ -65,18 +65,18 @@
       </p>
     </div>
     
-    <div class="dialog glitcheroni" id="settings">
+    <div class="dialog glitcheroni" id="settings" hidden>
       <h2>Magenta.js settings</h2>
       <br>
       <div>
         Use the: <br>
         <label class="radio">
-          <input name="model" type="radio" id="rnn">
+          <input name="model" type="radio" id="radioRnn">
           <span class="control-indicator glitcheroni"></span>
           RNN
         </label>
         <label class="radio">
-          <input name="model" type="radio" id="vae" checked>
+          <input name="model" type="radio" id="radioVae" checked>
           <span class="control-indicator glitcheroni"></span>
           VAE
         </label>
@@ -87,7 +87,7 @@
         </label>
       </div>
       <br>
-      <button class="controls glitcheroni" onclick="showSettings()">Close</button>
+      <button class="controls glitcheroni" onclick="showSettings()">Close and re-initialize</button>
     </div>
     
     <div class="container" id="container"></div>  

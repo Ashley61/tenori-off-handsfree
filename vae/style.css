@@ -186,6 +186,8 @@ input.glitcheroni.text {
   font-family: inherit;
   font-weight: inherit;
   width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 /***********************
