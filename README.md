@@ -3,7 +3,7 @@ tenori-off
 ## What is this?
 
 A ✨[Tenori-on](https://en.wikipedia.org/wiki/Tenori-on)✨ is a dope electronic music
-instrument sequencer thinkie that Yamaha made for a hot minute.  
+instrument sequencer thingie that Yamaha made for a hot minute.  
 I love pixels and patterns and generating things out of pixels and patterns, which means
 I LOVE the Tenori-on. Since they're rare and
 mad [expensive](https://reverb.com/item/11642149-yamaha-tenori-on), I've never seen one,
