@@ -1,0 +1,1 @@
+window.handsfree = new Handsfree({debug: true})

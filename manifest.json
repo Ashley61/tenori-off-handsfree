@@ -1,7 +1,7 @@
 {
-  "name": "tenori-off",
+  "name": "tenori-off-handsfree",
   "short_name": "",
-  "description": "Simple music sequencer",
+  "description": "Simple music sequencer - now handsfree!",
   "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#E61E8C",
