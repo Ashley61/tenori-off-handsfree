@@ -18,9 +18,13 @@
   <body>
     <h1>tenori-off <small style="font-size: 24px">HANDSFREE</small></h1>
 
+    <!-- Handsfree debugger -->
+    <div class="handsfree-debug-wrap"></div>
     <!-- Handsfree button -->
-    <button class="controls glitcheroni handsfree-button" onclick="handsfree.start()">Start</button>
-
+    <button class="controls glitcheroni handsfree-show-when-stopped" onclick="handsfree.start()">Start Webcam</button>
+    <button class="controls glitcheroni handsfree-show-when-started" onclick="handsfree.start()">Stop Webcam</button>
+    <br>
+    
     <button class="controls glitcheroni synth" id="btnSynth" onclick="playSynth()" title="Adding synth sounds">
       Synth
     </button>
@@ -41,7 +45,6 @@
     <button class="controls glitcheroni" onclick="showHelp()" title="Help">
       ?
     </button>
-    <br>
 
     <br><br>
     

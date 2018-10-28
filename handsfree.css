@@ -8,3 +8,38 @@ button.pixel {
   width: 460px;
   text-align: center;
 }
+
+/* Debugger - This will be unecessary in future updates */
+.handsfree-debugger {
+  width: 200px;
+}
+.handsfree-debugger video {
+  width: 100%;
+}
+.handsfree-debugger canvas {
+  width: 100% !important;
+  height: auto !important;
+  left: 0;
+}
+
+/* Toggle things based on handsfree state */
+body.handsfree-stopped .handsfree-show-when-stopped {
+  display: inherit;
+}
+body.handsfree-stopped button.handsfree-show-when-stopped {
+  display: inline-block;
+  background: var(--green);
+}
+body.handsfree-stopped .handsfree-show-when-started {
+  display: none;
+}
+body.handsfree-started .handsfree-show-when-stopped {
+  display: none;
+}
+body.handsfree-started .handsfree-show-when-started {
+  display: inherit;
+}
+body.handsfree-started button.handsfree-show-when-started {
+  display: inline-block;
+  background: var(--pink);
+}
