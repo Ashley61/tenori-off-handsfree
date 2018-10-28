@@ -19,7 +19,7 @@ button.pixel {
 .handsfree-debugger canvas {
   width: 100% !important;
   height: auto !important;
-  left: 0;
+  left: 0 !important;
 }
 
 /* Toggle things based on handsfree state */
