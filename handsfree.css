@@ -1,0 +1,10 @@
+/* Style overrides */
+button.pixel {
+  width: 60px;
+  height: 60px;
+}
+
+.handsfree-button {
+  width: 460px;
+  text-align: center;
+}
