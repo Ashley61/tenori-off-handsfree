@@ -1,3 +1,6 @@
+Start camera, smile to click
+
+
 tenori-off
 =================
 ## What is this?
